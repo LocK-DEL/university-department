@@ -22,24 +22,89 @@
 </nav>
 
 <!-- 公司介绍模块 -->
-<section class="about-section">
-    <div class="about-container">
-        <div class="about-text">
-            <h2>关于我们</h2>
-            <p>
-                <strong>【大学拾光优品】</strong><br>
-            </p>
-            <a href="about.html" class="about-btn">了解更多</a>
-
-        </div>
+<!-- 公司介绍模块（优化版） -->
+<section class="about-section" style="background: #ffffff; padding: 60px 20px; text-align: center;">
+    <div class="about-container" style="max-width: 900px; margin: 0 auto;">
+        <h2 style="font-size: 32px; font-weight: bold; color: #333; margin-bottom: 20px;">关于我们</h2>
+        <p style="font-size: 18px; color: #555; line-height: 1.8; margin-bottom: 30px;">
+            <strong style="font-size: 20px; color: #222;">【大学拾光优品】</strong><br>
+            我们致力于为大学生群体提供优质生活用品，秉承“品质、实惠、创新”的理念，打造校园优品生活新方式。
+        </p>
+        <a href="about.html" class="about-btn"
+           style="display: inline-block; padding: 12px 28px; background-color: #007bff; color: #fff; font-size: 18px; text-decoration: none; border-radius: 30px; font-weight: bold; transition: 0.3s;">
+            了解更多
+        </a>
     </div>
 </section>
 
+
 <h1>产品展示</h1>
 
-<div class="gallery" id="gallery"></div>
+<!-- 产品展示模块 -->
+<div class="gallery" id="gallery">
+    <div class="gallery-item">
+        <img src="images/product1.jpg" alt="产品 1" class="gallery-img" data-caption="产品 1 - 高效修护">
+        <h3>医用重组胶原蛋白修复贴</h3>
+        <a href="product.html#p1" class="product-btn">产品介绍</a>
+    </div>
+    <div class="gallery-item">
+        <img src="images/product2.jpg" alt="产品 2" class="gallery-img" data-caption="产品 2 - 深度滋润">
+        <h3>医用重组胶原蛋白修复贴</h3>
+        <a href="product.html#p2" class="product-btn">产品介绍</a>
+    </div>
+    <div class="gallery-item">
+        <img src="images/product3.jpg" alt="产品 3" class="gallery-img" data-caption="产品 3 - 舒缓修复">
+        <h3>芯女郎医用垫巾</h3>
+        <a href="product.html#p3" class="product-btn">产品介绍</a>
+    </div>
+    <div class="gallery-item">
+        <img src="images/product4.jpg" alt="产品 4" class="gallery-img" data-caption="产品 4 - 营养补水">
+        <h3>亲肤净颜洁面巾</h3>
+        <a href="product.html#p4" class="product-btn">产品介绍</a>
+    </div>
+    <div class="gallery-item">
+        <img src="images/product5.jpg" alt="产品 5" class="gallery-img" data-caption="产品 5 - 柔润护肤">
+        <h3>重组胶原蛋白保湿美肤隔离素颜霜</h3>
+        <a href="product.html#p5" class="product-btn">产品介绍</a>
+    </div>
+    <div class="gallery-item">
+        <img src="images/product6.jpg" alt="产品 6" class="gallery-img" data-caption="产品 6 - 深层修护">
+        <h3>医用重组胶原蛋白皮肤修复喷剂敷料</h3>
+        <a href="product.html#p6" class="product-btn">产品介绍</a>
+    </div>
+    <div class="gallery-item">
+        <img src="images/product7.jpg" alt="产品 7" class="gallery-img" data-caption="产品 7 - 抗敏舒缓">
+        <h3>重组胶原蛋白创面敷料</h3>
+        <a href="product.html#p7" class="product-btn">产品介绍</a>
+    </div>
+    <div class="gallery-item">
+        <img src="images/product8.jpg" alt="产品 8" class="gallery-img" data-caption="产品 8 - 平衡油脂">
+        <h3>枢颜玛奇朵水感净透洁颜卸妆水</h3>
+        <a href="product.html#p8" class="product-btn">产品介绍</a>
+    </div>
+    <div class="gallery-item">
+        <img src="images/product9.jpg" alt="产品 9" class="gallery-img" data-caption="产品 9 - 美白提亮">
+        <h3>雅益健牙齿脱敏剂</h3>
+        <a href="product.html#p9" class="product-btn">产品介绍</a>
+    </div>
+    <div class="gallery-item">
+        <img src="images/product10.jpg" alt="产品 10" class="gallery-img" data-caption="产品 10 - 深度清洁">
+        <h3>枢颜玻尿酸水光盈润洗发露</h3>
+        <a href="product.html#p10" class="product-btn">产品介绍</a>
+    </div>
+    <div class="gallery-item">
+        <img src="images/product11.jpg" alt="产品 11" class="gallery-img" data-caption="产品 11 - 强韧肌肤">
+        <h3>枢颜玻尿酸水光盈润沐浴露</h3>
+        <a href="product.html#p11" class="product-btn">产品介绍</a>
+    </div>
+    <div class="gallery-item">
+        <img src="images/product12.jpg" alt="产品 12" class="gallery-img" data-caption="产品 12 - 水润透亮">
+        <h3>枢颜玻尿酸水光盈润润发乳</h3>
+        <a href="product.html#p12" class="product-btn">产品介绍</a>
+    </div>
+</div>
 
-<!-- 放大预览 -->
+<!-- 放大预览 Lightbox -->
 <div class="lightbox" id="lightbox">
     <span class="lightbox-close" id="lightboxClose">&times;</span>
     <span class="lightbox-prev" id="lightboxPrev">&#10094;</span>
@@ -48,6 +113,7 @@
     <div class="lightbox-caption" id="lightboxCaption"></div>
 </div>
 
+
 <!-- 联系我们模块 -->
 <section class="contact-section">
     <div class="contact-container">
@@ -55,6 +121,7 @@
         <p>如果您有任何问题或合作意向，请随时联系我们：</p>
         <ul>
             <li><strong>刘先生：</strong><a href="tel:15596827232">15596827232</a></li>
+            <li><strong>QQ邮箱：</strong><a href="mailto:example@qq.com">3501391833@qq.com</a></li>
         </ul>
 
         <!-- 微信二维码模块 -->
