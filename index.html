@@ -6,6 +6,19 @@
     <meta name="description" content="刘文龙的个人项目作品集，展示AI应用开发、自动化系统、科研数字化、健康科技产品与智能硬件设计实践。">
     <title>刘文龙｜AI应用开发与数字化项目作品集</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .project-action.project-action--active {
+            color: var(--accent);
+            cursor: pointer;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 0.2em;
+        }
+
+        .project-action.project-action--active:hover,
+        .project-action.project-action--active:focus-visible {
+            color: var(--text);
+        }
+    </style>
 </head>
 <body>
     <a class="skip-link" href="#main-content">跳到主要内容</a>
@@ -176,7 +189,7 @@
                             </ul>
                             <div class="project-meta">
                                 <span class="project-status">本地可运行</span>
-                                <span class="project-action" role="link" aria-disabled="true">详情整理中</span>
+                                <a class="project-action project-action--active" href="projects/knowledge-reconstruction.html">查看详情</a>
                             </div>
                         </div>
                     </article>
@@ -197,7 +210,7 @@
                             </ul>
                             <div class="project-meta">
                                 <span class="project-status">本地部署</span>
-                                <span class="project-action" role="link" aria-disabled="true">详情整理中</span>
+                                <a class="project-action project-action--active" href="projects/trading-system.html">查看详情</a>
                             </div>
                         </div>
                     </article>
