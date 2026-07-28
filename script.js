@@ -1,90 +1,71 @@
-const products = [];
-for (let i = 1; i <= 12; i++) {
-    products.push({
-        src: `images/product${i}.jpg`,
-        title: `产品 ${i}`
-    });
-}
+document.addEventListener("DOMContentLoaded", () => {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navigation = document.getElementById("primary-navigation");
+    const mobileViewport = window.matchMedia("(max-width: 768px)");
 
-const gallery = document.getElementById('gallery');
-gallery.innerHTML = ''; // 清空，避免重复加载
+    const closeMenu = () => {
+        if (!menuToggle || !navigation) {
+            return;
+        }
 
-products.forEach((p, index) => {
-    let item = document.createElement('div');
-    item.className = 'item';
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "打开导航菜单");
+        navigation.classList.remove("is-open");
+        document.body.classList.remove("menu-open");
+    };
 
-    let img = document.createElement('img');
-    img.src = p.src;
-    img.loading = 'lazy';
-    img.alt = p.title;
+    if (menuToggle && navigation) {
+        menuToggle.addEventListener("click", () => {
+            if (!mobileViewport.matches) {
+                closeMenu();
+                return;
+            }
 
-    let caption = document.createElement('div');
-    caption.className = 'caption';
-    caption.textContent = p.title;
+            const willOpen = menuToggle.getAttribute("aria-expanded") !== "true";
+            menuToggle.setAttribute("aria-expanded", String(willOpen));
+            menuToggle.setAttribute("aria-label", willOpen ? "关闭导航菜单" : "打开导航菜单");
+            navigation.classList.toggle("is-open", willOpen);
+            document.body.classList.toggle("menu-open", willOpen);
+        });
 
-    let contactBtn = document.createElement('a');
-    contactBtn.className = 'contact-btn';
-    contactBtn.href = 'weixin://'; // 改成你的微信/WhatsApp链接
-    contactBtn.textContent = '联系我';
+        navigation.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", closeMenu);
+        });
 
-    item.appendChild(img);
-    item.appendChild(caption);
-    item.appendChild(contactBtn);
+        document.addEventListener("keydown", (event) => {
+            const menuIsOpen = menuToggle.getAttribute("aria-expanded") === "true";
 
-    // 只在点击图片时触发 Lightbox
-    img.addEventListener('click', () => openLightbox(index));
+            if (event.key === "Escape" && menuIsOpen) {
+                closeMenu();
+                menuToggle.focus();
+            }
+        });
 
-    gallery.appendChild(item);
-});
+        mobileViewport.addEventListener("change", closeMenu);
+    }
 
-// Lightbox 功能
-let currentIndex = 0;
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightboxImg');
-const lightboxCaption = document.getElementById('lightboxCaption');
+    const backToTop = document.querySelector(".back-to-top");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-function openLightbox(index) {
-    currentIndex = index;
-    updateLightbox();
-    lightbox.classList.add('active');
-}
-function updateLightbox() {
-    lightboxImg.src = products[currentIndex].src;
-    lightboxCaption.textContent = products[currentIndex].title;
-}
+    if (backToTop) {
+        const updateBackToTop = () => {
+            backToTop.classList.toggle("is-visible", window.scrollY > 480);
+        };
 
-document.getElementById('lightboxClose').addEventListener('click', () => {
-    lightbox.classList.remove('active');
-});
-document.getElementById('lightboxPrev').addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + products.length) % products.length;
-    updateLightbox();
-});
-document.getElementById('lightboxNext').addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % products.length;
-    updateLightbox();
-});
-lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) {
-        lightbox.classList.remove('active');
+        window.addEventListener("scroll", updateBackToTop, { passive: true });
+        updateBackToTop();
+
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: reducedMotion.matches ? "auto" : "smooth"
+            });
+        });
+    }
+
+    const currentYear = document.getElementById("current-year");
+
+    if (currentYear) {
+        currentYear.textContent = String(new Date().getFullYear());
     }
 });
-
-// 返回顶部按钮
-const backToTop = document.getElementById('backToTop');
-if (backToTop) {
-    window.addEventListener('scroll', () => {
-        backToTop.style.display = window.scrollY > 200 ? 'block' : 'none';
-    });
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-}
-
-// 导航栏折叠
-const menuToggle = document.getElementById('menu-toggle');
-if (menuToggle) {
-    menuToggle.addEventListener('click', () => {
-        document.getElementById('nav-links').classList.toggle('open');
-    });
-}

@@ -1,162 +1,365 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>产品展示</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="刘文龙的个人项目作品集，展示AI应用开发、自动化系统、科研数字化、健康科技产品与智能硬件设计实践。">
+    <title>刘文龙｜AI应用开发与数字化项目作品集</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
 
-<nav>
-    <div class="logo">
-        <img src="images/logo.png" alt="大学拾光优品 Logo" class="logo-img">
-        <span>大学拾光优品</span>
-    </div>
-    <ul>
-        <li><a href="index.html">首页</a></li>
-        <li><a href="about.html">关于我们</a></li>
-        <li><a href="product.html">产品</a></li>
-        <li><a href="contact.html">联系我们</a></li>
-    </ul>
-</nav>
+    <header class="site-header">
+        <nav class="navbar container" aria-label="主导航">
+            <a class="brand" href="#home" aria-label="David Liu 作品集首页">
+                <span class="brand-name">David Liu</span>
+                <span class="brand-subtitle">AI Application Portfolio</span>
+            </a>
 
-<!-- 公司介绍模块 -->
-<!-- 公司介绍模块（优化版） -->
-<section class="about-section" style="background: #ffffff; padding: 60px 20px; text-align: center;">
-    <div class="about-container" style="max-width: 900px; margin: 0 auto;">
-        <h2 style="font-size: 32px; font-weight: bold; color: #333; margin-bottom: 20px;">关于我们</h2>
-        <p style="font-size: 18px; color: #555; line-height: 1.8; margin-bottom: 30px;">
-            <strong style="font-size: 20px; color: #222;">【大学拾光优品】</strong><br>
-            我们致力于为大学生群体提供优质生活用品，秉承“品质、实惠、创新”的理念，打造校园优品生活新方式。
-        </p>
-        <a href="about.html" class="about-btn"
-           style="display: inline-block; padding: 12px 28px; background-color: #007bff; color: #fff; font-size: 18px; text-decoration: none; border-radius: 30px; font-weight: bold; transition: 0.3s;">
-            了解更多
-        </a>
-    </div>
-</section>
+            <button
+                class="menu-toggle"
+                type="button"
+                aria-label="打开导航菜单"
+                aria-expanded="false"
+                aria-controls="primary-navigation"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
+            <ul class="nav-links" id="primary-navigation">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#skills">技能</a></li>
+                <li><a href="#projects">项目</a></li>
+                <li><a href="#experience">经历</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<h1>产品展示</h1>
-
-<!-- 产品展示模块 -->
-<div class="gallery" id="gallery">
-    <div class="gallery-item">
-        <img src="images/product1.jpg" alt="产品 1" class="gallery-img" data-caption="产品 1 - 高效修护">
-        <h3>医用重组胶原蛋白修复贴</h3>
-        <a href="product.html#p1" class="product-btn">产品介绍</a>
-    </div>
-    <div class="gallery-item">
-        <img src="images/product2.jpg" alt="产品 2" class="gallery-img" data-caption="产品 2 - 深度滋润">
-        <h3>医用重组胶原蛋白修复贴</h3>
-        <a href="product.html#p2" class="product-btn">产品介绍</a>
-    </div>
-    <div class="gallery-item">
-        <img src="images/product3.jpg" alt="产品 3" class="gallery-img" data-caption="产品 3 - 舒缓修复">
-        <h3>芯女郎医用垫巾</h3>
-        <a href="product.html#p3" class="product-btn">产品介绍</a>
-    </div>
-    <div class="gallery-item">
-        <img src="images/product4.jpg" alt="产品 4" class="gallery-img" data-caption="产品 4 - 营养补水">
-        <h3>亲肤净颜洁面巾</h3>
-        <a href="product.html#p4" class="product-btn">产品介绍</a>
-    </div>
-    <div class="gallery-item">
-        <img src="images/product5.jpg" alt="产品 5" class="gallery-img" data-caption="产品 5 - 柔润护肤">
-        <h3>重组胶原蛋白保湿美肤隔离素颜霜</h3>
-        <a href="product.html#p5" class="product-btn">产品介绍</a>
-    </div>
-    <div class="gallery-item">
-        <img src="images/product6.jpg" alt="产品 6" class="gallery-img" data-caption="产品 6 - 深层修护">
-        <h3>医用重组胶原蛋白皮肤修复喷剂敷料</h3>
-        <a href="product.html#p6" class="product-btn">产品介绍</a>
-    </div>
-    <div class="gallery-item">
-        <img src="images/product7.jpg" alt="产品 7" class="gallery-img" data-caption="产品 7 - 抗敏舒缓">
-        <h3>重组胶原蛋白创面敷料</h3>
-        <a href="product.html#p7" class="product-btn">产品介绍</a>
-    </div>
-    <div class="gallery-item">
-        <img src="images/product8.jpg" alt="产品 8" class="gallery-img" data-caption="产品 8 - 平衡油脂">
-        <h3>枢颜玛奇朵水感净透洁颜卸妆水</h3>
-        <a href="product.html#p8" class="product-btn">产品介绍</a>
-    </div>
-    <div class="gallery-item">
-        <img src="images/product9.jpg" alt="产品 9" class="gallery-img" data-caption="产品 9 - 美白提亮">
-        <h3>雅益健牙齿脱敏剂</h3>
-        <a href="product.html#p9" class="product-btn">产品介绍</a>
-    </div>
-    <div class="gallery-item">
-        <img src="images/product10.jpg" alt="产品 10" class="gallery-img" data-caption="产品 10 - 深度清洁">
-        <h3>枢颜玻尿酸水光盈润洗发露</h3>
-        <a href="product.html#p10" class="product-btn">产品介绍</a>
-    </div>
-    <div class="gallery-item">
-        <img src="images/product11.jpg" alt="产品 11" class="gallery-img" data-caption="产品 11 - 强韧肌肤">
-        <h3>枢颜玻尿酸水光盈润沐浴露</h3>
-        <a href="product.html#p11" class="product-btn">产品介绍</a>
-    </div>
-    <div class="gallery-item">
-        <img src="images/product12.jpg" alt="产品 12" class="gallery-img" data-caption="产品 12 - 水润透亮">
-        <h3>枢颜玻尿酸水光盈润润发乳</h3>
-        <a href="product.html#p12" class="product-btn">产品介绍</a>
-    </div>
-</div>
-
-<!-- 放大预览 Lightbox -->
-<div class="lightbox" id="lightbox">
-    <span class="lightbox-close" id="lightboxClose">&times;</span>
-    <span class="lightbox-prev" id="lightboxPrev">&#10094;</span>
-    <img id="lightboxImg" src="" alt="预览图">
-    <span class="lightbox-next" id="lightboxNext">&#10095;</span>
-    <div class="lightbox-caption" id="lightboxCaption"></div>
-</div>
-
-
-<!-- 联系我们模块 -->
-<section class="contact-section">
-    <div class="contact-container">
-        <h2>联系我们</h2>
-        <p>如果您有任何问题或合作意向，请随时联系我们：</p>
-        <ul>
-            <li><strong>刘先生：</strong><a href="tel:15596827232">15596827232</a></li>
-            <li><strong>QQ邮箱：</strong><a href="mailto:example@qq.com">3501391833@qq.com</a></li>
-        </ul>
-
-        <!-- 微信二维码模块 -->
-        <div class="wechat-section">
-            <h3>微信二维码</h3>
-            <p>扫码添加微信或加入微信群：</p>
-            <div class="wechat-qr-container">
-                <!-- 个人微信二维码 -->
-                <div class="qr-box">
-                    <img src="images/personal-wechat1.jpg" alt="个人微信二维码1">
-                    <p>个人微信 1</p>
-                </div>
-                <div class="qr-box">
-                    <img src="images/personal-wechat2.jpg" alt="个人微信二维码2">
-                    <p>个人微信 2</p>
+    <main id="main-content">
+        <section class="hero section" id="home">
+            <div class="hero-layout container">
+                <div class="hero-copy">
+                    <p class="eyebrow">AI APPLICATION · PRODUCT · RESEARCH</p>
+                    <h1>把想法转化为<br><span>可以运行的AI产品</span></h1>
+                    <p class="hero-identity">
+                        <strong>刘文龙 / David Liu</strong>
+                        <span>AI应用开发与数字化项目实践者</span>
+                    </p>
+                    <p class="hero-description">
+                        专注于大模型应用、自动化工作流、Web产品、科研数字化与智能硬件原型。我习惯从实际问题出发，完成需求分析、功能设计、AI辅助开发、系统集成、测试与项目交付。
+                    </p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#projects">查看项目</a>
+                        <a
+                            class="button button-secondary"
+                            href="https://github.com/LocK-DEL"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >访问GitHub</a>
+                    </div>
                 </div>
 
-                <!-- 群微信二维码 -->
-                <div class="qr-box">
-                    <img src="images/group-wechat1.jpg" alt="拾光优品群二维码1">
-                    <p>拾光优品群 1</p>
+                <aside class="capability-panel" aria-label="项目能力面板">
+                    <div class="panel-header">
+                        <span>CAPABILITY MATRIX</span>
+                        <span class="panel-status">AVAILABLE</span>
+                    </div>
+                    <div class="panel-core" aria-hidden="true">
+                        <span class="core-ring"></span>
+                        <span class="core-label">&lt;AI /&gt;</span>
+                    </div>
+                    <ul class="capability-list">
+                        <li><span>01</span>AI应用开发</li>
+                        <li><span>02</span>Python自动化</li>
+                        <li><span>03</span>Web产品</li>
+                        <li><span>04</span>科研数字化</li>
+                        <li><span>05</span>产品原型</li>
+                    </ul>
+                </aside>
+            </div>
+        </section>
+
+        <section class="section" id="about">
+            <div class="container">
+                <div class="section-heading">
+                    <p>About Me</p>
+                    <h2>关于我</h2>
                 </div>
-                <div class="qr-box">
-                    <img src="images/group-wechat2.jpg" alt="拾光优品群二维码2">
-                    <p>拾光优品群 2</p>
+                <p class="section-intro about-intro">
+                    我目前拥有医学科研、AI应用、网页开发、产品设计与项目管理等跨领域实践经历。相比单纯调用AI工具，我更关注如何把需求拆解成可实现的功能，并通过代码、自动化流程、界面和原型形成可验证的成果。
+                </p>
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <span class="feature-number">01</span>
+                        <h3>问题驱动</h3>
+                        <p>从真实需求出发，而不是为了使用技术而使用技术。</p>
+                    </article>
+                    <article class="feature-card">
+                        <span class="feature-number">02</span>
+                        <h3>快速落地</h3>
+                        <p>善于借助AI编程工具完成原型开发、测试与持续迭代。</p>
+                    </article>
+                    <article class="feature-card">
+                        <span class="feature-number">03</span>
+                        <h3>跨领域整合</h3>
+                        <p>能够结合医学科研、数字产品、智能硬件与AI能力。</p>
+                    </article>
                 </div>
             </div>
+        </section>
+
+        <section class="section section-tinted" id="skills">
+            <div class="container">
+                <div class="section-heading">
+                    <p>Core Capabilities</p>
+                    <h2>核心技能</h2>
+                </div>
+                <div class="skills-grid">
+                    <article class="skill-card">
+                        <span class="skill-icon" aria-hidden="true">AI</span>
+                        <h3>AI应用集成</h3>
+                        <p>大模型API接入、提示词设计、多模型切换、AI功能流程设计</p>
+                    </article>
+                    <article class="skill-card">
+                        <span class="skill-icon" aria-hidden="true">PY</span>
+                        <h3>Python与自动化</h3>
+                        <p>数据处理、自动化脚本、任务流程、接口调用、日志与异常处理</p>
+                    </article>
+                    <article class="skill-card">
+                        <span class="skill-icon" aria-hidden="true">WEB</span>
+                        <h3>Web开发</h3>
+                        <p>HTML、CSS、JavaScript、React、Next.js及响应式页面开发</p>
+                    </article>
+                    <article class="skill-card">
+                        <span class="skill-icon" aria-hidden="true">UX</span>
+                        <h3>产品与原型</h3>
+                        <p>需求分析、功能规划、产品原型、系统架构与演示流程设计</p>
+                    </article>
+                    <article class="skill-card">
+                        <span class="skill-icon" aria-hidden="true">R&amp;D</span>
+                        <h3>科研数字化</h3>
+                        <p>科研网站、文献工作流、实验数据整理、生物医学项目数字化</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="projects">
+            <div class="container">
+                <div class="section-heading">
+                    <p>Selected Projects</p>
+                    <h2>代表项目</h2>
+                </div>
+                <p class="section-intro">
+                    以下项目涵盖AI应用、自动化系统、科研平台、健康科技和智能硬件。部分项目采用本地部署，后续将补充脱敏代码、演示视频和项目详情。
+                </p>
+
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <div class="project-visual visual-education" aria-hidden="true">
+                            <span class="visual-code">{ KNOWLEDGE }</span>
+                            <span class="visual-node node-one"></span>
+                            <span class="visual-node node-two"></span>
+                            <span class="visual-node node-three"></span>
+                        </div>
+                        <div class="project-content">
+                            <p class="project-category">AI EDUCATION</p>
+                            <h3>课堂知识智能重构系统</h3>
+                            <p class="project-description">将课堂录音或文本转化为知识总结、结构化知识点与练习题，支持多种大模型接口及无密钥演示模式。</p>
+                            <ul class="tag-list" aria-label="技术标签">
+                                <li>Python</li><li>LLM API</li><li>知识提取</li><li>题目生成</li>
+                            </ul>
+                            <div class="project-meta">
+                                <span class="project-status">本地可运行</span>
+                                <span class="project-action" role="link" aria-disabled="true">详情整理中</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-visual visual-trading" aria-hidden="true">
+                            <span class="chart-line line-one"></span>
+                            <span class="chart-line line-two"></span>
+                            <span class="chart-dot dot-one"></span>
+                            <span class="chart-dot dot-two"></span>
+                        </div>
+                        <div class="project-content">
+                            <p class="project-category">AI TRADING</p>
+                            <h3>AI交易分析与模拟执行系统</h3>
+                            <p class="project-description">整合多周期行情分析、策略场景、风险控制、信号记录和模拟执行，形成可复盘的自动化交易决策工作流。</p>
+                            <ul class="tag-list" aria-label="技术标签">
+                                <li>Python</li><li>行情接口</li><li>风险控制</li><li>自动化</li>
+                            </ul>
+                            <div class="project-meta">
+                                <span class="project-status">本地部署</span>
+                                <span class="project-action" role="link" aria-disabled="true">详情整理中</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-visual visual-research" aria-hidden="true">
+                            <span class="research-orbit orbit-one"></span>
+                            <span class="research-orbit orbit-two"></span>
+                            <span class="research-core">R</span>
+                        </div>
+                        <div class="project-content">
+                            <p class="project-category">RESEARCH PLATFORM</p>
+                            <h3>科研实验室数字化平台</h3>
+                            <p class="project-description">面向科研团队的数字化平台，覆盖团队展示、科研成果、文献学习、项目管理和在线学习等场景。</p>
+                            <ul class="tag-list" aria-label="技术标签">
+                                <li>Next.js</li><li>React</li><li>Tailwind CSS</li><li>科研管理</li>
+                            </ul>
+                            <div class="project-meta">
+                                <span class="project-status">Web项目</span>
+                                <span class="project-action" role="link" aria-disabled="true">详情整理中</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-visual visual-health" aria-hidden="true">
+                            <span class="pulse-line"></span>
+                            <span class="health-ring"></span>
+                            <span class="health-cross">+</span>
+                        </div>
+                        <div class="project-content">
+                            <p class="project-category">HEALTH AI</p>
+                            <h3>AI健康管理产品原型</h3>
+                            <p class="project-description">围绕健康数据、风险提醒与个性化管理设计的AI产品方案，涵盖移动端体验、功能逻辑和多设备协同。</p>
+                            <ul class="tag-list" aria-label="技术标签">
+                                <li>健康科技</li><li>AI产品</li><li>用户流程</li><li>HarmonyOS</li>
+                            </ul>
+                            <div class="project-meta">
+                                <span class="project-status">产品原型</span>
+                                <span class="project-action" role="link" aria-disabled="true">详情整理中</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-visual visual-hardware" aria-hidden="true">
+                            <span class="hardware-ring ring-outer"></span>
+                            <span class="hardware-ring ring-inner"></span>
+                            <span class="hardware-core">CR</span>
+                        </div>
+                        <div class="project-content">
+                            <p class="project-category">SMART HARDWARE</p>
+                            <h3>CareRing智能健康手环</h3>
+                            <p class="project-description">融合健康监测、SOS、可拆卸液体扩展仓、超声雾化与抑菌功能的智能硬件及专利设计项目。</p>
+                            <ul class="tag-list" aria-label="技术标签">
+                                <li>智能硬件</li><li>产品设计</li><li>3D建模</li><li>专利</li>
+                            </ul>
+                            <div class="project-meta">
+                                <span class="project-status">原型设计</span>
+                                <span class="project-action" role="link" aria-disabled="true">详情整理中</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-visual visual-automation" aria-hidden="true">
+                            <span class="flow-box flow-one">INPUT</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-box flow-two">AI</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-box flow-three">OUTPUT</span>
+                        </div>
+                        <div class="project-content">
+                            <p class="project-category">AUTOMATION SYSTEM</p>
+                            <h3>AI辅助科研与项目工作流</h3>
+                            <p class="project-description">利用AI编程、文档处理、信息整理和自动化工具，提高科研、竞赛、建模及项目交付效率。</p>
+                            <ul class="tag-list" aria-label="技术标签">
+                                <li>AI Agent</li><li>自动化</li><li>工作流</li><li>项目管理</li>
+                            </ul>
+                            <div class="project-meta">
+                                <span class="project-status">持续迭代</span>
+                                <span class="project-action" role="link" aria-disabled="true">详情整理中</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-tinted" id="experience">
+            <div class="container">
+                <div class="section-heading">
+                    <p>Experience</p>
+                    <h2>项目与实践经历</h2>
+                </div>
+                <div class="timeline">
+                    <article class="timeline-item">
+                        <span class="timeline-marker" aria-hidden="true"></span>
+                        <div>
+                            <h3>AI应用与Web项目开发</h3>
+                            <p>独立进行需求分析、功能规划、AI辅助编程、接口集成、测试和部署，完成多类本地系统和网站项目。</p>
+                        </div>
+                    </article>
+                    <article class="timeline-item">
+                        <span class="timeline-marker" aria-hidden="true"></span>
+                        <div>
+                            <h3>科研与实验项目管理</h3>
+                            <p>参与中药提取、抗菌实验、生物信息学和医学科研项目，具有实验流程、数据整理和科研协作经验。</p>
+                        </div>
+                    </article>
+                    <article class="timeline-item">
+                        <span class="timeline-marker" aria-hidden="true"></span>
+                        <div>
+                            <h3>智能硬件与专利设计</h3>
+                            <p>围绕智能手环、辅助起立设备和康复健康产品开展结构设计、3D建模、系统方案与专利附图工作。</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section contact-section" id="contact">
+            <div class="contact-panel container">
+                <div>
+                    <div class="section-heading">
+                        <p>Contact</p>
+                        <h2>联系与合作</h2>
+                    </div>
+                    <p class="contact-copy">
+                        正在寻找AI应用、产品运营、数字化项目、Web开发及跨领域创新相关机会。欢迎通过GitHub或邮箱了解我的项目。
+                    </p>
+                </div>
+                <div class="contact-actions">
+                    <a
+                        class="contact-link"
+                        href="https://github.com/LocK-DEL"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <span>GitHub</span>
+                        <strong>github.com/LocK-DEL</strong>
+                    </a>
+                    <a class="contact-link" href="mailto:3501391833@qq.com">
+                        <span>邮箱</span>
+                        <strong>3501391833@qq.com</strong>
+                    </a>
+                    <span class="button button-disabled" role="link" aria-disabled="true">简历整理中</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© <span id="current-year">2026</span> David Liu. Built as a personal AI project portfolio.</p>
         </div>
-    </div>
-</section>
+    </footer>
 
+    <button class="back-to-top" type="button" aria-label="返回页面顶部">
+        <span aria-hidden="true">↑</span>
+    </button>
 
-<!-- 返回顶部按钮 -->
-<div id="backToTop">&#8679;</div>
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Pacifico&family=Roboto&display=swap" rel="stylesheet">
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
