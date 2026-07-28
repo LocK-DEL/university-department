@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="AI交易分析与模拟执行系统项目详情，展示多周期行情分析、场景决策、风险控制、日志记录和模拟执行工作流。">
-    <title>AI交易分析与模拟执行系统｜David Liu项目作品集</title>
+    <meta name="description" content="BTC多周期行情分析与风控报告系统项目详情，展示公开行情获取、多周期结构分析、条件式市场场景、风险计算及Markdown报告输出。">
+    <title>BTC多周期行情分析与风控报告系统｜David Liu项目作品集</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../project.css">
 </head>
@@ -45,15 +45,15 @@
                     <span aria-hidden="true">/</span>
                     <a href="../index.html#projects">代表项目</a>
                     <span aria-hidden="true">/</span>
-                    <span aria-current="page">AI交易分析与模拟执行系统</span>
+                    <span aria-current="page">BTC多周期行情分析与风控报告系统</span>
                 </nav>
-                <p class="project-label">AI TRADING · AUTOMATION SYSTEM</p>
-                <h1 class="project-title">AI交易分析与模拟执行系统</h1>
-                <p class="project-summary">一个以规则化分析和风险控制为核心的本地交易辅助系统，负责获取市场数据、组织多周期分析、生成场景判断、记录决策，并在模拟环境中验证执行流程。</p>
+                <p class="project-label">MARKET ANALYSIS · RISK SYSTEM</p>
+                <h1 class="project-title">BTC多周期行情分析与风控报告系统</h1>
+                <p class="project-summary">一个基于Python命令行运行的市场分析工具，从公开行情接口获取BTC数据，组织15分钟、1小时和4小时多周期分析，输出条件式多空场景、失效条件、仓位计算、最大风险估算和Markdown报告。</p>
                 <div class="project-overview-grid">
                     <div class="project-fact-card">
                         <span>项目状态</span>
-                        <strong class="status-badge">本地部署</strong>
+                        <strong class="status-badge">本地CLI</strong>
                     </div>
                     <div class="project-fact-card">
                         <span>我的角色</span>
@@ -61,11 +61,11 @@
                     </div>
                     <div class="project-fact-card">
                         <span>项目形式</span>
-                        <strong>Python命令行与自动化系统</strong>
+                        <strong>Python命令行分析工具</strong>
                     </div>
                     <div class="project-fact-card">
                         <span>当前公开状态</span>
-                        <strong>架构与功能说明已公开，私有策略和账户配置不公开</strong>
+                        <strong>功能和代码结构已完成本地盘点，不读取交易账户，不包含真实或模拟下单功能</strong>
                     </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                     <p>Background</p>
                     <h2>项目背景</h2>
                 </div>
-                <p>人工交易过程中容易出现临时改变计划、忽略多周期结构、错误设置杠杆以及缺少完整复盘记录等问题。该项目将行情分析、场景判断、风险计算、模拟执行和决策日志拆分为不同模块，目的是提高交易过程的一致性和可复盘性，而不是保证收益。</p>
+                <p>人工进行市场分析时，容易出现周期职责混乱、临时改变判断标准、只给方向却缺少失效条件，以及忽略仓位与最大风险计算等问题。该项目将数据获取、多周期结构分析、条件式场景、风险计算和报告输出拆分为独立模块，目的是提高分析过程的一致性与可复盘性，而不是预测或保证收益。</p>
             </div>
         </section>
 
@@ -90,23 +90,23 @@
                 <div class="project-feature-grid four-column">
                     <article class="project-feature-card">
                         <span class="feature-index">01</span>
-                        <h3>分析标准不统一</h3>
-                        <p>固定不同周期的分析职责，减少临时改变判断标准。</p>
+                        <h3>周期职责混乱</h3>
+                        <p>分别组织15分钟、1小时和4小时数据，减少不同周期信号被混在一起。</p>
                     </article>
                     <article class="project-feature-card">
                         <span class="feature-index">02</span>
-                        <h3>方向与入场混淆</h3>
-                        <p>将市场方向判断与具体入场条件分开处理。</p>
+                        <h3>分析缺少条件</h3>
+                        <p>输出带有触发条件和失效条件的多空场景，而不是只给一个方向。</p>
                     </article>
                     <article class="project-feature-card">
                         <span class="feature-index">03</span>
                         <h3>风险计算容易遗漏</h3>
-                        <p>在执行前输出仓位、保证金和最大风险等信息。</p>
+                        <p>根据演示参数计算仓位、保证金及预估最大风险。</p>
                     </article>
                     <article class="project-feature-card">
                         <span class="feature-index">04</span>
-                        <h3>复盘证据不足</h3>
-                        <p>保存信号、场景、执行结果和决策日志。</p>
+                        <h3>复盘材料分散</h3>
+                        <p>将分析结果整理为结构化Markdown报告，便于保存和复查。</p>
                     </article>
                 </div>
             </div>
@@ -120,18 +120,19 @@
                 </div>
                 <div class="project-content-grid">
                     <ul class="responsibility-list">
-                        <li>系统需求和交易流程拆分</li>
-                        <li>Python命令行程序设计</li>
-                        <li>市场数据接口接入</li>
-                        <li>多周期分析职责设计</li>
-                        <li>Scenario Engine场景逻辑</li>
-                        <li>风险报告与仓位计算</li>
-                        <li>模拟执行流程</li>
-                        <li>活跃信号和决策日志</li>
-                        <li>异常处理与备用数据源设计</li>
-                        <li>测试与持续迭代</li>
+                        <li>系统需求和分析流程拆分</li>
+                        <li>Python命令行结构设计</li>
+                        <li>Binance公开行情数据适配</li>
+                        <li>OKX公开备用数据源适配</li>
+                        <li>15分钟、1小时和4小时多周期分析</li>
+                        <li>市场结构、指标和场景生成模块</li>
+                        <li>仓位、保证金及最大风险计算</li>
+                        <li>Markdown报告结构设计</li>
+                        <li>Pytest测试代码</li>
+                        <li>文档和系统原则整理</li>
+                        <li>错误排查与持续迭代</li>
                     </ul>
-                    <p class="responsibility-note">AI编程工具参与代码生成、测试辅助与问题排查；系统原则、模块边界、风险约束、场景设计及最终验证由本人负责。</p>
+                    <p class="responsibility-note">AI编程工具参与代码生成、测试辅助、重构和问题排查；分析规则、模块边界、风险约束、验收标准及最终验证由本人负责。</p>
                 </div>
             </div>
         </section>
@@ -145,43 +146,43 @@
                 <div class="project-feature-grid four-column">
                     <article class="project-feature-card">
                         <span class="feature-index">01</span>
-                        <h3>市场数据获取</h3>
-                        <p>从交易所公开接口获取所需行情数据。</p>
+                        <h3>公开行情获取</h3>
+                        <p>通过公开市场接口获取BTC所需K线数据，不读取用户交易账户。</p>
                     </article>
                     <article class="project-feature-card">
                         <span class="feature-index">02</span>
                         <h3>备用数据源</h3>
-                        <p>主要接口异常时切换至备用行情来源。</p>
+                        <p>主要公开行情来源异常时，可以使用备用公开数据适配器。</p>
                     </article>
                     <article class="project-feature-card">
                         <span class="feature-index">03</span>
                         <h3>多周期分析</h3>
-                        <p>按照固定职责组织4H、1H、15m和5m分析。</p>
+                        <p>分别处理15分钟、1小时和4小时市场数据。</p>
                     </article>
                     <article class="project-feature-card">
                         <span class="feature-index">04</span>
-                        <h3>场景引擎</h3>
-                        <p>根据结构和条件输出不同市场场景，而不是只给出单一方向。</p>
+                        <h3>市场结构识别</h3>
+                        <p>整理趋势、关键位置、结构变化和相关技术信息。</p>
                     </article>
                     <article class="project-feature-card">
                         <span class="feature-index">05</span>
-                        <h3>WAIT决策</h3>
-                        <p>在条件不充分时允许系统明确等待，不强制生成交易信号。</p>
+                        <h3>条件式场景</h3>
+                        <p>输出带有触发条件和失效条件的看多及看空场景。</p>
                     </article>
                     <article class="project-feature-card">
                         <span class="feature-index">06</span>
-                        <h3>风险报告</h3>
-                        <p>计算仓位、保证金和预估最大风险。</p>
+                        <h3>风险计算</h3>
+                        <p>根据演示本金、止损距离和风险限制计算仓位及最大风险。</p>
                     </article>
                     <article class="project-feature-card">
                         <span class="feature-index">07</span>
-                        <h3>模拟执行</h3>
-                        <p>在非真实交易环境中检查执行逻辑和状态变化。</p>
+                        <h3>Markdown报告</h3>
+                        <p>将市场状态、场景和风险信息整理为可保存的分析报告。</p>
                     </article>
                     <article class="project-feature-card">
                         <span class="feature-index">08</span>
-                        <h3>决策日志</h3>
-                        <p>保存分析、信号和执行过程，支持后续复盘。</p>
+                        <h3>离线测试</h3>
+                        <p>通过固定数据和模拟响应检查分析、风险及报告模块。</p>
                     </article>
                 </div>
             </div>
@@ -194,19 +195,17 @@
                     <h2>工作流程</h2>
                 </div>
                 <div class="project-flow" aria-label="交易分析系统工作流程">
-                    <div class="project-flow-step">获取行情</div>
+                    <div class="project-flow-step">获取公开行情</div>
                     <span class="project-flow-arrow" aria-hidden="true">→</span>
-                    <div class="project-flow-step">多周期结构分析</div>
+                    <div class="project-flow-step">整理多周期数据</div>
                     <span class="project-flow-arrow" aria-hidden="true">→</span>
-                    <div class="project-flow-step">场景判断</div>
+                    <div class="project-flow-step">识别市场结构</div>
                     <span class="project-flow-arrow" aria-hidden="true">→</span>
-                    <div class="project-flow-step">入场条件检查</div>
+                    <div class="project-flow-step">生成条件式场景</div>
                     <span class="project-flow-arrow" aria-hidden="true">→</span>
-                    <div class="project-flow-step">风险计算</div>
+                    <div class="project-flow-step">计算仓位与风险</div>
                     <span class="project-flow-arrow" aria-hidden="true">→</span>
-                    <div class="project-flow-step">WAIT或模拟执行</div>
-                    <span class="project-flow-arrow" aria-hidden="true">→</span>
-                    <div class="project-flow-step">日志记录</div>
+                    <div class="project-flow-step">输出Markdown报告</div>
                 </div>
             </div>
         </section>
@@ -220,23 +219,19 @@
                 <div class="architecture-panel" aria-label="交易分析系统架构">
                     <div class="architecture-layer">
                         <strong>数据接入层</strong>
-                        <span>交易所公开行情接口、备用数据源</span>
+                        <span>Binance公开行情适配器、OKX公开备用数据源</span>
                     </div>
                     <div class="architecture-layer">
                         <strong>分析层</strong>
-                        <span>多周期行情处理、结构和指标信息</span>
+                        <span>15分钟、1小时和4小时数据处理、指标与市场结构</span>
                     </div>
                     <div class="architecture-layer">
-                        <strong>决策层</strong>
-                        <span>Scenario Engine、趋势判断、入场条件</span>
+                        <strong>场景与风控层</strong>
+                        <span>条件式多空场景、失效条件、仓位和最大风险计算</span>
                     </div>
                     <div class="architecture-layer">
-                        <strong>风控与执行层</strong>
-                        <span>仓位计算、风险报告、模拟执行</span>
-                    </div>
-                    <div class="architecture-layer">
-                        <strong>记录层</strong>
-                        <span>活动信号、决策日志、复盘数据</span>
+                        <strong>报告与验证层</strong>
+                        <span>Markdown报告输出、CLI及Pytest离线测试</span>
                     </div>
                 </div>
             </div>
@@ -249,8 +244,8 @@
                     <h2>技术栈</h2>
                 </div>
                 <ul class="tech-stack-list" aria-label="项目技术栈">
-                    <li>Python</li><li>Requests</li><li>Pandas</li><li>NumPy</li><li>REST API</li>
-                    <li>JSON</li><li>JSONL</li><li>CLI</li><li>Risk Management</li><li>Automated Testing</li>
+                    <li>Python 3.11+</li><li>Requests</li><li>Pandas</li><li>NumPy</li><li>Pytest</li>
+                    <li>REST API</li><li>Markdown</li><li>CLI</li><li>Risk Calculation</li>
                 </ul>
             </div>
         </section>
@@ -264,23 +259,23 @@
                 <div class="project-feature-grid four-column">
                     <article class="project-feature-card">
                         <span class="feature-index">01</span>
-                        <h3>方向不等于入场</h3>
-                        <p>判断市场倾向之后，仍需等待具体条件。</p>
+                        <h3>场景必须有条件</h3>
+                        <p>分析结果需要说明触发条件和失效条件。</p>
                     </article>
                     <article class="project-feature-card">
                         <span class="feature-index">02</span>
-                        <h3>允许保持WAIT</h3>
-                        <p>没有合适机会时，不强迫系统生成交易。</p>
+                        <h3>周期职责需要分离</h3>
+                        <p>不同周期承担不同分析任务，避免互相覆盖。</p>
                     </article>
                     <article class="project-feature-card">
                         <span class="feature-index">03</span>
                         <h3>风险先于收益</h3>
-                        <p>先计算可以承受的损失，再决定是否执行。</p>
+                        <p>先计算能够承受的损失，再评估场景是否值得关注。</p>
                     </article>
                     <article class="project-feature-card">
                         <span class="feature-index">04</span>
-                        <h3>记录先于记忆</h3>
-                        <p>用日志保留决策依据，而不是依赖事后回忆。</p>
+                        <h3>报告先于记忆</h3>
+                        <p>通过结构化报告保留分析依据，减少事后主观回忆。</p>
                     </article>
                 </div>
             </div>
@@ -293,12 +288,15 @@
                     <h2>当前验证状态</h2>
                 </div>
                 <div class="verification-panel">
-                    <p>系统当前主要用于本地模拟、结构验证和策略复盘，不连接公开页面执行真实交易。公开展示不会提供交易所密钥、真实账户信息或完整私有策略参数。</p>
+                    <p>本阶段已检查本地代码结构，并在不访问真实网络的条件下运行完整测试集。公开行情适配器仅完成代码确认，本阶段没有联网调用。</p>
                     <ul class="verification-status-list">
-                        <li><span>本地流程</span><strong>已运行</strong></li>
-                        <li><span>自动化测试</span><strong>已有测试覆盖</strong></li>
-                        <li><span>公开代码</span><span aria-disabled="true">脱敏整理中</span></li>
-                        <li><span>在线交易</span><strong>未开放</strong></li>
+                        <li><span>本地代码结构</span><strong>已确认</strong></li>
+                        <li><span>离线测试</span><strong>36 passed</strong></li>
+                        <li><span>测试日期</span><strong>2026年7月28日</strong></li>
+                        <li><span>公开行情适配器</span><strong>代码已确认，本阶段未联网调用</strong></li>
+                        <li><span>真实账户连接</span><strong>不存在</strong></li>
+                        <li><span>下单功能</span><strong>不存在</strong></li>
+                        <li><span>公开代码</span><span aria-disabled="true">准备整理</span></li>
                     </ul>
                 </div>
             </div>
@@ -308,7 +306,7 @@
             <div class="container">
                 <aside class="privacy-note">
                     <h3>风险声明</h3>
-                    <p>该项目是软件工程、自动化工作流和风险管理实践，不构成投资建议，也不保证任何交易结果。</p>
+                    <p>该项目用于软件工程、多周期市场分析、报告生成和风险计算实践，不构成投资建议，不连接用户交易账户，不执行真实或模拟订单，也不保证任何交易结果。</p>
                 </aside>
             </div>
         </section>
