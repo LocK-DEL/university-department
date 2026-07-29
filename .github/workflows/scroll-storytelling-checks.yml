@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - codex/scroll-storytelling-redesign
+      - feat/public-resume
   pull_request:
     branches:
       - main
@@ -36,6 +37,8 @@ jobs:
         run: |
           node --check script.js
           node --check motion.js
+          node --check resume-entry.js
+          node --check resume-print.js
 
       - name: Check forbidden runtime dependencies
         shell: python
