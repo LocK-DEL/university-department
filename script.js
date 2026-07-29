@@ -4,6 +4,8 @@
     if (loaderScript) {
         const styleUrl = new URL("motion.css", loaderScript.src).href;
         const timelineFixUrl = new URL("timeline-fix.css", loaderScript.src).href;
+        const resumeStyleUrl = new URL("resume.css", loaderScript.src).href;
+        const resumeEntryUrl = new URL("resume-entry.js", loaderScript.src).href;
         const runtimeUrl = new URL("motion.js", loaderScript.src).href;
 
         if (!document.querySelector('[data-motion-asset="style"]')) {
@@ -20,6 +22,22 @@
             timelineFix.href = timelineFixUrl;
             timelineFix.dataset.motionAsset = "timeline-fix";
             document.head.appendChild(timelineFix);
+        }
+
+        if (!document.querySelector('[data-resume-asset="style"]')) {
+            const resumeStyle = document.createElement("link");
+            resumeStyle.rel = "stylesheet";
+            resumeStyle.href = resumeStyleUrl;
+            resumeStyle.dataset.resumeAsset = "style";
+            document.head.appendChild(resumeStyle);
+        }
+
+        if (!document.querySelector('[data-resume-asset="entry"]')) {
+            const resumeEntry = document.createElement("script");
+            resumeEntry.src = resumeEntryUrl;
+            resumeEntry.async = false;
+            resumeEntry.dataset.resumeAsset = "entry";
+            document.head.appendChild(resumeEntry);
         }
 
         if (!document.querySelector('[data-motion-asset="runtime"]')) {
