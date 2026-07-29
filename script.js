@@ -6,6 +6,8 @@
         const timelineFixUrl = new URL("timeline-fix.css", loaderScript.src).href;
         const resumeStyleUrl = new URL("resume.css", loaderScript.src).href;
         const resumeEntryUrl = new URL("resume-entry.js", loaderScript.src).href;
+        const evidenceStyleUrl = new URL("project-evidence.css", loaderScript.src).href;
+        const evidenceRuntimeUrl = new URL("project-evidence.js", loaderScript.src).href;
         const runtimeUrl = new URL("motion.js", loaderScript.src).href;
 
         if (!document.querySelector('[data-motion-asset="style"]')) {
@@ -38,6 +40,22 @@
             resumeEntry.async = false;
             resumeEntry.dataset.resumeAsset = "entry";
             document.head.appendChild(resumeEntry);
+        }
+
+        if (!document.querySelector('[data-project-evidence-asset="style"]')) {
+            const evidenceStyle = document.createElement("link");
+            evidenceStyle.rel = "stylesheet";
+            evidenceStyle.href = evidenceStyleUrl;
+            evidenceStyle.dataset.projectEvidenceAsset = "style";
+            document.head.appendChild(evidenceStyle);
+        }
+
+        if (!document.querySelector('[data-project-evidence-asset="runtime"]')) {
+            const evidenceRuntime = document.createElement("script");
+            evidenceRuntime.src = evidenceRuntimeUrl;
+            evidenceRuntime.async = false;
+            evidenceRuntime.dataset.projectEvidenceAsset = "runtime";
+            document.head.appendChild(evidenceRuntime);
         }
 
         if (!document.querySelector('[data-motion-asset="runtime"]')) {

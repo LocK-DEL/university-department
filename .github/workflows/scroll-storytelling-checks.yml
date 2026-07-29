@@ -5,6 +5,7 @@ on:
     branches:
       - codex/scroll-storytelling-redesign
       - feat/public-resume
+      - feat/project-evidence-v1
   pull_request:
     branches:
       - main
@@ -39,6 +40,7 @@ jobs:
           node --check motion.js
           node --check resume-entry.js
           node --check resume-print.js
+          node --check project-evidence.js
 
       - name: Check forbidden runtime dependencies
         shell: python
