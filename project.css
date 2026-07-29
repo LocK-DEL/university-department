@@ -398,12 +398,63 @@
     color: var(--muted);
 }
 
-.project-navigation {
+.project-resource-actions {
     display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.project-resource-link,
+.project-resource-state {
+    display: inline-flex;
+    min-height: 46px;
     align-items: center;
-    justify-content: space-between;
-    gap: 18px;
+    justify-content: center;
+    padding: 11px 18px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.project-resource-link {
+    border-color: rgba(86, 194, 255, 0.34);
+    background: rgba(86, 194, 255, 0.08);
+    color: var(--accent);
+    text-decoration: none;
+    transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+
+.project-resource-link:hover {
+    border-color: rgba(86, 194, 255, 0.62);
+    background: rgba(86, 194, 255, 0.14);
+    transform: translateY(-2px);
+}
+
+.project-resource-state[aria-disabled="true"] {
+    border-style: dashed;
+    color: var(--muted);
+    cursor: not-allowed;
+}
+
+.project-navigation {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 24px;
     padding: 42px 0 84px;
+}
+
+.project-return-links,
+.project-sequence-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.project-sequence-links {
+    justify-content: flex-end;
 }
 
 .project-back-link {
@@ -425,6 +476,11 @@
     border-color: rgba(86, 194, 255, 0.4);
     background: var(--surface-light);
     transform: translateY(-2px);
+}
+
+.project-back-link--next {
+    border-color: rgba(86, 194, 255, 0.34);
+    color: var(--accent);
 }
 
 .project-page a:focus-visible,
@@ -496,6 +552,14 @@
         grid-template-columns: 1fr;
         gap: 7px;
     }
+
+    .project-navigation {
+        grid-template-columns: 1fr;
+    }
+
+    .project-sequence-links {
+        justify-content: flex-start;
+    }
 }
 
 @media (max-width: 480px) {
@@ -511,8 +575,7 @@
         padding: 20px;
     }
 
-    .verification-status-list li,
-    .project-navigation {
+    .verification-status-list li {
         align-items: flex-start;
         flex-direction: column;
     }
@@ -526,13 +589,18 @@
         padding-bottom: 66px;
     }
 
-    .project-back-link {
+    .project-return-links,
+    .project-sequence-links,
+    .project-back-link,
+    .project-resource-link,
+    .project-resource-state {
         width: 100%;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .project-feature-card,
+    .project-resource-link,
     .project-back-link,
     .project-breadcrumb a {
         transition: none;

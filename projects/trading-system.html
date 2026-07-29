@@ -53,7 +53,7 @@
                 <div class="project-overview-grid">
                     <div class="project-fact-card">
                         <span>项目状态</span>
-                        <strong class="status-badge">本地CLI</strong>
+                        <strong class="status-badge">本地CLI · 36项测试通过</strong>
                     </div>
                     <div class="project-fact-card">
                         <span>我的角色</span>
@@ -68,10 +68,15 @@
                         <strong>功能和代码结构已完成本地盘点，不读取交易账户，不包含真实或模拟下单功能</strong>
                     </div>
                 </div>
+                <div class="project-resource-actions" aria-label="项目资源状态">
+                    <span class="project-resource-state" aria-disabled="true">公开仓库整理中</span>
+                    <span class="project-resource-state" aria-disabled="true">CLI项目，无在线Demo</span>
+                    <a class="project-resource-link" href="#project-details">查看详情</a>
+                </div>
             </div>
         </section>
 
-        <section class="project-section">
+        <section class="project-section" id="project-details">
             <div class="container">
                 <div class="project-section-heading">
                     <p>Background</p>
@@ -312,7 +317,14 @@
         </section>
 
         <nav class="project-navigation container" aria-label="项目页面导航">
-            <a class="project-back-link" href="../index.html#projects">← 返回全部项目</a>
+            <div class="project-return-links">
+                <a class="project-back-link" href="../index.html">返回首页</a>
+                <a class="project-back-link" href="../index.html#projects">返回全部项目</a>
+            </div>
+            <div class="project-sequence-links">
+                <a class="project-back-link" href="knowledge-reconstruction.html">← 上一个项目：课堂知识系统</a>
+                <a class="project-back-link project-back-link--next" href="lab-platform.html">下一个项目：科研平台 →</a>
+            </div>
         </nav>
     </main>
 

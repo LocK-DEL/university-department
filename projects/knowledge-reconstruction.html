@@ -53,7 +53,7 @@
                 <div class="project-overview-grid">
                     <div class="project-fact-card">
                         <span>项目状态</span>
-                        <strong class="status-badge">个人独立开发</strong>
+                        <strong class="status-badge">本地Demo已启动验证</strong>
                     </div>
                     <div class="project-fact-card">
                         <span>我的角色</span>
@@ -68,10 +68,15 @@
                         <strong>项目功能与代码结构已确认，当前正在进行运行环境脱敏和演示材料整理</strong>
                     </div>
                 </div>
+                <div class="project-resource-actions" aria-label="项目资源状态">
+                    <span class="project-resource-state" aria-disabled="true">仓库待创建</span>
+                    <span class="project-resource-state" aria-disabled="true">当前仅本地运行</span>
+                    <a class="project-resource-link" href="#project-details">查看详情</a>
+                </div>
             </div>
         </section>
 
-        <section class="project-section">
+        <section class="project-section" id="project-details">
             <div class="container">
                 <div class="project-section-heading">
                     <p>Background</p>
@@ -269,11 +274,11 @@
                     <h2>当前验证状态</h2>
                 </div>
                 <div class="verification-panel">
-                    <p>项目归属已由作者本人确认。本阶段未启动系统，也未重新验证完整运行流程；公开代码和演示材料仍需完成环境脱敏与内容整理。</p>
+                    <p>项目归属已由作者本人确认。隔离脱敏副本的FastAPI和React前后端已完成本地启动与页面可访问性验证；完整功能流程尚未重新验证，公开代码和演示材料仍需继续整理。</p>
                     <ul class="verification-status-list">
                         <li><span>项目归属</span><strong>本人独立完成</strong></li>
                         <li><span>代码结构</span><strong>已确认</strong></li>
-                        <li><span>本地运行</span><strong>待脱敏后重新验证</strong></li>
+                        <li><span>本地运行</span><strong>前后端启动已验证，完整流程待验证</strong></li>
                         <li><span>自动化测试</span><strong>暂未建立</strong></li>
                         <li><span>公开代码</span><strong>脱敏整理中</strong></li>
                         <li><span>演示视频</span><strong>准备中</strong></li>
@@ -292,7 +297,14 @@
         </section>
 
         <nav class="project-navigation container" aria-label="项目页面导航">
-            <a class="project-back-link" href="../index.html#projects">← 返回全部项目</a>
+            <div class="project-return-links">
+                <a class="project-back-link" href="../index.html">返回首页</a>
+                <a class="project-back-link" href="../index.html#projects">返回全部项目</a>
+            </div>
+            <div class="project-sequence-links">
+                <a class="project-back-link" href="ai-workflow.html">← 上一个项目：AI工作流</a>
+                <a class="project-back-link project-back-link--next" href="trading-system.html">下一个项目：BTC分析系统 →</a>
+            </div>
         </nav>
     </main>
 
