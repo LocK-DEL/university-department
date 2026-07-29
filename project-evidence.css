@@ -33,6 +33,10 @@
     background-size: 38px 38px;
 }
 
+.project-evidence-media--prototype {
+    aspect-ratio: 30 / 19;
+}
+
 .project-evidence-media::before {
     content: "LOADING VERIFIED MEDIA";
     position: absolute;
