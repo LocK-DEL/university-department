@@ -1,8 +1,8 @@
 (() => {
     "use strict";
 
-    const PDF_PATH = "assets/liu-wenlong-resume-public.pdf";
     const RESUME_PAGE = "resume.html";
+    const PRINT_PATH = "resume.html#print";
 
     function addNavLink() {
         const nav = document.getElementById("primary-navigation");
@@ -42,7 +42,7 @@
                     </p>
                     <div class="resume-highlight__actions">
                         <a class="button button-primary" href="${RESUME_PAGE}">在线查看</a>
-                        <a class="button button-secondary" href="${PDF_PATH}" download>下载PDF</a>
+                        <a class="button button-secondary" href="${PRINT_PATH}">打印 / 保存PDF</a>
                     </div>
                 </div>
                 <aside class="resume-snapshot" aria-label="简历摘要" data-reveal>
@@ -85,7 +85,7 @@
         group.className = "resume-highlight__actions";
         group.innerHTML = `
             <a class="button button-primary" href="${RESUME_PAGE}">在线简历</a>
-            <a class="button button-secondary" href="${PDF_PATH}" download>下载PDF</a>`;
+            <a class="button button-secondary" href="${PRINT_PATH}">打印 / 保存PDF</a>`;
         placeholder.replaceWith(group);
     }
 
