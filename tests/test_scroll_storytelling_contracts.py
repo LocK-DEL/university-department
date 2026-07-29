@@ -14,11 +14,14 @@ def compact_css(text: str) -> str:
 
 def test_shared_motion_assets_exist_and_are_loaded_by_base_script():
     assert (ROOT / "motion.css").is_file()
+    assert (ROOT / "timeline-fix.css").is_file()
     assert (ROOT / "motion.js").is_file()
     script = read("script.js")
     assert 'new URL("motion.css", loaderScript.src)' in script
+    assert 'new URL("timeline-fix.css", loaderScript.src)' in script
     assert 'new URL("motion.js", loaderScript.src)' in script
     assert 'data-motion-asset="style"' in script
+    assert 'data-motion-asset="timeline-fix"' in script
 
 
 def test_approved_monochrome_cold_blue_palette_is_present():
@@ -89,8 +92,17 @@ def test_mobile_and_reduced_motion_fallbacks_disable_sticky_storytelling():
     assert ".project-scroll-steps" in css
 
 
+def test_timeline_counter_stays_out_of_grid_flow_and_content_keeps_full_width():
+    css = compact_css(read("timeline-fix.css"))
+    assert ".timeline-story.timeline-item::before{position:absolute" in css
+    assert ".timeline-story.timeline-item>div{grid-column:2;min-width:0;}" in css
+
+
 def test_no_external_runtime_dependencies_or_scroll_hijacking():
-    text = "\n".join(read(path) for path in ("script.js", "motion.js", "motion.css"))
+    text = "\n".join(
+        read(path)
+        for path in ("script.js", "motion.js", "motion.css", "timeline-fix.css")
+    )
     for forbidden in (
         "fonts.googleapis.com",
         "fonts.gstatic.com",
