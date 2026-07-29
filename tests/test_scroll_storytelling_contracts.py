@@ -95,7 +95,7 @@ def test_mobile_and_reduced_motion_fallbacks_disable_sticky_storytelling():
 def test_timeline_counter_stays_out_of_grid_flow_and_content_keeps_full_width():
     css = compact_css(read("timeline-fix.css"))
     assert ".timeline-story.timeline-item::before{position:absolute" in css
-    assert ".timeline-story.timeline-item>div{grid-column:2;min-width:0}" in css
+    assert ".timeline-story.timeline-item>div{grid-column:2;min-width:0;}" in css
 
 
 def test_no_external_runtime_dependencies_or_scroll_hijacking():
