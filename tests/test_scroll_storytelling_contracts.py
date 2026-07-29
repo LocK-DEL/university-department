@@ -8,6 +8,10 @@ def read(path: str) -> str:
     return (ROOT / path).read_text(encoding="utf-8")
 
 
+def compact_css(text: str) -> str:
+    return re.sub(r"\s+", "", text.lower())
+
+
 def test_shared_motion_assets_exist_and_are_loaded_by_base_script():
     assert (ROOT / "motion.css").is_file()
     assert (ROOT / "motion.js").is_file()
@@ -18,16 +22,16 @@ def test_shared_motion_assets_exist_and_are_loaded_by_base_script():
 
 
 def test_approved_monochrome_cold_blue_palette_is_present():
-    css = read("motion.css").lower()
+    css = compact_css(read("motion.css"))
     for token in (
-        "--bg-primary: #050505",
-        "--bg-secondary: #0b0c0e",
-        "--surface: #111216",
-        "--surface-raised: #17181c",
-        "--text-primary: #f4f4f0",
-        "--accent: #8da9ff",
-        "--accent-bright: #b6c7ff",
-        "--light-section: #efeee9",
+        "--bg-primary:#050505",
+        "--bg-secondary:#0b0c0e",
+        "--surface:#111216",
+        "--surface-raised:#17181c",
+        "--text-primary:#f4f4f0",
+        "--accent:#8da9ff",
+        "--accent-bright:#b6c7ff",
+        "--light-section:#efeee9",
     ):
         assert token in css
 
@@ -77,11 +81,11 @@ def test_all_six_projects_keep_real_links_order_status_and_accents():
 
 
 def test_mobile_and_reduced_motion_fallbacks_disable_sticky_storytelling():
-    css = read("motion.css")
-    assert "@media (max-width: 900px)" in css
-    assert "@media (prefers-reduced-motion: reduce)" in css
-    assert "position: static !important" in css
-    assert "transform: none !important" in css
+    css = compact_css(read("motion.css"))
+    assert "@media(max-width:900px)" in css
+    assert "@media(prefers-reduced-motion:reduce)" in css
+    assert "position:static!important" in css
+    assert "transform:none!important" in css
     assert ".project-scroll-steps" in css
 
 
