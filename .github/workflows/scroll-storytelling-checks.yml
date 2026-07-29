@@ -38,8 +38,35 @@ jobs:
           node --check motion.js
 
       - name: Check forbidden runtime dependencies
+        shell: python
         run: |
-          ! grep -RInE 'fonts\.googleapis\.com|fonts\.gstatic\.com|cdnjs|jsdelivr|unpkg|addEventListener\(["'"']wheel|scroll-snap-type:[[:space:]]*y[[:space:]]+mandatory' --include='*.html' --include='*.css' --include='*.js' .
+          from pathlib import Path
+          import re
+
+          forbidden_literals = (
+              "fonts.googleapis.com",
+              "fonts.gstatic.com",
+              "cdnjs",
+              "jsdelivr",
+              "unpkg",
+          )
+          wheel_listener = re.compile(r"addEventListener\s*\(\s*['\"]wheel")
+          mandatory_snap = re.compile(r"scroll-snap-type\s*:\s*y\s+mandatory", re.I)
+
+          failures = []
+          for suffix in ("*.html", "*.css", "*.js"):
+              for path in Path(".").rglob(suffix):
+                  text = path.read_text(encoding="utf-8")
+                  lowered = text.lower()
+                  if any(item in lowered for item in forbidden_literals):
+                      failures.append(f"external runtime dependency: {path}")
+                  if wheel_listener.search(text):
+                      failures.append(f"wheel listener: {path}")
+                  if mandatory_snap.search(text):
+                      failures.append(f"mandatory scroll snap: {path}")
+
+          if failures:
+              raise SystemExit("\n".join(failures))
 
       - name: Verify CNAME
         run: test "$(tr -d '\r\n' < CNAME)" = "www.universitydepartment.store"
