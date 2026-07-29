@@ -1,0 +1,119 @@
+@media print {
+    @page {
+        size: A4;
+        margin: 12mm 13mm;
+    }
+
+    html,
+    body.resume-page {
+        background: #ffffff !important;
+        color: #111111 !important;
+        font-size: 10pt;
+    }
+
+    .resume-page .site-header,
+    .resume-page .back-to-top,
+    .resume-page .scroll-progress,
+    .resume-page .site-footer,
+    .resume-page-actions,
+    .resume-safety-note {
+        display: none !important;
+    }
+
+    .resume-page-hero {
+        min-height: auto;
+        padding: 0 0 10mm;
+        border-bottom: 1px solid #9aa8cc;
+        background: #ffffff !important;
+    }
+
+    .resume-page-hero h1 {
+        margin: 0 0 4mm;
+        color: #111111 !important;
+        font-size: 27pt;
+        line-height: 1;
+    }
+
+    .resume-page-hero h1 span,
+    .resume-block__eyebrow,
+    .resume-meta-line,
+    .eyebrow {
+        color: #526baf !important;
+    }
+
+    .resume-page-hero__summary,
+    .resume-document__rail li,
+    .resume-list p,
+    .resume-project-list p,
+    .resume-project-list li {
+        color: #444444 !important;
+    }
+
+    .resume-document {
+        padding: 8mm 0 0;
+    }
+
+    .resume-document__layout {
+        display: block;
+    }
+
+    .resume-document__rail {
+        position: static;
+        margin-bottom: 7mm;
+    }
+
+    .resume-document__rail ul {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2mm 8mm;
+        margin-top: 3mm;
+    }
+
+    .resume-document__rail li {
+        padding: 1mm 0;
+        border: 0;
+    }
+
+    .resume-block,
+    .resume-block + .resume-block {
+        padding: 0 0 6mm;
+        border: 0;
+        break-inside: avoid;
+    }
+
+    .resume-block h2 {
+        margin-bottom: 3mm;
+        font-size: 16pt;
+        color: #111111 !important;
+    }
+
+    .resume-list,
+    .resume-project-list {
+        gap: 2.5mm;
+    }
+
+    .resume-list article,
+    .resume-project-list article {
+        padding: 3mm 3.5mm;
+        border: 1px solid #d7dbe5;
+        background: #ffffff !important;
+        break-inside: avoid;
+    }
+
+    .resume-list h3,
+    .resume-project-list h3 {
+        margin-bottom: 1mm;
+        color: #111111 !important;
+        font-size: 11pt;
+    }
+
+    .resume-project-list ul {
+        gap: 1mm;
+        margin-top: 2mm;
+    }
+
+    [data-reveal] {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
