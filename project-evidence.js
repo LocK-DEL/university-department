@@ -3,6 +3,8 @@
 
     const CLASSROOM_TITLE = "课堂知识智能重构系统";
     const CLASSROOM_IMAGE = "../assets/project-evidence/classroom-home.b64.txt";
+    const CARERING_TITLE = "CareRing智能健康手环";
+    const CARERING_IMAGE = "../assets/project-evidence/carering-prototype-collage.b64.txt";
 
     async function loadEncodedImage(image) {
         const source = image.dataset.base64Image;
@@ -21,6 +23,12 @@
         }
     }
 
+    function findVerificationSection() {
+        const verificationHeading = [...document.querySelectorAll(".project-section-heading h2")]
+            .find((heading) => heading.textContent.trim() === "当前验证状态");
+        return verificationHeading?.closest(".project-section") || null;
+    }
+
     function updateClassroomVerification() {
         document.querySelectorAll(".verification-status-list li").forEach((item) => {
             const label = item.querySelector("span")?.textContent.trim();
@@ -35,9 +43,7 @@
         const title = document.querySelector(".project-title")?.textContent.trim();
         if (title !== CLASSROOM_TITLE || document.getElementById("classroom-evidence")) return;
 
-        const verificationHeading = [...document.querySelectorAll(".project-section-heading h2")]
-            .find((heading) => heading.textContent.trim() === "当前验证状态");
-        const verificationSection = verificationHeading?.closest(".project-section");
+        const verificationSection = findVerificationSection();
         if (!verificationSection) return;
 
         const section = document.createElement("section");
@@ -78,9 +84,54 @@
         updateClassroomVerification();
     }
 
+    function addCareRingEvidence() {
+        const title = document.querySelector(".project-title")?.textContent.trim();
+        if (title !== CARERING_TITLE || document.getElementById("carering-evidence")) return;
+
+        const verificationSection = findVerificationSection();
+        if (!verificationSection) return;
+
+        const section = document.createElement("section");
+        section.className = "project-section project-evidence-section";
+        section.id = "carering-evidence";
+        section.innerHTML = `
+            <div class="container">
+                <div class="project-section-heading">
+                    <p>Prototype Evidence</p>
+                    <h2>结构适配原型实拍</h2>
+                </div>
+                <div class="project-evidence-gallery project-evidence-gallery--single">
+                    <figure class="project-evidence-figure">
+                        <div class="project-evidence-media project-evidence-media--prototype">
+                            <img
+                                alt="CareRing卡片侧插与扩展仓外观适配原型实拍拼图"
+                                loading="lazy"
+                                decoding="async"
+                                data-base64-image="${CARERING_IMAGE}"
+                            >
+                        </div>
+                        <figcaption>
+                            <strong>卡片侧插与扩展仓位置验证素材</strong>
+                            <span>实拍素材用于说明卡片侧插、扩展仓位置与外观适配。它反映的是结构构想和装配表达，不代表雾化、电路、健康功能或整机硬件已经完成验证。</span>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="project-evidence-facts" aria-label="CareRing原型证据边界">
+                    <span>卡片侧插表达</span>
+                    <span>扩展仓位置展示</span>
+                    <span>外观适配素材</span>
+                    <span>功能验证未完成</span>
+                </div>
+            </div>`;
+
+        verificationSection.insertAdjacentElement("beforebegin", section);
+        section.querySelectorAll("[data-base64-image]").forEach(loadEncodedImage);
+    }
+
     function initProjectEvidence() {
         if (!document.querySelector(".project-page")) return;
         addClassroomEvidence();
+        addCareRingEvidence();
     }
 
     if (document.readyState === "loading") {
