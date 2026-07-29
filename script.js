@@ -3,6 +3,7 @@
 
     if (loaderScript) {
         const styleUrl = new URL("motion.css", loaderScript.src).href;
+        const timelineFixUrl = new URL("timeline-fix.css", loaderScript.src).href;
         const runtimeUrl = new URL("motion.js", loaderScript.src).href;
 
         if (!document.querySelector('[data-motion-asset="style"]')) {
@@ -11,6 +12,14 @@
             stylesheet.href = styleUrl;
             stylesheet.dataset.motionAsset = "style";
             document.head.appendChild(stylesheet);
+        }
+
+        if (!document.querySelector('[data-motion-asset="timeline-fix"]')) {
+            const timelineFix = document.createElement("link");
+            timelineFix.rel = "stylesheet";
+            timelineFix.href = timelineFixUrl;
+            timelineFix.dataset.motionAsset = "timeline-fix";
+            document.head.appendChild(timelineFix);
         }
 
         if (!document.querySelector('[data-motion-asset="runtime"]')) {
