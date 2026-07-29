@@ -3,7 +3,12 @@
 
     const CLASSROOM_TITLE = "课堂知识智能重构系统";
     const CLASSROOM_IMAGE = "../assets/project-evidence/classroom-home.b64.txt";
-    const CLASSROOM_VIDEO = "../assets/project-evidence/classroom-demo-highlight.b64.txt";
+    const CLASSROOM_VIDEO_PARTS = [
+        "../assets/project-evidence/classroom-demo-mini-00.b64.txt",
+        "../assets/project-evidence/classroom-demo-mini-01.b64.txt",
+        "../assets/project-evidence/classroom-demo-mini-02.b64.txt",
+        "../assets/project-evidence/classroom-demo-mini-03.b64.txt",
+    ];
     const CARERING_TITLE = "CareRing智能健康手环";
     const CARERING_IMAGE = "../assets/project-evidence/carering-prototype-collage.b64.txt";
 
@@ -29,11 +34,11 @@
     }
 
     async function loadEncodedVideo(video) {
-        const source = video.dataset.base64Video;
-        if (!source) return;
+        if (!video.dataset.base64Video) return;
 
         try {
-            const encoded = await fetchEncodedPayload(source);
+            const parts = await Promise.all(CLASSROOM_VIDEO_PARTS.map(fetchEncodedPayload));
+            const encoded = parts.join("");
             const binary = atob(encoded);
             const bytes = new Uint8Array(binary.length);
             for (let index = 0; index < binary.length; index += 1) {
@@ -83,7 +88,7 @@
             <div class="container">
                 <div class="project-section-heading">
                     <p>Interface Evidence</p>
-                    <h2>真实界面与脱敏演示</h2>
+                    <h2>真实界面证据</h2>
                 </div>
                 <div class="project-evidence-gallery project-evidence-gallery--single">
                     <figure class="project-evidence-figure">
@@ -108,12 +113,12 @@
                                 muted
                                 playsinline
                                 preload="metadata"
-                                data-base64-video="${CLASSROOM_VIDEO}"
+                                data-base64-video="segmented"
                                 style="position:relative;z-index:1;display:block;width:100%;height:100%;object-fit:contain;background:#08090b"
                             ></video>
                         </div>
                         <figcaption>
-                            <strong>脱敏功能演示</strong>
+                            <strong>15秒脱敏功能演示</strong>
                             <span>演示覆盖系统首页、知识图谱、AI题目生成与课堂总结。公开版本已删除原音，并裁去姓名、身份材料文件名、API配置、外部IP提示和本地目录等敏感区域；视频不会自动播放。</span>
                         </figcaption>
                     </figure>
