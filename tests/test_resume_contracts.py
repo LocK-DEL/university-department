@@ -9,16 +9,23 @@ def read(path: str) -> str:
 
 
 def test_public_resume_assets_exist_and_are_wired():
-    assert (ROOT / "resume.html").is_file()
-    assert (ROOT / "resume.css").is_file()
-    assert (ROOT / "resume-entry.js").is_file()
-    pdf = ROOT / "assets/liu-wenlong-resume-public.pdf"
-    assert pdf.is_file()
-    assert pdf.read_bytes().startswith(b"%PDF")
+    for path in (
+        "resume.html",
+        "resume.css",
+        "resume-entry.js",
+        "resume-print.css",
+        "resume-print.js",
+    ):
+        assert (ROOT / path).is_file(), path
 
     script = read("script.js")
     assert 'new URL("resume.css", loaderScript.src)' in script
     assert 'new URL("resume-entry.js", loaderScript.src)' in script
+
+    html = read("resume.html")
+    assert 'href="resume-print.css"' in html
+    assert 'src="resume-print.js"' in html
+    assert "data-print-resume" in html
 
 
 def test_public_resume_removes_sensitive_and_stale_fields():
@@ -43,13 +50,23 @@ def test_resume_uses_verified_project_evidence():
         assert required in text
 
 
-def test_resume_entry_adds_navigation_section_and_downloads():
+def test_resume_entry_adds_navigation_section_and_print_action():
     text = read("resume-entry.js")
     assert 'href="#resume"' in text
     assert 'section.id = "resume"' in text
-    assert 'assets/liu-wenlong-resume-public.pdf' in text
+    assert 'resume.html#print' in text
     assert 'resume.html' in text
+    assert "打印 / 保存PDF" in text
     assert "简历整理中" in text
+
+
+def test_print_runtime_calls_native_browser_print():
+    runtime = read("resume-print.js")
+    assert "window.print()" in runtime
+    assert 'window.location.hash === "#print"' in runtime
+    css = read("resume-print.css")
+    assert "@media print" in css
+    assert "size: A4" in css
 
 
 def test_resume_links_are_https_or_local():
