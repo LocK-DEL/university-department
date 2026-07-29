@@ -57,7 +57,8 @@ def test_resume_entry_adds_navigation_section_and_print_action():
     assert 'resume.html#print' in text
     assert 'resume.html' in text
     assert "打印 / 保存PDF" in text
-    assert "简历整理中" in text
+    assert 'node.textContent.includes("简历")' in text
+    assert "placeholder.replaceWith(group)" in text
 
 
 def test_print_runtime_calls_native_browser_print():
