@@ -4,6 +4,7 @@
     if (loaderScript) {
         const styleUrl = new URL("motion.css", loaderScript.src).href;
         const timelineFixUrl = new URL("timeline-fix.css", loaderScript.src).href;
+        const projectLinksFixUrl = new URL("desktop-project-links.css", loaderScript.src).href;
         const resumeStyleUrl = new URL("resume.css", loaderScript.src).href;
         const resumeEntryUrl = new URL("resume-entry.js", loaderScript.src).href;
         const evidenceStyleUrl = new URL("project-evidence.css", loaderScript.src).href;
@@ -24,6 +25,14 @@
             timelineFix.href = timelineFixUrl;
             timelineFix.dataset.motionAsset = "timeline-fix";
             document.head.appendChild(timelineFix);
+        }
+
+        if (!document.querySelector('[data-motion-asset="project-links-fix"]')) {
+            const projectLinksFix = document.createElement("link");
+            projectLinksFix.rel = "stylesheet";
+            projectLinksFix.href = projectLinksFixUrl;
+            projectLinksFix.dataset.motionAsset = "project-links-fix";
+            document.head.appendChild(projectLinksFix);
         }
 
         if (!document.querySelector('[data-resume-asset="style"]')) {
