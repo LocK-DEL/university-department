@@ -1,3 +1,28 @@
+(() => {
+    const loaderScript = document.currentScript || [...document.scripts].find((script) => /(?:^|\/)script\.js(?:\?|$)/.test(script.src));
+
+    if (loaderScript) {
+        const styleUrl = new URL("motion.css", loaderScript.src).href;
+        const runtimeUrl = new URL("motion.js", loaderScript.src).href;
+
+        if (!document.querySelector('[data-motion-asset="style"]')) {
+            const stylesheet = document.createElement("link");
+            stylesheet.rel = "stylesheet";
+            stylesheet.href = styleUrl;
+            stylesheet.dataset.motionAsset = "style";
+            document.head.appendChild(stylesheet);
+        }
+
+        if (!document.querySelector('[data-motion-asset="runtime"]')) {
+            const runtime = document.createElement("script");
+            runtime.src = runtimeUrl;
+            runtime.async = false;
+            runtime.dataset.motionAsset = "runtime";
+            document.head.appendChild(runtime);
+        }
+    }
+})();
+
 document.addEventListener("DOMContentLoaded", () => {
     const menuToggle = document.querySelector(".menu-toggle");
     const navigation = document.getElementById("primary-navigation");

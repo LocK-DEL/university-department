@@ -1,0 +1,72 @@
+name: Scroll storytelling checks
+
+on:
+  push:
+    branches:
+      - codex/scroll-storytelling-redesign
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install test dependency
+        run: python -m pip install --disable-pip-version-check pytest
+
+      - name: Run contract tests
+        run: python -m pytest -q tests
+
+      - name: Compile test sources
+        run: python -m compileall -q tests
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check script.js
+          node --check motion.js
+
+      - name: Check forbidden runtime dependencies
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          forbidden_literals = (
+              "fonts.googleapis.com",
+              "fonts.gstatic.com",
+              "cdnjs",
+              "jsdelivr",
+              "unpkg",
+          )
+          wheel_listener = re.compile(r"addEventListener\s*\(\s*['\"]wheel")
+          mandatory_snap = re.compile(r"scroll-snap-type\s*:\s*y\s+mandatory", re.I)
+
+          failures = []
+          for suffix in ("*.html", "*.css", "*.js"):
+              for path in Path(".").rglob(suffix):
+                  text = path.read_text(encoding="utf-8")
+                  lowered = text.lower()
+                  if any(item in lowered for item in forbidden_literals):
+                      failures.append(f"external runtime dependency: {path}")
+                  if wheel_listener.search(text):
+                      failures.append(f"wheel listener: {path}")
+                  if mandatory_snap.search(text):
+                      failures.append(f"mandatory scroll snap: {path}")
+
+          if failures:
+              raise SystemExit("\n".join(failures))
+
+      - name: Verify CNAME
+        run: test "$(tr -d '\r\n' < CNAME)" = "www.universitydepartment.store"
