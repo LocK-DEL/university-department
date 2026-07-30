@@ -5,7 +5,8 @@
         dashboard: [
             ["assets/project-evidence/trading-dashboard.part-01.b64.txt", 8000],
             ["assets/project-evidence/trading-dashboard.part-02.b64.txt", 16000],
-            ["assets/project-evidence/trading-dashboard.part-02b.b64.txt", 15000],
+            ["assets/project-evidence/trading-dashboard.part-02b1.b64.txt", null],
+            ["assets/project-evidence/trading-dashboard.part-02b2.b64.txt", null],
             ["assets/project-evidence/trading-dashboard.part-03.b64.txt", 15000],
             ["assets/project-evidence/trading-dashboard.part-04.b64.txt", 14432],
         ],
@@ -39,11 +40,18 @@
         const chunks = await Promise.all(definition.map(async ([path, expectedLength]) => {
             const response = await fetch(new URL(path, baseUrl), { credentials: "same-origin" });
             if (!response.ok) throw new Error(`HTTP ${response.status}: ${path}`);
+
             const chunk = (await response.text()).replace(/\s+/g, "");
-            if (chunk.length < expectedLength) {
-                throw new Error(`Incomplete media chunk: ${path}`);
+            if (!chunk) throw new Error(`Empty media chunk: ${path}`);
+
+            if (expectedLength !== null) {
+                if (chunk.length < expectedLength) {
+                    throw new Error(`Incomplete media chunk: ${path}`);
+                }
+                return chunk.slice(0, expectedLength);
             }
-            return chunk.slice(0, expectedLength);
+
+            return chunk;
         }));
 
         const encoded = chunks.join("");
