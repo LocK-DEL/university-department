@@ -3,11 +3,22 @@
 
     const CLASSROOM_TITLE = "课堂知识智能重构系统";
     const CLASSROOM_IMAGE = "../assets/project-evidence/classroom-home.b64.txt";
-    const CLASSROOM_VIDEO_PARTS = [
-        "../assets/project-evidence/classroom-demo-mini-00.b64.txt",
-        "../assets/project-evidence/classroom-demo-mini-01.b64.txt",
-        "../assets/project-evidence/classroom-demo-mini-02.b64.txt",
-        "../assets/project-evidence/classroom-demo-mini-03.b64.txt",
+    const CLASSROOM_DEMO_FRAMES = [
+        {
+            label: "系统首页",
+            source: "../assets/project-evidence/classroom-demo-home-hd.b64.txt",
+            alt: "课堂知识智能重构系统首页高清脱敏画面",
+        },
+        {
+            label: "知识图谱",
+            source: "../assets/project-evidence/classroom-demo-graph-hd.b64.txt",
+            alt: "课堂知识智能重构系统知识图谱高清脱敏画面",
+        },
+        {
+            label: "题目生成",
+            source: "../assets/project-evidence/classroom-demo-questions-hd.b64.txt",
+            alt: "课堂知识智能重构系统AI题目生成高清脱敏画面",
+        },
     ];
     const CARERING_TITLE = "CareRing智能健康手环";
     const CARERING_IMAGE = "../assets/project-evidence/carering-prototype-collage.b64.txt";
@@ -27,35 +38,56 @@
             if (!encoded.startsWith("UklG")) throw new Error("Invalid WebP payload");
             image.src = `data:image/webp;base64,${encoded}`;
             image.removeAttribute("data-base64-image");
+            image.closest(".project-evidence-media")?.classList.add("is-ready");
         } catch (error) {
             image.closest("figure")?.classList.add("is-unavailable");
             console.warn("Project evidence image could not be loaded.", error);
         }
     }
 
-    async function loadEncodedVideo(video) {
-        if (!video.dataset.base64Video) return;
+    function activateDemoFrame(demo, index) {
+        const frames = [...demo.querySelectorAll("[data-demo-frame]")];
+        const controls = [...demo.querySelectorAll("[data-demo-control]")];
+        const safeIndex = Math.max(0, Math.min(index, frames.length - 1));
 
-        try {
-            const parts = await Promise.all(CLASSROOM_VIDEO_PARTS.map(fetchEncodedPayload));
-            const encoded = parts.join("");
-            const binary = atob(encoded);
-            const bytes = new Uint8Array(binary.length);
-            for (let index = 0; index < binary.length; index += 1) {
-                bytes[index] = binary.charCodeAt(index);
-            }
-            const header = String.fromCharCode(...bytes.slice(4, 12));
-            if (!header.includes("ftyp")) throw new Error("Invalid MP4 payload");
+        frames.forEach((frame, frameIndex) => {
+            const active = frameIndex === safeIndex;
+            frame.hidden = !active;
+            frame.setAttribute("aria-hidden", active ? "false" : "true");
+        });
 
-            const objectUrl = URL.createObjectURL(new Blob([bytes], { type: "video/mp4" }));
-            video.src = objectUrl;
-            video.removeAttribute("data-base64-video");
-            video.closest("figure")?.classList.add("is-ready");
-            window.addEventListener("pagehide", () => URL.revokeObjectURL(objectUrl), { once: true });
-        } catch (error) {
-            video.closest("figure")?.classList.add("is-unavailable");
-            console.warn("Project evidence video could not be loaded.", error);
-        }
+        controls.forEach((control, controlIndex) => {
+            const active = controlIndex === safeIndex;
+            control.classList.toggle("is-active", active);
+            control.setAttribute("aria-selected", active ? "true" : "false");
+            control.setAttribute("tabindex", active ? "0" : "-1");
+        });
+
+        demo.dataset.activeDemoFrame = String(safeIndex);
+    }
+
+    function initDemoSequence(demo) {
+        const controls = [...demo.querySelectorAll("[data-demo-control]")];
+        if (!controls.length) return;
+
+        controls.forEach((control, index) => {
+            control.addEventListener("click", () => activateDemoFrame(demo, index));
+            control.addEventListener("keydown", (event) => {
+                if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+                event.preventDefault();
+
+                let next = index;
+                if (event.key === "ArrowLeft") next = (index - 1 + controls.length) % controls.length;
+                if (event.key === "ArrowRight") next = (index + 1) % controls.length;
+                if (event.key === "Home") next = 0;
+                if (event.key === "End") next = controls.length - 1;
+
+                activateDemoFrame(demo, next);
+                controls[next].focus();
+            });
+        });
+
+        activateDemoFrame(demo, 0);
     }
 
     function findVerificationSection() {
@@ -72,6 +104,38 @@
                 if (value) value.textContent = "49项测试通过";
             }
         });
+    }
+
+    function demoFramesMarkup() {
+        const images = CLASSROOM_DEMO_FRAMES.map((frame, index) => `
+            <img
+                ${index === 0 ? "" : "hidden"}
+                data-demo-frame="${index}"
+                data-base64-image="${frame.source}"
+                alt="${frame.alt}"
+                loading="lazy"
+                decoding="async"
+                aria-hidden="${index === 0 ? "false" : "true"}"
+            >`).join("");
+
+        const controls = CLASSROOM_DEMO_FRAMES.map((frame, index) => `
+            <button
+                type="button"
+                role="tab"
+                data-demo-control="${index}"
+                aria-selected="${index === 0 ? "true" : "false"}"
+                tabindex="${index === 0 ? "0" : "-1"}"
+            >${String(index + 1).padStart(2, "0")} · ${frame.label}</button>`).join("");
+
+        return `
+            <div class="project-evidence-demo" data-demo-sequence data-active-demo-frame="0">
+                <div class="project-evidence-media project-evidence-demo__stage" role="tabpanel" aria-label="课堂知识系统高清功能画面">
+                    ${images}
+                </div>
+                <div class="project-evidence-demo__controls" role="tablist" aria-label="切换课堂知识系统功能画面">
+                    ${controls}
+                </div>
+            </div>`;
     }
 
     function addClassroomEvidence() {
@@ -105,21 +169,11 @@
                             <span>可见文件上传、Whisper语音转写、NLP知识提取、知识图谱和AI题目生成等核心入口。截图来自此前保存的真实项目材料，不包含API密钥、课堂原始数据或学生身份信息。</span>
                         </figcaption>
                     </figure>
-                    <figure class="project-evidence-figure project-evidence-video">
-                        <div class="project-evidence-media">
-                            <video
-                                aria-label="课堂知识智能重构系统脱敏功能演示"
-                                controls
-                                muted
-                                playsinline
-                                preload="metadata"
-                                data-base64-video="segmented"
-                                style="position:relative;z-index:1;display:block;width:100%;height:100%;object-fit:contain;background:#08090b"
-                            ></video>
-                        </div>
+                    <figure class="project-evidence-figure project-evidence-demo-figure">
+                        ${demoFramesMarkup()}
                         <figcaption>
-                            <strong>15秒脱敏功能演示</strong>
-                            <span>演示覆盖系统首页、知识图谱、AI题目生成与课堂总结。公开版本已删除原音，并裁去姓名、身份材料文件名、API配置、外部IP提示和本地目录等敏感区域；视频不会自动播放。</span>
+                            <strong>高清脱敏功能演示序列</strong>
+                            <span>旧的低清视频已移除，改为三张从原始1728×1080录屏提取的清晰功能画面。可手动切换系统首页、知识图谱与AI题目生成；已裁去姓名、身份材料文件名、API配置、外部IP提示和本地目录等敏感区域。</span>
                         </figcaption>
                     </figure>
                 </div>
@@ -127,14 +181,14 @@
                     <span>49项测试通过</span>
                     <span>前后端本地启动已验证</span>
                     <span>离线安全模式</span>
-                    <span>脱敏演示视频</span>
+                    <span>高清脱敏功能画面</span>
                     <span>个人独立项目</span>
                 </div>
             </div>`;
 
         verificationSection.insertAdjacentElement("beforebegin", section);
         section.querySelectorAll("[data-base64-image]").forEach(loadEncodedImage);
-        section.querySelectorAll("[data-base64-video]").forEach(loadEncodedVideo);
+        section.querySelectorAll("[data-demo-sequence]").forEach(initDemoSequence);
         updateClassroomVerification();
     }
 
