@@ -13,12 +13,30 @@
     grid-template-columns: minmax(0, 1fr);
 }
 
+.project-evidence-intro {
+    max-width: 920px;
+    margin: 0 0 24px;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
 .project-evidence-figure {
     margin: 0;
     overflow: hidden;
     border: 1px solid rgba(141, 169, 255, 0.22);
     border-radius: 22px;
     background: rgba(255, 255, 255, 0.025);
+}
+
+.project-evidence-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.project-evidence-link:focus-visible {
+    outline: 2px solid var(--accent, #8da9ff);
+    outline-offset: -4px;
 }
 
 .project-evidence-media {
@@ -35,6 +53,20 @@
 
 .project-evidence-media--prototype {
     aspect-ratio: 30 / 19;
+}
+
+.project-evidence-media--trading-dashboard {
+    aspect-ratio: 1200 / 759;
+}
+
+.project-evidence-media--trading-cli {
+    aspect-ratio: 1200 / 694;
+}
+
+.project-evidence-media--trading-dashboard img,
+.project-evidence-media--trading-cli img {
+    object-fit: contain;
+    object-position: center;
 }
 
 .project-evidence-media::before {
