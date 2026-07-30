@@ -81,6 +81,41 @@
         return heading?.closest(".project-section") || null;
     }
 
+    function installStyles() {
+        if (document.querySelector('[data-trading-evidence-style="final"]')) return;
+        const style = document.createElement("style");
+        style.dataset.tradingEvidenceStyle = "final";
+        style.textContent = `
+            .project-evidence-intro {
+                max-width: 920px;
+                margin: 0 0 28px;
+                color: var(--muted);
+                line-height: 1.8;
+            }
+            .trading-evidence-gallery {
+                gap: 26px;
+            }
+            .project-evidence-media--trading-dashboard {
+                aspect-ratio: 800 / 506;
+            }
+            .project-evidence-media--trading-cli {
+                aspect-ratio: 800 / 463;
+            }
+            .project-evidence-media--trading-dashboard img,
+            .project-evidence-media--trading-cli img {
+                object-fit: contain;
+                object-position: center;
+            }
+            @media (max-width: 768px) {
+                .project-evidence-intro {
+                    margin-bottom: 20px;
+                    font-size: 0.94rem;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
     function addTradingEvidence() {
         const title = document.querySelector(".project-title")?.textContent.trim();
         if (!TRADING_TITLES.has(title)) return;
@@ -88,6 +123,7 @@
 
         const verificationSection = findVerificationSection();
         if (!verificationSection) return;
+        installStyles();
 
         const section = document.createElement("section");
         section.className = "project-section project-evidence-section trading-evidence-section";
