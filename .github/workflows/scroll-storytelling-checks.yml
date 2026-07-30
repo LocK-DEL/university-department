@@ -43,6 +43,7 @@ jobs:
           node --check resume-entry.js
           node --check resume-print.js
           node --check project-evidence.js
+          node --check trading-evidence-final.js
 
       - name: Check forbidden runtime dependencies
         shell: python
