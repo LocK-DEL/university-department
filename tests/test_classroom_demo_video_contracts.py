@@ -2,7 +2,11 @@ from pathlib import Path
 import base64
 
 ROOT = Path(__file__).resolve().parents[1]
-VIDEO_PARTS = tuple(
+DEMO_FRAMES = (
+    ROOT / "assets/project-evidence/classroom-demo-home-hd.b64.txt",
+    ROOT / "assets/project-evidence/classroom-demo-graph-hd.b64.txt",
+)
+OLD_VIDEO_PARTS = tuple(
     ROOT / f"assets/project-evidence/classroom-demo-mini-{index:02d}.b64.txt"
     for index in range(4)
 )
@@ -12,42 +16,41 @@ def read(path: str) -> str:
     return (ROOT / path).read_text(encoding="utf-8")
 
 
-def test_sanitized_demo_chunks_decode_to_small_mp4():
-    for part in VIDEO_PARTS:
-        assert part.is_file(), part
+def test_clear_demo_frames_decode_to_webp():
+    for frame in DEMO_FRAMES:
+        assert frame.is_file(), frame
+        data = base64.b64decode(frame.read_text(encoding="utf-8").strip(), validate=True)
+        assert data[:4] == b"RIFF"
+        assert b"WEBP" in data[:16]
+        assert 3_000 < len(data) < 40_000
 
-    encoded = "".join(part.read_text(encoding="utf-8").strip() for part in VIDEO_PARTS)
-    data = base64.b64decode(encoded, validate=True)
-    assert b"ftyp" in data[:32]
-    assert 15_000 < len(data) < 20_000
 
-
-def test_classroom_page_runtime_exposes_manual_video_controls():
+def test_classroom_runtime_uses_clear_manual_demo_sequence():
     runtime = read("project-evidence.js")
     for required in (
-        "classroom-demo-mini-00.b64.txt",
-        "classroom-demo-mini-01.b64.txt",
-        "classroom-demo-mini-02.b64.txt",
-        "classroom-demo-mini-03.b64.txt",
-        "真实界面证据",
-        "15秒脱敏功能演示",
-        "controls",
-        "muted",
-        "playsinline",
-        'preload="metadata"',
-        "视频不会自动播放",
-        "Promise.all(CLASSROOM_VIDEO_PARTS.map(fetchEncodedPayload))",
-        "URL.createObjectURL",
-        'new Blob([bytes], { type: "video/mp4" })',
+        "classroom-demo-home-hd.b64.txt",
+        "classroom-demo-graph-hd.b64.txt",
+        "高清脱敏功能画面",
+        "系统首页",
+        "知识图谱",
+        "data-demo-control",
+        "aria-selected",
+        "ArrowLeft",
+        "ArrowRight",
     ):
         assert required in runtime
+
+    assert "classroom-demo-questions-hd.b64.txt" not in runtime
+    assert "CLASSROOM_VIDEO_PARTS" not in runtime
+    assert "loadEncodedVideo" not in runtime
+    assert "<video" not in runtime
     assert "autoplay" not in runtime
 
 
-def test_public_video_copy_documents_sanitization_boundaries():
+def test_public_demo_copy_documents_sanitization_boundaries():
     runtime = read("project-evidence.js")
     for required in (
-        "删除原音",
+        "旧的低清视频已移除",
         "姓名",
         "身份材料文件名",
         "API配置",
@@ -57,5 +60,19 @@ def test_public_video_copy_documents_sanitization_boundaries():
         assert required in runtime
 
 
-def test_video_integration_keeps_cname_unchanged():
+def test_clear_demo_css_uses_contain_without_stretching():
+    css = read("project-evidence.css")
+    assert ".project-evidence-demo__stage" in css
+    assert "aspect-ratio: 16 / 9" in css
+    assert "object-fit: contain" in css
+    assert ".project-evidence-demo__controls" in css
+
+
+def test_old_blurry_video_parts_are_not_referenced():
+    runtime = read("project-evidence.js")
+    for part in OLD_VIDEO_PARTS:
+        assert part.name not in runtime
+
+
+def test_demo_integration_keeps_cname_unchanged():
     assert read("CNAME").strip() == "www.universitydepartment.store"
