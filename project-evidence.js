@@ -21,13 +21,26 @@
         "BTC多周期行情分析与风控报告系统",
         "多周期行情分析与风控报告金融交易系统",
     ]);
-    const TRADING_DASHBOARD = "../assets/project-evidence/trading-dashboard.webp";
-    const TRADING_CLI = "../assets/project-evidence/trading-cli-redacted.webp";
+    const TRADING_DASHBOARD_PARTS = [
+        "../assets/project-evidence/trading-dashboard.part-01.b64.txt",
+        "../assets/project-evidence/trading-dashboard.part-02.b64.txt",
+        "../assets/project-evidence/trading-dashboard.part-02b.b64.txt",
+        "../assets/project-evidence/trading-dashboard.part-03.b64.txt",
+        "../assets/project-evidence/trading-dashboard.part-04.b64.txt",
+    ];
+    const TRADING_CLI_PARTS = [
+        "../assets/project-evidence/trading-cli.part-01.b64.txt",
+        "../assets/project-evidence/trading-cli.part-02.b64.txt",
+    ];
 
     async function fetchEncodedPayload(source) {
-        const response = await fetch(source, { credentials: "same-origin" });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        return (await response.text()).replace(/\s+/g, "");
+        const sources = Array.isArray(source) ? source : [source];
+        const parts = await Promise.all(sources.map(async (item) => {
+            const response = await fetch(item, { credentials: "same-origin" });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return (await response.text()).replace(/\s+/g, "");
+        }));
+        return parts.join("");
     }
 
     async function loadEncodedImage(image) {
@@ -43,6 +56,20 @@
         } catch (error) {
             image.closest("figure")?.classList.add("is-unavailable");
             console.warn("Project evidence image could not be loaded.", error);
+        }
+    }
+
+    async function loadChunkedImage(image, sources) {
+        if (!image) return;
+
+        try {
+            const encoded = await fetchEncodedPayload(sources);
+            if (!encoded.startsWith("UklG")) throw new Error("Invalid WebP payload");
+            image.src = `data:image/webp;base64,${encoded}`;
+            image.closest(".project-evidence-media")?.classList.add("is-ready");
+        } catch (error) {
+            image.closest("figure")?.classList.add("is-unavailable");
+            console.warn("Trading evidence image could not be loaded.", error);
         }
     }
 
@@ -188,25 +215,23 @@
             <p class="project-evidence-intro">以下为系统本地运行截图，用于展示实时行情监控、执行保护、AI Radar、持仓复盘与命令行交易计划输入流程；这些界面不构成投资建议，也不代表任何收益承诺。</p>
             <div class="project-evidence-gallery project-evidence-gallery--single">
                 <figure class="project-evidence-figure">
-                    <a class="project-evidence-link" href="${TRADING_DASHBOARD}" target="_blank" rel="noopener noreferrer" aria-label="打开实时监控与风控总览原图">
-                        <div class="project-evidence-media project-evidence-media--trading-dashboard is-ready">
-                            <img src="${TRADING_DASHBOARD}" alt="多周期行情分析与风控报告金融交易系统实时监控与风控总览本地运行截图" loading="lazy" decoding="async">
-                        </div>
-                    </a>
+                    <div class="project-evidence-media project-evidence-media--trading-dashboard">
+                        <img data-trading-image="dashboard" alt="多周期行情分析与风控报告金融交易系统实时监控与风控总览本地运行截图" loading="lazy" decoding="async">
+                    </div>
                     <figcaption><strong>实时监控与风控总览</strong><span>展示多标的实时行情、24小时涨跌、成交量、资金费率、Execution Guard、AI Radar 与 Position Review。该截图只证明本地界面与监控流程存在，不构成投资建议。</span></figcaption>
                 </figure>
                 <figure class="project-evidence-figure">
-                    <a class="project-evidence-link" href="${TRADING_CLI}" target="_blank" rel="noopener noreferrer" aria-label="打开命令行运行与交易计划输入脱敏原图">
-                        <div class="project-evidence-media project-evidence-media--trading-cli is-ready">
-                            <img src="${TRADING_CLI}" alt="金融交易系统命令行运行与交易计划输入脱敏截图" loading="lazy" decoding="async">
-                        </div>
-                    </a>
+                    <div class="project-evidence-media project-evidence-media--trading-cli">
+                        <img data-trading-image="cli" alt="金融交易系统命令行运行与交易计划输入脱敏截图" loading="lazy" decoding="async">
+                    </div>
                     <figcaption><strong>命令行运行与交易计划输入</strong><span>展示 Binance Futures 行情连接、Telegram 告警状态、交易计划输入和 Execution Guard 启动流程。Telegram chat_id、token前缀和本地绝对路径已遮挡，API Key 与 API Secret 未公开。</span></figcaption>
                 </figure>
             </div>
             <div class="project-evidence-facts" aria-label="交易系统运行证据与边界"><span>真实本地运行截图</span><span>36项测试通过</span><span>Execution Guard</span><span>Telegram告警</span><span>敏感信息已脱敏</span></div>
         </div>`;
         verificationSection.insertAdjacentElement("beforebegin", section);
+        loadChunkedImage(section.querySelector('[data-trading-image="dashboard"]'), TRADING_DASHBOARD_PARTS);
+        loadChunkedImage(section.querySelector('[data-trading-image="cli"]'), TRADING_CLI_PARTS);
     }
 
     function initProjectEvidence() {
