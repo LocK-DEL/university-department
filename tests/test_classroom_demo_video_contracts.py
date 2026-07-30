@@ -5,7 +5,6 @@ ROOT = Path(__file__).resolve().parents[1]
 DEMO_FRAMES = (
     ROOT / "assets/project-evidence/classroom-demo-home-hd.b64.txt",
     ROOT / "assets/project-evidence/classroom-demo-graph-hd.b64.txt",
-    ROOT / "assets/project-evidence/classroom-demo-questions-hd.b64.txt",
 )
 OLD_VIDEO_PARTS = tuple(
     ROOT / f"assets/project-evidence/classroom-demo-mini-{index:02d}.b64.txt"
@@ -31,11 +30,9 @@ def test_classroom_runtime_uses_clear_manual_demo_sequence():
     for required in (
         "classroom-demo-home-hd.b64.txt",
         "classroom-demo-graph-hd.b64.txt",
-        "classroom-demo-questions-hd.b64.txt",
-        "高清脱敏功能演示序列",
+        "高清脱敏功能画面",
         "系统首页",
         "知识图谱",
-        "题目生成",
         "data-demo-control",
         "aria-selected",
         "ArrowLeft",
@@ -43,6 +40,7 @@ def test_classroom_runtime_uses_clear_manual_demo_sequence():
     ):
         assert required in runtime
 
+    assert "classroom-demo-questions-hd.b64.txt" not in runtime
     assert "CLASSROOM_VIDEO_PARTS" not in runtime
     assert "loadEncodedVideo" not in runtime
     assert "<video" not in runtime
@@ -52,7 +50,7 @@ def test_classroom_runtime_uses_clear_manual_demo_sequence():
 def test_public_demo_copy_documents_sanitization_boundaries():
     runtime = read("project-evidence.js")
     for required in (
-        "原始1728×1080录屏",
+        "旧的低清视频已移除",
         "姓名",
         "身份材料文件名",
         "API配置",
