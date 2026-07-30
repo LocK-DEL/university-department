@@ -8,13 +8,13 @@ def read(path: str) -> str:
     return (ROOT / path).read_text(encoding="utf-8")
 
 
-def decode_parts(paths: tuple[str, ...]) -> bytes:
+def decode_parts(parts: tuple[tuple[str, int], ...]) -> bytes:
     chunks = []
-    for index, path in enumerate(paths):
+    for path, expected_length in parts:
         chunk = read(path).strip()
+        assert len(chunk) >= expected_length, (path, len(chunk), expected_length)
+        chunk = chunk[:expected_length]
         assert len(chunk) % 4 == 0, (path, len(chunk), chunk[-20:])
-        if index < len(paths) - 1:
-            assert "=" not in chunk, (path, len(chunk), chunk[-20:])
         chunks.append(chunk)
     encoded = "".join(chunks)
     return base64.b64decode(encoded, validate=True)
@@ -30,39 +30,50 @@ def assert_valid_webp(payload: bytes, minimum_size: int) -> None:
 
 def test_trading_dashboard_reconstructs_as_valid_webp():
     dashboard = decode_parts((
-        "assets/project-evidence/trading-dashboard.part-01.b64.txt",
-        "assets/project-evidence/trading-dashboard.part-02.b64.txt",
-        "assets/project-evidence/trading-dashboard.part-02b.b64.txt",
-        "assets/project-evidence/trading-dashboard.part-03.b64.txt",
-        "assets/project-evidence/trading-dashboard.part-04.b64.txt",
+        ("assets/project-evidence/trading-dashboard.part-01.b64.txt", 8000),
+        ("assets/project-evidence/trading-dashboard.part-02.b64.txt", 16000),
+        ("assets/project-evidence/trading-dashboard.part-02b.b64.txt", 15000),
+        ("assets/project-evidence/trading-dashboard.part-03.b64.txt", 15000),
+        ("assets/project-evidence/trading-dashboard.part-04.b64.txt", 14432),
     ))
     assert_valid_webp(dashboard, 40_000)
 
 
 def test_trading_cli_reconstructs_as_valid_webp():
     cli = decode_parts((
-        "assets/project-evidence/trading-cli.part-01.b64.txt",
-        "assets/project-evidence/trading-cli.part-02.b64.txt",
+        ("assets/project-evidence/trading-cli.part-01.b64.txt", 15000),
+        ("assets/project-evidence/trading-cli.part-02.b64.txt", 14264),
     ))
     assert_valid_webp(cli, 18_000)
 
 
 def test_trading_evidence_section_is_wired_with_accessible_copy():
     runtime = read("project-evidence.js")
+    media_runtime = read("trading-evidence-media.js")
+    loader = read("script.js")
+
     for required in (
         "trading-system-evidence",
         "真实运行界面",
         "实时监控与风控总览",
         "命令行运行与交易计划输入",
-        "trading-dashboard.part-01.b64.txt",
-        "trading-dashboard.part-04.b64.txt",
-        "trading-cli.part-01.b64.txt",
-        "trading-cli.part-02.b64.txt",
-        "loadChunkedImage",
         "Telegram chat_id、token前缀和本地绝对路径已遮挡",
         "不构成投资建议",
     ):
         assert required in runtime
+
+    for required in (
+        "trading-dashboard.part-01.b64.txt",
+        "trading-dashboard.part-04.b64.txt",
+        "trading-cli.part-01.b64.txt",
+        "trading-cli.part-02.b64.txt",
+        "Incomplete media chunk",
+        "Invalid reconstructed WebP payload",
+    ):
+        assert required in media_runtime
+
+    assert 'new URL("trading-evidence-media.js", loaderScript.src)' in loader
+    assert 'data-project-evidence-asset="trading-media"' in loader
 
 
 def test_trading_evidence_styles_are_responsive():
@@ -77,6 +88,7 @@ def test_private_debug_values_are_not_committed_as_text():
         read(path)
         for path in (
             "project-evidence.js",
+            "trading-evidence-media.js",
             "projects/trading-system.html",
             "docs/superpowers/specs/2026-07-30-trading-system-evidence-design.md",
         )
