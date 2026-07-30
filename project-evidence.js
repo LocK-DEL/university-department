@@ -17,6 +17,12 @@
     ];
     const CARERING_TITLE = "CareRing智能健康手环";
     const CARERING_IMAGE = "../assets/project-evidence/carering-prototype-collage.b64.txt";
+    const TRADING_TITLES = new Set([
+        "BTC多周期行情分析与风控报告系统",
+        "多周期行情分析与风控报告金融交易系统",
+    ]);
+    const TRADING_DASHBOARD = "../assets/project-evidence/trading-dashboard.webp";
+    const TRADING_CLI = "../assets/project-evidence/trading-cli-redacted.webp";
 
     async function fetchEncodedPayload(source) {
         const response = await fetch(source, { credentials: "same-origin" });
@@ -167,10 +173,47 @@
         section.querySelectorAll("[data-base64-image]").forEach(loadEncodedImage);
     }
 
+    function addTradingEvidence() {
+        const currentTitle = document.querySelector(".project-title")?.textContent.trim();
+        if (!TRADING_TITLES.has(currentTitle)) return;
+        if (document.getElementById("trading-system-evidence")) return;
+        const verificationSection = findVerificationSection();
+        if (!verificationSection) return;
+
+        const section = document.createElement("section");
+        section.className = "project-section project-evidence-section";
+        section.id = "trading-system-evidence";
+        section.innerHTML = `<div class="container">
+            <div class="project-section-heading"><p>Interface Evidence</p><h2>真实运行界面</h2></div>
+            <p class="project-evidence-intro">以下为系统本地运行截图，用于展示实时行情监控、执行保护、AI Radar、持仓复盘与命令行交易计划输入流程；这些界面不构成投资建议，也不代表任何收益承诺。</p>
+            <div class="project-evidence-gallery project-evidence-gallery--single">
+                <figure class="project-evidence-figure">
+                    <a class="project-evidence-link" href="${TRADING_DASHBOARD}" target="_blank" rel="noopener noreferrer" aria-label="打开实时监控与风控总览原图">
+                        <div class="project-evidence-media project-evidence-media--trading-dashboard is-ready">
+                            <img src="${TRADING_DASHBOARD}" alt="多周期行情分析与风控报告金融交易系统实时监控与风控总览本地运行截图" loading="lazy" decoding="async">
+                        </div>
+                    </a>
+                    <figcaption><strong>实时监控与风控总览</strong><span>展示多标的实时行情、24小时涨跌、成交量、资金费率、Execution Guard、AI Radar 与 Position Review。该截图只证明本地界面与监控流程存在，不构成投资建议。</span></figcaption>
+                </figure>
+                <figure class="project-evidence-figure">
+                    <a class="project-evidence-link" href="${TRADING_CLI}" target="_blank" rel="noopener noreferrer" aria-label="打开命令行运行与交易计划输入脱敏原图">
+                        <div class="project-evidence-media project-evidence-media--trading-cli is-ready">
+                            <img src="${TRADING_CLI}" alt="金融交易系统命令行运行与交易计划输入脱敏截图" loading="lazy" decoding="async">
+                        </div>
+                    </a>
+                    <figcaption><strong>命令行运行与交易计划输入</strong><span>展示 Binance Futures 行情连接、Telegram 告警状态、交易计划输入和 Execution Guard 启动流程。Telegram chat_id、token前缀和本地绝对路径已遮挡，API Key 与 API Secret 未公开。</span></figcaption>
+                </figure>
+            </div>
+            <div class="project-evidence-facts" aria-label="交易系统运行证据与边界"><span>真实本地运行截图</span><span>36项测试通过</span><span>Execution Guard</span><span>Telegram告警</span><span>敏感信息已脱敏</span></div>
+        </div>`;
+        verificationSection.insertAdjacentElement("beforebegin", section);
+    }
+
     function initProjectEvidence() {
         if (!document.querySelector(".project-page")) return;
         addClassroomEvidence();
         addCareRingEvidence();
+        addTradingEvidence();
     }
 
     if (document.readyState === "loading") {
