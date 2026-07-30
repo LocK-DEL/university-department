@@ -9,7 +9,14 @@ def read(path: str) -> str:
 
 
 def decode_parts(paths: tuple[str, ...]) -> bytes:
-    encoded = "".join(read(path).strip() for path in paths)
+    chunks = []
+    for index, path in enumerate(paths):
+        chunk = read(path).strip()
+        assert len(chunk) % 4 == 0, (path, len(chunk), chunk[-20:])
+        if index < len(paths) - 1:
+            assert "=" not in chunk, (path, len(chunk), chunk[-20:])
+        chunks.append(chunk)
+    encoded = "".join(chunks)
     return base64.b64decode(encoded, validate=True)
 
 
@@ -17,11 +24,11 @@ def assert_valid_webp(payload: bytes, minimum_size: int) -> None:
     assert payload[:4] == b"RIFF"
     assert payload[8:12] == b"WEBP"
     declared_size = int.from_bytes(payload[4:8], "little") + 8
-    assert declared_size == len(payload)
+    assert declared_size == len(payload), (declared_size, len(payload))
     assert len(payload) > minimum_size
 
 
-def test_trading_runtime_screenshots_reconstruct_as_valid_webp_files():
+def test_trading_dashboard_reconstructs_as_valid_webp():
     dashboard = decode_parts((
         "assets/project-evidence/trading-dashboard.part-01.b64.txt",
         "assets/project-evidence/trading-dashboard.part-02.b64.txt",
@@ -29,12 +36,14 @@ def test_trading_runtime_screenshots_reconstruct_as_valid_webp_files():
         "assets/project-evidence/trading-dashboard.part-03.b64.txt",
         "assets/project-evidence/trading-dashboard.part-04.b64.txt",
     ))
+    assert_valid_webp(dashboard, 40_000)
+
+
+def test_trading_cli_reconstructs_as_valid_webp():
     cli = decode_parts((
         "assets/project-evidence/trading-cli.part-01.b64.txt",
         "assets/project-evidence/trading-cli.part-02.b64.txt",
     ))
-
-    assert_valid_webp(dashboard, 40_000)
     assert_valid_webp(cli, 18_000)
 
 
