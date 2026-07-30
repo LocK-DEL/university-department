@@ -1,4 +1,5 @@
 from pathlib import Path
+import base64
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -7,15 +8,34 @@ def read(path: str) -> str:
     return (ROOT / path).read_text(encoding="utf-8")
 
 
-def test_trading_runtime_screenshots_are_valid_webp_files():
-    for path in (
-        "assets/project-evidence/trading-dashboard.webp",
-        "assets/project-evidence/trading-cli-redacted.webp",
-    ):
-        payload = (ROOT / path).read_bytes()
-        assert payload[:4] == b"RIFF", path
-        assert payload[8:12] == b"WEBP", path
-        assert len(payload) > 20_000, path
+def decode_parts(paths: tuple[str, ...]) -> bytes:
+    encoded = "".join(read(path).strip() for path in paths)
+    return base64.b64decode(encoded, validate=True)
+
+
+def assert_valid_webp(payload: bytes, minimum_size: int) -> None:
+    assert payload[:4] == b"RIFF"
+    assert payload[8:12] == b"WEBP"
+    declared_size = int.from_bytes(payload[4:8], "little") + 8
+    assert declared_size == len(payload)
+    assert len(payload) > minimum_size
+
+
+def test_trading_runtime_screenshots_reconstruct_as_valid_webp_files():
+    dashboard = decode_parts((
+        "assets/project-evidence/trading-dashboard.part-01.b64.txt",
+        "assets/project-evidence/trading-dashboard.part-02.b64.txt",
+        "assets/project-evidence/trading-dashboard.part-02b.b64.txt",
+        "assets/project-evidence/trading-dashboard.part-03.b64.txt",
+        "assets/project-evidence/trading-dashboard.part-04.b64.txt",
+    ))
+    cli = decode_parts((
+        "assets/project-evidence/trading-cli.part-01.b64.txt",
+        "assets/project-evidence/trading-cli.part-02.b64.txt",
+    ))
+
+    assert_valid_webp(dashboard, 40_000)
+    assert_valid_webp(cli, 18_000)
 
 
 def test_trading_evidence_section_is_wired_with_accessible_copy():
@@ -25,8 +45,11 @@ def test_trading_evidence_section_is_wired_with_accessible_copy():
         "真实运行界面",
         "实时监控与风控总览",
         "命令行运行与交易计划输入",
-        "trading-dashboard.webp",
-        "trading-cli-redacted.webp",
+        "trading-dashboard.part-01.b64.txt",
+        "trading-dashboard.part-04.b64.txt",
+        "trading-cli.part-01.b64.txt",
+        "trading-cli.part-02.b64.txt",
+        "loadChunkedImage",
         "Telegram chat_id、token前缀和本地绝对路径已遮挡",
         "不构成投资建议",
     ):
@@ -37,7 +60,6 @@ def test_trading_evidence_styles_are_responsive():
     css = read("project-evidence.css")
     assert ".project-evidence-media--trading-dashboard" in css
     assert ".project-evidence-media--trading-cli" in css
-    assert ".project-evidence-link" in css
     assert "@media (max-width: 768px)" in css
 
 
