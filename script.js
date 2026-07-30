@@ -2,6 +2,7 @@
     const loaderScript = document.currentScript || [...document.scripts].find((script) => /(?:^|\/)script\.js(?:\?|$)/.test(script.src));
 
     if (loaderScript) {
+        const identityRuntimeUrl = new URL("identity-overrides.js", loaderScript.src).href;
         const styleUrl = new URL("motion.css", loaderScript.src).href;
         const timelineFixUrl = new URL("timeline-fix.css", loaderScript.src).href;
         const projectLinksFixUrl = new URL("desktop-project-links.css", loaderScript.src).href;
@@ -10,6 +11,14 @@
         const evidenceStyleUrl = new URL("project-evidence.css", loaderScript.src).href;
         const evidenceRuntimeUrl = new URL("project-evidence.js", loaderScript.src).href;
         const runtimeUrl = new URL("motion.js", loaderScript.src).href;
+
+        if (!document.querySelector('[data-identity-asset="runtime"]')) {
+            const identityRuntime = document.createElement("script");
+            identityRuntime.src = identityRuntimeUrl;
+            identityRuntime.async = false;
+            identityRuntime.dataset.identityAsset = "runtime";
+            document.head.appendChild(identityRuntime);
+        }
 
         if (!document.querySelector('[data-motion-asset="style"]')) {
             const stylesheet = document.createElement("link");

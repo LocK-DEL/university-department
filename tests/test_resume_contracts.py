@@ -41,13 +41,20 @@ def test_resume_uses_verified_project_evidence():
     for required in (
         "课堂知识智能重构系统",
         "49项测试通过",
-        "BTC多周期行情分析与风控报告系统",
+        "多周期行情分析与风控报告金融交易系统",
         "36项测试通过",
         "科研实验室数字化平台",
         "AI辅助科研与智能建模工作流",
         "国家级大学生创新训练项目",
     ):
         assert required in text
+
+
+def test_requested_public_contact_is_current():
+    html = read("resume.html")
+    assert "liuwenlong0706@outlook.com" in html
+    assert "mailto:liuwenlong0706@outlook.com" in html
+    assert "3501391833@qq.com" not in html
 
 
 def test_resume_entry_adds_navigation_section_and_print_action():
