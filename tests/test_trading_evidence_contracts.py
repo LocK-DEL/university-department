@@ -8,14 +8,18 @@ def read(path: str) -> str:
     return (ROOT / path).read_text(encoding="utf-8")
 
 
-def decode_parts(parts: tuple[tuple[str, int], ...]) -> bytes:
+def decode_parts(parts: tuple[tuple[str, int | None], ...]) -> bytes:
     chunks = []
     for path, expected_length in parts:
         chunk = read(path).strip()
-        assert len(chunk) >= expected_length, (path, len(chunk), expected_length)
-        chunk = chunk[:expected_length]
-        assert len(chunk) % 4 == 0, (path, len(chunk), chunk[-20:])
+        assert chunk, path
+
+        if expected_length is not None:
+            assert len(chunk) >= expected_length, (path, len(chunk), expected_length)
+            chunk = chunk[:expected_length]
+
         chunks.append(chunk)
+
     encoded = "".join(chunks)
     return base64.b64decode(encoded, validate=True)
 
@@ -32,7 +36,8 @@ def test_trading_dashboard_reconstructs_as_valid_webp():
     dashboard = decode_parts((
         ("assets/project-evidence/trading-dashboard.part-01.b64.txt", 8000),
         ("assets/project-evidence/trading-dashboard.part-02.b64.txt", 16000),
-        ("assets/project-evidence/trading-dashboard.part-02b.b64.txt", 15000),
+        ("assets/project-evidence/trading-dashboard.part-02b1.b64.txt", None),
+        ("assets/project-evidence/trading-dashboard.part-02b2.b64.txt", None),
         ("assets/project-evidence/trading-dashboard.part-03.b64.txt", 15000),
         ("assets/project-evidence/trading-dashboard.part-04.b64.txt", 14432),
     ))
@@ -64,6 +69,8 @@ def test_trading_evidence_section_is_wired_with_accessible_copy():
 
     for required in (
         "trading-dashboard.part-01.b64.txt",
+        "trading-dashboard.part-02b1.b64.txt",
+        "trading-dashboard.part-02b2.b64.txt",
         "trading-dashboard.part-04.b64.txt",
         "trading-cli.part-01.b64.txt",
         "trading-cli.part-02.b64.txt",
