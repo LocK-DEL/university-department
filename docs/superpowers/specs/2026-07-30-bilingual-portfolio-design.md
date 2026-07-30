@@ -14,21 +14,26 @@ The English edition must be independently addressable, shareable and indexable. 
 
 The first release includes all public portfolio content:
 
-- English home page: `/en/`
+- English home page: `/en/` implemented as `en/index.html`
 - English resume: `/en/resume.html`
 - English project detail pages:
   - `/en/projects/knowledge-reconstruction.html`
   - `/en/projects/trading-system.html`
   - `/en/projects/lab-platform.html`
-  - `/en/projects/health-ai.html`
+  - `/en/projects/ai-health-concept.html`
   - `/en/projects/carering.html`
-  - `/en/projects/ai-modeling-workflow.html`
+  - `/en/projects/ai-workflow.html`
 
 The existing Chinese routes remain unchanged:
 
 - `/`
 - `/resume.html`
-- `/projects/*.html`
+- `/projects/knowledge-reconstruction.html`
+- `/projects/trading-system.html`
+- `/projects/lab-platform.html`
+- `/projects/ai-health-concept.html`
+- `/projects/carering.html`
+- `/projects/ai-workflow.html`
 
 No automatic translation service, external localization framework or client-side text replacement system will be introduced.
 
@@ -193,8 +198,8 @@ New checks must verify:
 3. each Chinese-English page pair links to its counterpart;
 4. all English internal links resolve to an existing file or valid section;
 5. project pages preserve page context when switching language;
-6. English titles, descriptions, headings, navigation and primary buttons contain no unintended Chinese text;
-7. allowed Chinese text is limited to the visible `中文` language label, proper nouns that intentionally remain Chinese and text inside screenshots;
+6. English titles, descriptions, headings, navigation, buttons, alt text and ARIA labels contain no unintended Chinese text;
+7. the only Chinese characters permitted in English HTML source are the intentional visible language label `中文`; Chinese text embedded as pixels inside shared screenshots is outside the HTML-source check;
 8. the public email remains `liuwenlong0706@outlook.com`;
 9. the English resume print function still loads;
 10. shared project evidence loads on English project pages;
