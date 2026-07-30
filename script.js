@@ -10,6 +10,7 @@
         const resumeEntryUrl = new URL("resume-entry.js", loaderScript.src).href;
         const evidenceStyleUrl = new URL("project-evidence.css", loaderScript.src).href;
         const evidenceRuntimeUrl = new URL("project-evidence.js", loaderScript.src).href;
+        const tradingEvidenceMediaUrl = new URL("trading-evidence-media.js", loaderScript.src).href;
         const runtimeUrl = new URL("motion.js", loaderScript.src).href;
 
         if (!document.querySelector('[data-identity-asset="runtime"]')) {
@@ -74,6 +75,14 @@
             evidenceRuntime.async = false;
             evidenceRuntime.dataset.projectEvidenceAsset = "runtime";
             document.head.appendChild(evidenceRuntime);
+        }
+
+        if (!document.querySelector('[data-project-evidence-asset="trading-media"]')) {
+            const tradingEvidenceMedia = document.createElement("script");
+            tradingEvidenceMedia.src = tradingEvidenceMediaUrl;
+            tradingEvidenceMedia.async = false;
+            tradingEvidenceMedia.dataset.projectEvidenceAsset = "trading-media";
+            document.head.appendChild(tradingEvidenceMedia);
         }
 
         if (!document.querySelector('[data-motion-asset="runtime"]')) {
