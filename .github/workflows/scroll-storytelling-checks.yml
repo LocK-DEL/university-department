@@ -6,6 +6,7 @@ on:
       - codex/scroll-storytelling-redesign
       - feat/public-resume
       - feat/project-evidence-v1
+      - chore/update-contact-and-trading-name
   pull_request:
     branches:
       - main
@@ -37,6 +38,7 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check script.js
+          node --check identity-overrides.js
           node --check motion.js
           node --check resume-entry.js
           node --check resume-print.js
