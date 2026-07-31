@@ -65,7 +65,7 @@ jobs:
               path.write_text(text, encoding="utf-8")
 
       - name: Run contract tests
-        run: python -m pytest -q tests
+        run: python -m pytest -q --tb=line tests
 
       - name: Compile test sources
         run: python -m compileall -q tests
