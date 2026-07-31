@@ -92,7 +92,7 @@
     }
 
     function installLanguageSwitch() {
-        if (document.querySelector(".language-switch")) return;
+        if (document.querySelector(".language-switch, .language-switcher")) return;
         installBilingualStyle();
         const resumeActions = document.querySelector(".resume-page-actions");
         if (resumeActions) {
