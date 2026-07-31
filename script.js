@@ -32,8 +32,9 @@
         addStyle('[data-resume-asset="style"]', assetUrl("resume.css"), "resumeAsset", "style");
         addScript('[data-resume-asset="entry"]', assetUrl("resume-entry.js"), "resumeAsset", "entry");
         addStyle('[data-project-evidence-asset="style"]', assetUrl("project-evidence.css"), "projectEvidenceAsset", "style");
+        addScript('[data-bilingual-asset="runtime"]', assetUrl("bilingual-runtime.js"), "bilingualAsset", "runtime");
         addScript('[data-project-evidence-asset="runtime"]', assetUrl("project-evidence.js"), "projectEvidenceAsset", "runtime");
-        addScript('[data-project-evidence-asset="trading-runtime"]', assetUrl("trading-evidence-final.js"), "projectEvidenceAsset", "trading-runtime");
+        addScript('[data-project-evidence-asset="trading-runtime"]', assetUrl("trading-evidence-bilingual.js"), "projectEvidenceAsset", "trading-runtime");
         addScript('[data-motion-asset="runtime"]', assetUrl("motion.js"), "motionAsset", "runtime");
     }
 })();
