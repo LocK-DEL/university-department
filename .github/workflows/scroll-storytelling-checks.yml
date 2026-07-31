@@ -17,58 +17,6 @@ permissions:
   contents: read
 
 jobs:
-  generate-static-bilingual:
-    if: >-
-      (github.event_name == 'push' && github.ref == 'refs/heads/fix/bilingual-static-merge') ||
-      (github.event_name == 'pull_request' && github.head_ref == 'fix/bilingual-static-merge')
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Check out stabilization branch
-        uses: actions/checkout@v4
-        with:
-          ref: fix/bilingual-static-merge
-          fetch-depth: 0
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Generate approved static bilingual pages
-        shell: bash
-        run: |
-          set -euo pipefail
-          if [ ! -f tools/.run-static-bilingual-generation ]; then
-            echo "Static bilingual generation has already completed; skipping write phase."
-            exit 0
-          fi
-          mkdir -p tools
-          git show origin/feat/bilingual-portfolio:tools/build_bilingual_portfolio.py > tools/build_bilingual_portfolio.py
-          python -m py_compile tools/build_bilingual_portfolio.py
-          python tools/build_bilingual_portfolio.py
-          python tools/build_bilingual_portfolio.py
-          rm -f tools/.run-static-bilingual-generation
-          rm -rf tools/__pycache__
-          rm -f bilingual-runtime.js trading-evidence-bilingual.js
-          rm -f tests/test_bilingual_site_contracts.py
-          git diff --check
-
-      - name: Commit generated bilingual site
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if git diff --cached --quiet; then
-            echo "No generated changes to commit."
-            exit 0
-          fi
-          git commit -m "feat: stabilize complete static bilingual portfolio"
-          git push origin HEAD:fix/bilingual-static-merge
-
   verify:
     runs-on: ubuntu-latest
     steps:
