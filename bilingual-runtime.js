@@ -6,8 +6,13 @@
         const bodyKey = document.body?.dataset.projectKey;
         if (page && bodyKey && !page.dataset.projectKey) page.dataset.projectKey = bodyKey;
 
+        const verificationHeadings = [
+            "当前验证状态",
+            "Current validation status",
+            "Current verification status",
+        ];
         const verificationHeading = [...document.querySelectorAll(".project-section-heading h2")]
-            .find((heading) => ["当前验证状态", "Current validation status"].includes(heading.textContent.trim()));
+            .find((heading) => verificationHeadings.includes(heading.textContent.trim()));
         const section = verificationHeading?.closest(".project-section");
         if (section) section.dataset.verificationSection = "true";
     }
