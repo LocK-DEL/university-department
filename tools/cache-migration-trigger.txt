@@ -1,1 +1,2 @@
 Apply the verified 20260731-1 static first-render migration.
+Workflow registration is now indexed on the default branch.
