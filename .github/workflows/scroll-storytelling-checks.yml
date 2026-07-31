@@ -7,7 +7,6 @@ on:
       - feat/public-resume
       - feat/project-evidence-v1
       - chore/update-contact-and-trading-name
-      - feat/bilingual-portfolio
   pull_request:
     branches:
       - main
@@ -16,69 +15,6 @@ permissions:
   contents: read
 
 jobs:
-  generate-bilingual:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/feat/bilingual-portfolio'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Check out bilingual branch
-        uses: actions/checkout@v4
-        with:
-          ref: feat/bilingual-portfolio
-          fetch-depth: 0
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Generate or finalize bilingual files
-        shell: bash
-        run: |
-          set -euo pipefail
-          changed=0
-
-          if [ -f tools/.compact-bilingual-generator-00.b64 ]; then
-            cat tools/.compact-bilingual-generator-00.b64 \
-                tools/.compact-bilingual-generator-01.b64 \
-                tools/.compact-bilingual-generator-02.b64 \
-                | base64 --decode > tools/build_bilingual_portfolio.py
-            python -m py_compile tools/build_bilingual_portfolio.py
-            python tools/build_bilingual_portfolio.py
-            python tools/build_bilingual_portfolio.py
-            rm -f tools/.compact-bilingual-generator-*.b64
-            rm -f tools/.bilingual-generator-*.b64
-            changed=1
-          fi
-
-          if [ -f tools/.finalize-bilingual-release ]; then
-            python -m py_compile tools/finalize_bilingual_release.py
-            python tools/finalize_bilingual_release.py
-            rm -f tools/.finalize-bilingual-release
-            changed=1
-          fi
-
-          if [ "$changed" -eq 0 ]; then
-            echo "No bilingual generation or finalization work is pending."
-          fi
-
-          git diff --check
-
-      - name: Commit generated bilingual site
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if git diff --cached --quiet; then
-            echo "No generated changes to commit."
-            exit 0
-          fi
-          git commit -m "feat: finalize bilingual portfolio release"
-          git push origin HEAD:feat/bilingual-portfolio
-
   verify:
     runs-on: ubuntu-latest
     steps:
@@ -96,8 +32,8 @@ jobs:
       - name: Run contract tests
         run: python -m pytest -q tests
 
-      - name: Compile Python sources
-        run: python -m compileall -q tests tools
+      - name: Compile test sources
+        run: python -m compileall -q tests
 
       - name: Check JavaScript syntax
         run: |
