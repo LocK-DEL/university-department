@@ -160,20 +160,21 @@ def test_project_pages_use_stable_project_keys() -> None:
     for filename, key in expected.items():
         source = (ROOT / "en/projects" / filename).read_text(encoding="utf-8")
         assert f'data-project-key="{key}"' in source
-        assert "Current validation status" in source
+        assert "Current verification status" in source
+        assert "data-verification-section" in source
 
 
 def test_shared_evidence_runtime_supports_english_pages() -> None:
     script = (ROOT / "script.js").read_text(encoding="utf-8")
     project_evidence = (ROOT / "project-evidence.js").read_text(encoding="utf-8")
-    trading_evidence = (ROOT / "trading-evidence-bilingual.js").read_text(encoding="utf-8")
+    trading_evidence = (ROOT / "trading-evidence-final.js").read_text(encoding="utf-8")
     runtime = (ROOT / "bilingual-runtime.js").read_text(encoding="utf-8")
-    assert 'assetUrl("bilingual-runtime.js")' in script
-    assert 'assetUrl("project-evidence.js")' in script
-    assert 'assetUrl("trading-evidence-bilingual.js")' in script
+    assert 'new URL("bilingual-runtime.js", loaderScript.src)' in script
+    assert 'new URL("project-evidence.js", loaderScript.src)' in script
+    assert 'new URL("trading-evidence-final.js", loaderScript.src)' in script
     assert "Verified interface evidence" in project_evidence
-    assert "Verified runtime interfaces" in trading_evidence
-    assert "Current validation status" in runtime
+    assert "Verified local interfaces" in trading_evidence
+    assert "Current verification status" in runtime
 
 
 def test_language_route_mapping_covers_all_page_pairs() -> None:
