@@ -139,7 +139,7 @@
     function updateClassroomVerification() {
         document.querySelectorAll(".verification-status-list li").forEach((item) => {
             const label = item.querySelector("span")?.textContent.trim();
-            if (["自动化测试", "Automated tests"].includes(label)) {
+            if (label === "自动化测试" || label === "Automated tests") {
                 const value = item.querySelector("strong");
                 if (value) value.textContent = COPY.testValue;
             }
