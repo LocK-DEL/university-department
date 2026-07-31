@@ -2,6 +2,7 @@ from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
+RELEASE = "20260731-en1"
 
 
 def read(path: str) -> str:
@@ -23,8 +24,9 @@ def test_public_resume_assets_exist_and_are_wired():
     assert 'new URL("resume-entry.js", loaderScript.src)' in script
 
     html = read("resume.html")
-    assert 'href="resume-print.css"' in html
-    assert 'src="resume-print.js"' in html
+    assert f'href="resume-print.css?v={RELEASE}"' in html
+    assert f'src="resume-print.js?v={RELEASE}"' in html
+    assert f'src="script.js?v={RELEASE}"' in html
     assert "data-print-resume" in html
 
 

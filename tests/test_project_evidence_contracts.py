@@ -30,7 +30,7 @@ def test_classroom_runtime_inserts_verified_interface_evidence():
     text = read("project-evidence.js")
     for required in (
         "真实界面证据",
-        "../assets/project-evidence/classroom-home.b64.txt",
+        "assets/project-evidence/classroom-home.b64.txt",
         'loading="lazy"',
         "课堂知识智能重构系统首页运行截图",
         "49项测试通过",
@@ -40,14 +40,15 @@ def test_classroom_runtime_inserts_verified_interface_evidence():
     ):
         assert required in text
     assert 'data:image/webp;base64,${encoded}' in text
-    assert 'label === "自动化测试"' in text
+    assert '["自动化测试", "Automated tests"].includes(label)' in text
+    assert 'new URL("assets/project-evidence/' in text
 
 
 def test_carering_runtime_labels_prototype_evidence_and_boundaries():
     text = read("project-evidence.js")
     for required in (
         "CareRing智能健康手环",
-        "../assets/project-evidence/carering-prototype-collage.b64.txt",
+        "assets/project-evidence/carering-prototype-collage.b64.txt",
         "结构适配原型实拍",
         "用于说明卡片侧插、扩展仓位置与外观适配",
         "不代表雾化、电路、健康功能或整机硬件已经完成验证",
