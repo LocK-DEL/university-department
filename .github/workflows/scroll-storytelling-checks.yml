@@ -36,7 +36,9 @@ jobs:
         run: python -m py_compile tools/apply_static_cache_fix.py
 
       - name: Apply static first-render and cache migration
-        run: python tools/apply_static_cache_fix.py
+        run: |
+          rm -f identity-overrides.js
+          python tools/apply_static_cache_fix.py
 
       - name: Run contract tests
         run: python -m pytest -q tests
