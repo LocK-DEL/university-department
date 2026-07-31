@@ -33,23 +33,36 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Generate bilingual files once
+      - name: Generate or finalize bilingual files
         shell: bash
         run: |
           set -euo pipefail
-          if [ ! -f tools/.compact-bilingual-generator-00.b64 ]; then
-            echo "Bilingual generator has already been materialized; skipping write phase."
-            exit 0
+          changed=0
+
+          if [ -f tools/.compact-bilingual-generator-00.b64 ]; then
+            cat tools/.compact-bilingual-generator-00.b64 \
+                tools/.compact-bilingual-generator-01.b64 \
+                tools/.compact-bilingual-generator-02.b64 \
+                | base64 --decode > tools/build_bilingual_portfolio.py
+            python -m py_compile tools/build_bilingual_portfolio.py
+            python tools/build_bilingual_portfolio.py
+            python tools/build_bilingual_portfolio.py
+            rm -f tools/.compact-bilingual-generator-*.b64
+            rm -f tools/.bilingual-generator-*.b64
+            changed=1
           fi
-          cat tools/.compact-bilingual-generator-00.b64 \
-              tools/.compact-bilingual-generator-01.b64 \
-              tools/.compact-bilingual-generator-02.b64 \
-              | base64 --decode > tools/build_bilingual_portfolio.py
-          python -m py_compile tools/build_bilingual_portfolio.py
-          python tools/build_bilingual_portfolio.py
-          python tools/build_bilingual_portfolio.py
-          rm -f tools/.compact-bilingual-generator-*.b64
-          rm -f tools/.bilingual-generator-*.b64
+
+          if [ -f tools/.finalize-bilingual-release ]; then
+            python -m py_compile tools/finalize_bilingual_release.py
+            python tools/finalize_bilingual_release.py
+            rm -f tools/.finalize-bilingual-release
+            changed=1
+          fi
+
+          if [ "$changed" -eq 0 ]; then
+            echo "No bilingual generation or finalization work is pending."
+          fi
+
           git diff --check
 
       - name: Commit generated bilingual site
@@ -63,7 +76,7 @@ jobs:
             echo "No generated changes to commit."
             exit 0
           fi
-          git commit -m "feat: generate complete bilingual portfolio"
+          git commit -m "feat: finalize bilingual portfolio release"
           git push origin HEAD:feat/bilingual-portfolio
 
   verify:
@@ -90,6 +103,7 @@ jobs:
         run: |
           node --check script.js
           node --check identity-overrides.js
+          node --check bilingual-runtime.js
           node --check motion.js
           node --check resume-entry.js
           node --check resume-print.js
