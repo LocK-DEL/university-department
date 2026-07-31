@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECTS = sorted((ROOT / "projects").glob("*.html"))
@@ -8,11 +9,12 @@ def read(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
-def test_all_six_project_pages_use_the_shared_base_script():
+def test_all_six_project_pages_use_the_versioned_shared_base_script():
     assert len(PROJECTS) == 6
+    pattern = re.compile(r'<script src="\.\./script\.js\?v=[^"]+"></script>')
     for path in PROJECTS:
         html = read(path)
-        assert '<script src="../script.js"></script>' in html, path
+        assert pattern.search(html), path
 
 
 def test_all_project_pages_keep_truth_status_and_circular_navigation():
