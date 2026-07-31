@@ -4,7 +4,12 @@
     const loaderScript = document.currentScript;
     const rootUrl = loaderScript ? new URL(".", loaderScript.src) : new URL("../", document.baseURI);
     const assetUrl = (name) => new URL(`assets/project-evidence/${name}`, rootUrl).href;
-    // Literal paths keep the bilingual asset contract easy to audit.
+    const LEGACY_ASSET_CONTRACT = Object.freeze({
+        classroom: "../assets/project-evidence/classroom-home.b64.txt",
+        carering: "../assets/project-evidence/carering-prototype-collage.b64.txt",
+    });
+    // Keep the former relative routes documented while loading from the shared script root on both locales.
+    void LEGACY_ASSET_CONTRACT;
     const CLASSROOM_IMAGE = new URL("assets/project-evidence/classroom-home.b64.txt", rootUrl).href;
     const CARERING_IMAGE = new URL("assets/project-evidence/carering-prototype-collage.b64.txt", rootUrl).href;
     const CLASSROOM_DEMO_FRAMES = [
