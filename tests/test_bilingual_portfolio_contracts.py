@@ -10,6 +10,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 HOST = "https://www.universitydepartment.store"
 PUBLIC_EMAIL = "liuwenlong0706@outlook.com"
+RELEASE = "20260731-en1"
 
 PAGE_PAIRS = (
     {
@@ -179,7 +180,7 @@ def test_public_email_is_consistent_in_english_home_and_resume() -> None:
 def test_english_resume_preserves_print_behavior() -> None:
     source = read("en/resume.html")
     assert source.count("data-print-resume") >= 2
-    assert 'src="../resume-print.js"' in source
+    assert f'src="../resume-print.js?v={RELEASE}"' in source
     assert 'href="../resume.html"' in source
 
 
