@@ -192,17 +192,6 @@ def update_ci() -> None:
     write_if_changed(path, text)
 
 
-def remove_obsolete_files() -> None:
-    for relative_path in (
-        "identity-overrides.js",
-        "tools/apply_static_cache_fix.py",
-        ".github/workflows/apply-static-cache-fix.yml",
-    ):
-        path = ROOT / relative_path
-        if path.exists():
-            path.unlink()
-
-
 def verify_migration_shape() -> None:
     public_text = "\n".join((ROOT / path).read_text(encoding="utf-8") for path in PUBLIC_PAGES)
     script = (ROOT / "script.js").read_text(encoding="utf-8")
@@ -215,15 +204,15 @@ def verify_migration_shape() -> None:
         raise RuntimeError("CNAME changed unexpectedly")
 
 
-if __name__ == "__main__":
-    update_public_html()
-    update_loader()
-    update_identity_contract()
-    update_ci()
-    verify_migration_shape()
-    remove_obsolete_files()
-'''
-    path.write_text(content, encoding="utf-8")
+def remove_obsolete_files() -> None:
+    for relative_path in (
+        "identity-overrides.js",
+        "tools/apply_static_cache_fix.py",
+        ".github/workflows/apply-static-cache-fix.yml",
+    ):
+        path = ROOT / relative_path
+        if path.exists():
+            path.unlink()
 
 
 if __name__ == "__main__":
