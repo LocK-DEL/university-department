@@ -1,46 +1,102 @@
 (() => {
-    const RELEASE = "20260731-en1";
     const loaderScript = document.currentScript || [...document.scripts].find((script) => /(?:^|\/)script\.js(?:\?|$)/.test(script.src));
 
     if (loaderScript) {
-        const assetUrl = (name) => {
-            const url = new URL(name, loaderScript.src);
-            url.searchParams.set("v", RELEASE);
-            return url.href;
-        };
-        const addScript = (selector, source, dataKey, dataValue) => {
-            if (document.querySelector(selector)) return;
-            const script = document.createElement("script");
-            script.src = source;
-            script.async = false;
-            script.dataset[dataKey] = dataValue;
-            document.head.appendChild(script);
-        };
-        const addStyle = (selector, source, dataKey, dataValue) => {
-            if (document.querySelector(selector)) return;
+        const identityRuntimeUrl = new URL("identity-overrides.js", loaderScript.src).href;
+        const styleUrl = new URL("motion.css", loaderScript.src).href;
+        const timelineFixUrl = new URL("timeline-fix.css", loaderScript.src).href;
+        const projectLinksFixUrl = new URL("desktop-project-links.css", loaderScript.src).href;
+        const resumeStyleUrl = new URL("resume.css", loaderScript.src).href;
+        const resumeEntryUrl = new URL("resume-entry.js", loaderScript.src).href;
+        const evidenceStyleUrl = new URL("project-evidence.css", loaderScript.src).href;
+        const evidenceRuntimeUrl = new URL("project-evidence.js", loaderScript.src).href;
+        const tradingEvidenceRuntimeUrl = new URL("trading-evidence-final.js", loaderScript.src).href;
+        const runtimeUrl = new URL("motion.js", loaderScript.src).href;
+
+        if (!document.querySelector('[data-identity-asset="runtime"]')) {
+            const identityRuntime = document.createElement("script");
+            identityRuntime.src = identityRuntimeUrl;
+            identityRuntime.async = false;
+            identityRuntime.dataset.identityAsset = "runtime";
+            document.head.appendChild(identityRuntime);
+        }
+
+        if (!document.querySelector('[data-motion-asset="style"]')) {
             const stylesheet = document.createElement("link");
             stylesheet.rel = "stylesheet";
-            stylesheet.href = source;
-            stylesheet.dataset[dataKey] = dataValue;
+            stylesheet.href = styleUrl;
+            stylesheet.dataset.motionAsset = "style";
             document.head.appendChild(stylesheet);
-        };
+        }
 
-        addScript('[data-identity-asset="runtime"]', assetUrl("identity-overrides.js"), "identityAsset", "runtime");
-        addStyle('[data-motion-asset="style"]', assetUrl("motion.css"), "motionAsset", "style");
-        addStyle('[data-motion-asset="timeline-fix"]', assetUrl("timeline-fix.css"), "motionAsset", "timeline-fix");
-        addStyle('[data-motion-asset="project-links-fix"]', assetUrl("desktop-project-links.css"), "motionAsset", "project-links-fix");
-        addStyle('[data-resume-asset="style"]', assetUrl("resume.css"), "resumeAsset", "style");
-        addScript('[data-resume-asset="entry"]', assetUrl("resume-entry.js"), "resumeAsset", "entry");
-        addStyle('[data-project-evidence-asset="style"]', assetUrl("project-evidence.css"), "projectEvidenceAsset", "style");
-        addScript('[data-bilingual-asset="runtime"]', assetUrl("bilingual-runtime.js"), "bilingualAsset", "runtime");
-        addScript('[data-project-evidence-asset="runtime"]', assetUrl("project-evidence.js"), "projectEvidenceAsset", "runtime");
-        addScript('[data-project-evidence-asset="trading-runtime"]', assetUrl("trading-evidence-bilingual.js"), "projectEvidenceAsset", "trading-runtime");
-        addScript('[data-motion-asset="runtime"]', assetUrl("motion.js"), "motionAsset", "runtime");
+        if (!document.querySelector('[data-motion-asset="timeline-fix"]')) {
+            const timelineFix = document.createElement("link");
+            timelineFix.rel = "stylesheet";
+            timelineFix.href = timelineFixUrl;
+            timelineFix.dataset.motionAsset = "timeline-fix";
+            document.head.appendChild(timelineFix);
+        }
+
+        if (!document.querySelector('[data-motion-asset="project-links-fix"]')) {
+            const projectLinksFix = document.createElement("link");
+            projectLinksFix.rel = "stylesheet";
+            projectLinksFix.href = projectLinksFixUrl;
+            projectLinksFix.dataset.motionAsset = "project-links-fix";
+            document.head.appendChild(projectLinksFix);
+        }
+
+        if (!document.querySelector('[data-resume-asset="style"]')) {
+            const resumeStyle = document.createElement("link");
+            resumeStyle.rel = "stylesheet";
+            resumeStyle.href = resumeStyleUrl;
+            resumeStyle.dataset.resumeAsset = "style";
+            document.head.appendChild(resumeStyle);
+        }
+
+        if (!document.querySelector('[data-resume-asset="entry"]')) {
+            const resumeEntry = document.createElement("script");
+            resumeEntry.src = resumeEntryUrl;
+            resumeEntry.async = false;
+            resumeEntry.dataset.resumeAsset = "entry";
+            document.head.appendChild(resumeEntry);
+        }
+
+        if (!document.querySelector('[data-project-evidence-asset="style"]')) {
+            const evidenceStyle = document.createElement("link");
+            evidenceStyle.rel = "stylesheet";
+            evidenceStyle.href = evidenceStyleUrl;
+            evidenceStyle.dataset.projectEvidenceAsset = "style";
+            document.head.appendChild(evidenceStyle);
+        }
+
+        if (!document.querySelector('[data-project-evidence-asset="runtime"]')) {
+            const evidenceRuntime = document.createElement("script");
+            evidenceRuntime.src = evidenceRuntimeUrl;
+            evidenceRuntime.async = false;
+            evidenceRuntime.dataset.projectEvidenceAsset = "runtime";
+            document.head.appendChild(evidenceRuntime);
+        }
+
+        if (!document.querySelector('[data-project-evidence-asset="trading-runtime"]')) {
+            const tradingEvidenceRuntime = document.createElement("script");
+            tradingEvidenceRuntime.src = tradingEvidenceRuntimeUrl;
+            tradingEvidenceRuntime.async = false;
+            tradingEvidenceRuntime.dataset.projectEvidenceAsset = "trading-runtime";
+            document.head.appendChild(tradingEvidenceRuntime);
+        }
+
+        if (!document.querySelector('[data-motion-asset="runtime"]')) {
+            const runtime = document.createElement("script");
+            runtime.src = runtimeUrl;
+            runtime.async = false;
+            runtime.dataset.motionAsset = "runtime";
+            document.head.appendChild(runtime);
+        }
     }
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
-    const isEnglish = document.documentElement.lang.toLowerCase().startsWith("en");
+    const isEnglish = document.documentElement.lang.startsWith("en");
     const menuLabels = isEnglish
         ? { open: "Open navigation menu", close: "Close navigation menu" }
         : { open: "打开导航菜单", close: "关闭导航菜单" };
@@ -85,7 +141,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const updateBackToTop = () => backToTop.classList.toggle("is-visible", window.scrollY > 480);
         window.addEventListener("scroll", updateBackToTop, { passive: true });
         updateBackToTop();
-        backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: reducedMotion.matches ? "auto" : "smooth" }));
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: reducedMotion.matches ? "auto" : "smooth" });
+        });
     }
 
     const currentYear = document.getElementById("current-year");
