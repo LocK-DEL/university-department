@@ -1,0 +1,60 @@
+name: Apply static cache fix
+
+on:
+  push:
+    branches:
+      - fix/static-cache-busting
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out cache-fix branch
+        uses: actions/checkout@v4
+        with:
+          ref: fix/static-cache-busting
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install test dependency
+        run: python -m pip install --disable-pip-version-check pytest
+
+      - name: Validate migration script syntax
+        run: python -m py_compile tools/apply_static_cache_fix.py
+
+      - name: Apply static first-render and cache migration
+        run: python tools/apply_static_cache_fix.py
+
+      - name: Run complete contract tests
+        run: python -m pytest -q tests
+
+      - name: Compile test sources
+        run: python -m compileall -q tests
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check script.js
+          node --check motion.js
+          node --check resume-entry.js
+          node --check resume-print.js
+          node --check project-evidence.js
+          node --check trading-evidence-final.js
+
+      - name: Verify CNAME
+        run: test "$(tr -d '\r\n' < CNAME)" = "www.universitydepartment.store"
+
+      - name: Commit verified migration
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "fix: render final copy and version static assets"
+          git push origin HEAD:fix/static-cache-busting
