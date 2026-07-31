@@ -3,39 +3,61 @@
     const loaderScript = document.currentScript || [...document.scripts].find((script) => /(?:^|\/)script\.js(?:\?|$)/.test(script.src));
 
     if (loaderScript) {
-        const assetUrl = (name) => {
-            const url = new URL(name, loaderScript.src);
-            url.searchParams.set("v", RELEASE);
-            return url.href;
-        };
+        const identityRuntimeUrl = new URL("identity-overrides.js", loaderScript.src);
+        const styleUrl = new URL("motion.css", loaderScript.src);
+        const timelineFixUrl = new URL("timeline-fix.css", loaderScript.src);
+        const projectLinksFixUrl = new URL("desktop-project-links.css", loaderScript.src);
+        const resumeStyleUrl = new URL("resume.css", loaderScript.src);
+        const resumeEntryUrl = new URL("resume-entry.js", loaderScript.src);
+        const evidenceStyleUrl = new URL("project-evidence.css", loaderScript.src);
+        const bilingualRuntimeUrl = new URL("bilingual-runtime.js", loaderScript.src);
+        const evidenceRuntimeUrl = new URL("project-evidence.js", loaderScript.src);
+        const tradingEvidenceRuntimeUrl = new URL("trading-evidence-final.js", loaderScript.src);
+        const runtimeUrl = new URL("motion.js", loaderScript.src);
+
+        [
+            identityRuntimeUrl,
+            styleUrl,
+            timelineFixUrl,
+            projectLinksFixUrl,
+            resumeStyleUrl,
+            resumeEntryUrl,
+            evidenceStyleUrl,
+            bilingualRuntimeUrl,
+            evidenceRuntimeUrl,
+            tradingEvidenceRuntimeUrl,
+            runtimeUrl,
+        ].forEach((url) => url.searchParams.set("v", RELEASE));
+
         const addScript = (selector, source, dataKey, dataValue) => {
             if (document.querySelector(selector)) return;
             const script = document.createElement("script");
-            script.src = source;
+            script.src = source.href;
             script.async = false;
             script.dataset[dataKey] = dataValue;
             document.head.appendChild(script);
         };
+
         const addStyle = (selector, source, dataKey, dataValue) => {
             if (document.querySelector(selector)) return;
             const stylesheet = document.createElement("link");
             stylesheet.rel = "stylesheet";
-            stylesheet.href = source;
+            stylesheet.href = source.href;
             stylesheet.dataset[dataKey] = dataValue;
             document.head.appendChild(stylesheet);
         };
 
-        addScript('[data-identity-asset="runtime"]', assetUrl("identity-overrides.js"), "identityAsset", "runtime");
-        addStyle('[data-motion-asset="style"]', assetUrl("motion.css"), "motionAsset", "style");
-        addStyle('[data-motion-asset="timeline-fix"]', assetUrl("timeline-fix.css"), "motionAsset", "timeline-fix");
-        addStyle('[data-motion-asset="project-links-fix"]', assetUrl("desktop-project-links.css"), "motionAsset", "project-links-fix");
-        addStyle('[data-resume-asset="style"]', assetUrl("resume.css"), "resumeAsset", "style");
-        addScript('[data-resume-asset="entry"]', assetUrl("resume-entry.js"), "resumeAsset", "entry");
-        addStyle('[data-project-evidence-asset="style"]', assetUrl("project-evidence.css"), "projectEvidenceAsset", "style");
-        addScript('[data-bilingual-asset="runtime"]', assetUrl("bilingual-runtime.js"), "bilingualAsset", "runtime");
-        addScript('[data-project-evidence-asset="runtime"]', assetUrl("project-evidence.js"), "projectEvidenceAsset", "runtime");
-        addScript('[data-project-evidence-asset="trading-runtime"]', assetUrl("trading-evidence-bilingual.js"), "projectEvidenceAsset", "trading-runtime");
-        addScript('[data-motion-asset="runtime"]', assetUrl("motion.js"), "motionAsset", "runtime");
+        addScript('[data-identity-asset="runtime"]', identityRuntimeUrl, "identityAsset", "runtime");
+        addStyle('[data-motion-asset="style"]', styleUrl, "motionAsset", "style");
+        addStyle('[data-motion-asset="timeline-fix"]', timelineFixUrl, "motionAsset", "timeline-fix");
+        addStyle('[data-motion-asset="project-links-fix"]', projectLinksFixUrl, "motionAsset", "project-links-fix");
+        addStyle('[data-resume-asset="style"]', resumeStyleUrl, "resumeAsset", "style");
+        addScript('[data-resume-asset="entry"]', resumeEntryUrl, "resumeAsset", "entry");
+        addStyle('[data-project-evidence-asset="style"]', evidenceStyleUrl, "projectEvidenceAsset", "style");
+        addScript('[data-bilingual-asset="runtime"]', bilingualRuntimeUrl, "bilingualAsset", "runtime");
+        addScript('[data-project-evidence-asset="runtime"]', evidenceRuntimeUrl, "projectEvidenceAsset", "runtime");
+        addScript('[data-project-evidence-asset="trading-runtime"]', tradingEvidenceRuntimeUrl, "projectEvidenceAsset", "trading-runtime");
+        addScript('[data-motion-asset="runtime"]', runtimeUrl, "motionAsset", "runtime");
     }
 })();
 
@@ -85,7 +107,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const updateBackToTop = () => backToTop.classList.toggle("is-visible", window.scrollY > 480);
         window.addEventListener("scroll", updateBackToTop, { passive: true });
         updateBackToTop();
-        backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: reducedMotion.matches ? "auto" : "smooth" }));
+        backToTop.addEventListener("click", () => window.scrollTo({
+            top: 0,
+            behavior: reducedMotion.matches ? "auto" : "smooth",
+        }));
     }
 
     const currentYear = document.getElementById("current-year");
