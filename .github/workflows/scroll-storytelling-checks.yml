@@ -44,6 +44,8 @@ jobs:
             echo "Static bilingual generation has already completed; skipping write phase."
             exit 0
           fi
+          mkdir -p tools
+          git show origin/feat/bilingual-portfolio:tools/build_bilingual_portfolio.py > tools/build_bilingual_portfolio.py
           python -m py_compile tools/build_bilingual_portfolio.py
           python tools/build_bilingual_portfolio.py
           python tools/build_bilingual_portfolio.py
