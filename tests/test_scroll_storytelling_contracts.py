@@ -63,12 +63,12 @@ def test_homepage_enhancement_preserves_semantic_content_and_adds_scenes():
 def test_all_six_projects_keep_real_links_order_status_and_accents():
     html = read("index.html")
     expected = [
-        ("课堂知识智能重构系统", "projects/knowledge-reconstruction.html", "本地Demo已启动验证"),
-        ("BTC多周期行情分析与风控报告系统", "projects/trading-system.html", "本地CLI · 36项测试通过"),
-        ("科研实验室数字化平台", "projects/lab-platform.html", "前端项目待脱敏验证"),
-        ("AI健康管理产品方案", "projects/ai-health-concept.html", "产品概念与竞赛方案"),
-        ("CareRing智能健康手环", "projects/carering.html", "结构设计与专利原型"),
-        ("AI辅助科研与智能建模工作流", "projects/ai-workflow.html", "AI协作案例合集"),
+        ("课堂知识智能重构系统", "projects/knowledge-reconstruction.html", "49项测试通过"),
+        ("多周期行情分析与风控报告金融交易系统", "projects/trading-system.html", "36项测试通过"),
+        ("科研实验室数字化平台", "projects/lab-platform.html", "公开构建证据准备中"),
+        ("AI健康管理产品方案", "projects/ai-health-concept.html", "产品概念"),
+        ("CareRing智能健康手环", "projects/carering.html", "结构原型"),
+        ("AI辅助科研与智能建模工作流", "projects/ai-workflow.html", "工作流案例合集"),
     ]
     positions = []
     for title, url, status in expected:

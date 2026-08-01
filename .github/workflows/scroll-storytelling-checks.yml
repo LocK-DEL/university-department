@@ -38,6 +38,7 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check script.js
+          node --check homepage-editorial.js
           node --check identity-overrides.js
           node --check bilingual-runtime.js
           node --check motion.js

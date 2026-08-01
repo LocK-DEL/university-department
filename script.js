@@ -3,6 +3,7 @@
     const loaderScript = document.currentScript || [...document.scripts].find((script) => /(?:^|\/)script\.js(?:\?|$)/.test(script.src));
 
     if (loaderScript) {
+        const isEditorialHome = document.body?.classList.contains("home-editorial");
         const identityRuntimeUrl = new URL("identity-overrides.js", loaderScript.src);
         const styleUrl = new URL("motion.css", loaderScript.src);
         const timelineFixUrl = new URL("timeline-fix.css", loaderScript.src);
@@ -48,27 +49,32 @@
         };
 
         addScript('[data-identity-asset="runtime"]', identityRuntimeUrl, "identityAsset", "runtime");
-        addStyle('[data-motion-asset="style"]', styleUrl, "motionAsset", "style");
-        addStyle('[data-motion-asset="timeline-fix"]', timelineFixUrl, "motionAsset", "timeline-fix");
-        addStyle('[data-motion-asset="project-links-fix"]', projectLinksFixUrl, "motionAsset", "project-links-fix");
+        if (!isEditorialHome) {
+            addStyle('[data-motion-asset="style"]', styleUrl, "motionAsset", "style");
+            addStyle('[data-motion-asset="timeline-fix"]', timelineFixUrl, "motionAsset", "timeline-fix");
+            addStyle('[data-motion-asset="project-links-fix"]', projectLinksFixUrl, "motionAsset", "project-links-fix");
+        }
         addStyle('[data-resume-asset="style"]', resumeStyleUrl, "resumeAsset", "style");
         addScript('[data-resume-asset="entry"]', resumeEntryUrl, "resumeAsset", "entry");
         addStyle('[data-project-evidence-asset="style"]', evidenceStyleUrl, "projectEvidenceAsset", "style");
         addScript('[data-bilingual-asset="runtime"]', bilingualRuntimeUrl, "bilingualAsset", "runtime");
         addScript('[data-project-evidence-asset="runtime"]', evidenceRuntimeUrl, "projectEvidenceAsset", "runtime");
         addScript('[data-project-evidence-asset="trading-runtime"]', tradingEvidenceRuntimeUrl, "projectEvidenceAsset", "trading-runtime");
-        addScript('[data-motion-asset="runtime"]', runtimeUrl, "motionAsset", "runtime");
+        if (!isEditorialHome) {
+            addScript('[data-motion-asset="runtime"]', runtimeUrl, "motionAsset", "runtime");
+        }
     }
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
     const isEnglish = document.documentElement.lang.toLowerCase().startsWith("en");
+    const isEditorialHome = document.body.classList.contains("home-editorial");
     const menuLabels = isEnglish
         ? { open: "Open navigation menu", close: "Close navigation menu" }
         : { open: "打开导航菜单", close: "关闭导航菜单" };
     const menuToggle = document.querySelector(".menu-toggle");
     const navigation = document.getElementById("primary-navigation");
-    const mobileViewport = window.matchMedia("(max-width: 768px)");
+    const mobileViewport = window.matchMedia(isEditorialHome ? "(max-width: 900px)" : "(max-width: 768px)");
 
     const closeMenu = () => {
         if (!menuToggle || !navigation) return;

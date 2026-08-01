@@ -3,45 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="刘文龙的个人项目作品集，展示AI应用开发、自动化系统、科研数字化、健康科技产品与智能硬件设计实践。">
-    <title>刘文龙｜AI应用开发与数字化项目作品集</title>
-    <link rel="stylesheet" href="style.css?v=20260731-en1">
-    <style>
-        .project-action.project-action--active {
-            color: var(--accent);
-            cursor: pointer;
-            text-decoration-thickness: 1px;
-            text-underline-offset: 0.2em;
-        }
-
-        .project-action.project-action--active:hover,
-        .project-action.project-action--active:focus-visible {
-            color: var(--text);
-        }
-    </style>
-<!-- bilingual-seo:start -->
+    <meta name="description" content="刘文龙的双语个人作品集，展示AI应用、自动化系统、科研数字化、金融市场分析工具、健康科技概念与智能硬件结构原型。">
+    <meta property="og:title" content="刘文龙｜AI应用、科研系统与产品原型作品集">
+    <meta property="og:description" content="以真实项目证据展示AI应用、科研数字化、自动化工作流、Web开发与智能硬件原型实践。">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="zh_CN">
+    <meta name="color-scheme" content="dark">
+    <title>刘文龙｜AI应用、科研系统与产品原型作品集</title>
     <link rel="canonical" href="https://www.universitydepartment.store/">
     <link rel="alternate" hreflang="zh-CN" href="https://www.universitydepartment.store/">
     <link rel="alternate" hreflang="en" href="https://www.universitydepartment.store/en/">
     <link rel="alternate" hreflang="x-default" href="https://www.universitydepartment.store/">
+    <link rel="stylesheet" href="style.css?v=20260731-en1">
     <link rel="stylesheet" href="bilingual.css?v=20260731-en1">
-<!-- bilingual-seo:end -->
+    <link rel="stylesheet" href="homepage-editorial.css?v=20260801-home1">
 </head>
-<body>
-<!-- language-switcher:start -->
-    <nav class="language-switcher language-switcher--standalone" aria-label="Language">
-        <a class="language-switcher__link" href="index.html" lang="zh-CN" aria-current="page">中文</a>
-        <span class="language-switcher__separator" aria-hidden="true">|</span>
-        <a class="language-switcher__link" href="en/" lang="en">EN</a>
-    </nav>
-<!-- language-switcher:end -->
-<a class="skip-link" href="#main-content">跳到主要内容</a>
+<body class="home-editorial">
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
 
-    <header class="site-header">
-        <nav class="navbar container" aria-label="主导航">
-            <a class="brand" href="#home" aria-label="David Liu 作品集首页">
+    <header class="site-header home-site-header">
+        <div class="home-header-shell container">
+            <a class="brand home-brand" href="#home" aria-label="David Liu 作品集首页">
                 <span class="brand-name">David Liu</span>
-                <span class="brand-subtitle">AI Application Portfolio</span>
+                <span class="brand-subtitle">Systems · Research · Product</span>
             </a>
 
             <button
@@ -51,342 +35,351 @@
                 aria-expanded="false"
                 aria-controls="primary-navigation"
             >
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
 
-            <ul class="nav-links" id="primary-navigation">
-                <li><a href="#home">首页</a></li>
-                <li><a href="#about">关于我</a></li>
-                <li><a href="#skills">技能</a></li>
-                <li><a href="#projects">项目</a></li>
-                <li><a href="#experience">经历</a></li>
-                <li><a href="#contact">联系</a></li>
+            <ul class="nav-links home-nav-links" id="primary-navigation">
+                <li><a data-home-nav href="#work">项目</a></li>
+                <li><a data-home-nav href="#method">方法</a></li>
+                <li><a data-home-nav href="#profile">关于我</a></li>
+                <li><a data-home-nav href="#contact">联系</a></li>
+                <li><a class="home-nav-resume" href="resume.html">简历</a></li>
             </ul>
-        </nav>
+
+            <div class="home-header-utilities">
+                <a class="home-availability" href="mailto:liuwenlong0706@outlook.com">
+                    <span aria-hidden="true"></span>开放合作与工作机会
+                </a>
+                <nav class="language-switcher language-switch" aria-label="语言选择">
+                    <a href="index.html" lang="zh-CN" aria-current="page">中文</a>
+                    <span aria-hidden="true">/</span>
+                    <a href="en/" lang="en">EN</a>
+                </nav>
+            </div>
+        </div>
     </header>
 
     <main id="main-content">
-        <section class="hero section" id="home">
-            <div class="hero-layout container">
-                <div class="hero-copy">
-                    <p class="eyebrow">AI APPLICATION · PRODUCT · RESEARCH</p>
-                    <h1>把想法转化为<br><span>可以运行的AI产品</span></h1>
-                    <p class="hero-identity">
-                        <strong>刘文龙 / David Liu</strong>
-                        <span>AI应用开发与数字化项目实践者</span>
-                    </p>
-                    <p class="hero-description">
-                        专注于大模型应用、自动化工作流、Web产品、科研数字化与智能硬件原型。我习惯从实际问题出发，完成需求分析、功能设计、AI辅助开发、系统集成、测试与项目交付。
-                    </p>
-                    <div class="hero-actions">
-                        <a class="button button-primary" href="#projects">查看项目</a>
-                        <a
-                            class="button button-secondary"
-                            href="https://github.com/LocK-DEL"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >访问GitHub</a>
+        <section class="home-hero" id="home" aria-labelledby="home-title">
+            <div class="home-hero-grid container">
+                <div class="home-hero-copy">
+                    <div class="home-hero-meta">
+                        <span>DAVID LIU / 2026</span>
+                        <span>AI APPLICATIONS · RESEARCH SYSTEMS · PROTOTYPES</span>
+                    </div>
+                    <h1 id="home-title">
+                        <span class="hero-line">我把 AI、科研与产品构想</span>
+                        <span class="hero-line hero-line--accent">做成可以验证的系统。</span>
+                    </h1>
+                    <div class="home-hero-bottom">
+                        <p class="home-hero-description">
+                            我从真实问题出发，完成需求拆解、原型实现、测试验证与证据整理。这里展示的不只是结果，也包括我亲自负责的部分、已经验证的内容，以及仍然存在的限制。
+                        </p>
+                        <div class="home-hero-actions">
+                            <a class="home-button home-button--primary" href="#work">查看代表项目</a>
+                            <a class="home-button home-button--secondary" href="resume.html">打开公开简历</a>
+                            <a class="home-text-link" href="https://github.com/LocK-DEL" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                        </div>
                     </div>
                 </div>
 
-                <aside class="capability-panel" aria-label="项目能力面板">
-                    <div class="panel-header">
-                        <span>CAPABILITY MATRIX</span>
-                        <span class="panel-status">AVAILABLE</span>
+                <figure class="home-hero-evidence home-evidence-figure">
+                    <div class="home-evidence-media home-evidence-media--hero">
+                        <img
+                            data-home-image="classroom"
+                            alt="课堂知识智能重构系统经过脱敏处理的本地运行首页"
+                            decoding="async"
+                        >
+                        <div class="home-evidence-fallback">
+                            <span>VERIFIED LOCAL INTERFACE</span>
+                            <strong>课堂知识智能重构系统</strong>
+                            <small>真实界面载入失败时，项目状态与详情链接仍然可用。</small>
+                        </div>
                     </div>
-                    <div class="panel-core" aria-hidden="true">
-                        <span class="core-ring"></span>
-                        <span class="core-label">&lt;AI /&gt;</span>
-                    </div>
-                    <ul class="capability-list">
-                        <li><span>01</span>AI应用开发</li>
-                        <li><span>02</span>Python自动化</li>
-                        <li><span>03</span>Web产品</li>
-                        <li><span>04</span>科研数字化</li>
-                        <li><span>05</span>产品原型</li>
-                    </ul>
-                </aside>
-            </div>
-        </section>
-
-        <section class="section" id="about">
-            <div class="container">
-                <div class="section-heading">
-                    <p>About Me</p>
-                    <h2>关于我</h2>
-                </div>
-                <p class="section-intro about-intro">
-                    我目前拥有医学科研、AI应用、网页开发、产品设计与项目管理等跨领域实践经历。相比单纯调用AI工具，我更关注如何把需求拆解成可实现的功能，并通过代码、自动化流程、界面和原型形成可验证的成果。
-                </p>
-                <div class="feature-grid">
-                    <article class="feature-card">
-                        <span class="feature-number">01</span>
-                        <h3>问题驱动</h3>
-                        <p>从真实需求出发，而不是为了使用技术而使用技术。</p>
-                    </article>
-                    <article class="feature-card">
-                        <span class="feature-number">02</span>
-                        <h3>快速落地</h3>
-                        <p>善于借助AI编程工具完成原型开发、测试与持续迭代。</p>
-                    </article>
-                    <article class="feature-card">
-                        <span class="feature-number">03</span>
-                        <h3>跨领域整合</h3>
-                        <p>能够结合医学科研、数字产品、智能硬件与AI能力。</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="section section-tinted" id="skills">
-            <div class="container">
-                <div class="section-heading">
-                    <p>Core Capabilities</p>
-                    <h2>核心技能</h2>
-                </div>
-                <div class="skills-grid">
-                    <article class="skill-card">
-                        <span class="skill-icon" aria-hidden="true">AI</span>
-                        <h3>AI应用集成</h3>
-                        <p>大模型API接入、提示词设计、多模型切换、AI功能流程设计</p>
-                    </article>
-                    <article class="skill-card">
-                        <span class="skill-icon" aria-hidden="true">PY</span>
-                        <h3>Python与自动化</h3>
-                        <p>数据处理、自动化脚本、任务流程、接口调用、日志与异常处理</p>
-                    </article>
-                    <article class="skill-card">
-                        <span class="skill-icon" aria-hidden="true">WEB</span>
-                        <h3>Web开发</h3>
-                        <p>HTML、CSS、JavaScript、React、Next.js及响应式页面开发</p>
-                    </article>
-                    <article class="skill-card">
-                        <span class="skill-icon" aria-hidden="true">UX</span>
-                        <h3>产品与原型</h3>
-                        <p>需求分析、功能规划、产品原型、系统架构与演示流程设计</p>
-                    </article>
-                    <article class="skill-card">
-                        <span class="skill-icon" aria-hidden="true">R&amp;D</span>
-                        <h3>科研数字化</h3>
-                        <p>科研网站、文献工作流、实验数据整理、生物医学项目数字化</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="projects">
-            <div class="container">
-                <div class="section-heading">
-                    <p>Selected Projects</p>
-                    <h2>代表项目</h2>
-                </div>
-                <p class="section-intro">
-                    以下项目涵盖AI应用、自动化系统、科研平台、健康科技和智能硬件。部分项目采用本地部署，后续将补充脱敏代码、演示视频和项目详情。
-                </p>
-
-                <div class="projects-grid">
-                    <article class="project-card">
-                        <div class="project-visual visual-education" aria-hidden="true">
-                            <span class="visual-code">{ KNOWLEDGE }</span>
-                            <span class="visual-node node-one"></span>
-                            <span class="visual-node node-two"></span>
-                            <span class="visual-node node-three"></span>
-                        </div>
-                        <div class="project-content">
-                            <p class="project-category">AI EDUCATION · INDEPENDENT PROJECT</p>
-                            <h3>课堂知识智能重构系统</h3>
-                            <p class="project-description">由本人独立完成的课堂学习AI应用，涵盖课堂文本处理、知识提取、知识图谱、结构化总结与题目生成。FastAPI和React前后端已在本地完成启动验证，公开源码仓库正在建立。</p>
-                            <ul class="tag-list" aria-label="技术标签">
-                                <li>FastAPI</li><li>React</li><li>LLM API</li><li>知识图谱</li>
-                            </ul>
-                            <div class="project-meta">
-                                <span class="project-status">本地Demo已启动验证</span>
-                                <a class="project-action project-action--active" href="projects/knowledge-reconstruction.html">查看详情</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-visual visual-trading" aria-hidden="true">
-                            <span class="chart-line line-one"></span>
-                            <span class="chart-line line-two"></span>
-                            <span class="chart-dot dot-one"></span>
-                            <span class="chart-dot dot-two"></span>
-                        </div>
-                        <div class="project-content">
-                            <p class="project-category">MARKET ANALYSIS · RISK SYSTEM</p>
-                            <h3>BTC多周期行情分析与风控报告系统</h3>
-                            <p class="project-description">基于公开行情数据完成15分钟、1小时和4小时多周期结构分析，生成条件式多空场景、失效条件、仓位与最大风险计算，并输出可复盘的Markdown报告。</p>
-                            <ul class="tag-list" aria-label="技术标签">
-                                <li>Python</li><li>Pytest</li><li>公开行情API</li><li>风险计算</li>
-                            </ul>
-                            <div class="project-meta">
-                                <span class="project-status">本地CLI · 36项测试通过</span>
-                                <a class="project-action project-action--active" href="projects/trading-system.html">查看详情</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-visual visual-research" aria-hidden="true">
-                            <span class="research-orbit orbit-one"></span>
-                            <span class="research-orbit orbit-two"></span>
-                            <span class="research-core">R</span>
-                        </div>
-                        <div class="project-content">
-                            <p class="project-category">RESEARCH PLATFORM</p>
-                            <h3>科研实验室数字化平台</h3>
-                            <p class="project-description">面向科研团队的数字化平台，覆盖团队展示、科研成果、文献学习、项目管理和在线学习等场景。</p>
-                            <ul class="tag-list" aria-label="技术标签">
-                                <li>Next.js</li><li>React</li><li>Tailwind CSS</li><li>科研管理</li>
-                            </ul>
-                            <div class="project-meta">
-                                <span class="project-status">前端项目待脱敏验证</span>
-                                <a class="project-action project-action--active" href="projects/lab-platform.html">查看详情</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-visual visual-health" aria-hidden="true">
-                            <span class="pulse-line"></span>
-                            <span class="health-ring"></span>
-                            <span class="health-cross">+</span>
-                        </div>
-                        <div class="project-content">
-                            <p class="project-category">HEALTH AI</p>
-                            <h3>AI健康管理产品方案</h3>
-                            <p class="project-description">面向健康管理场景的产品概念与竞赛方案，涵盖AI个性化建议构想、艾灸健康管理、移动端流程及多设备协同设想。</p>
-                            <ul class="tag-list" aria-label="技术标签">
-                                <li>健康科技</li><li>AI产品</li><li>用户流程</li><li>HarmonyOS</li>
-                            </ul>
-                            <div class="project-meta">
-                                <span class="project-status">产品概念与竞赛方案</span>
-                                <a class="project-action project-action--active" href="projects/ai-health-concept.html">查看详情</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-visual visual-hardware" aria-hidden="true">
-                            <span class="hardware-ring ring-outer"></span>
-                            <span class="hardware-ring ring-inner"></span>
-                            <span class="hardware-core">CR</span>
-                        </div>
-                        <div class="project-content">
-                            <p class="project-category">SMART HARDWARE</p>
-                            <h3>CareRing智能健康手环</h3>
-                            <p class="project-description">围绕健康监测构想、SOS、可拆卸液体扩展仓与超声雾化组件开展的智能穿戴结构设计和专利原型项目。</p>
-                            <ul class="tag-list" aria-label="技术标签">
-                                <li>智能硬件</li><li>产品设计</li><li>3D建模</li><li>专利</li>
-                            </ul>
-                            <div class="project-meta">
-                                <span class="project-status">结构设计与专利原型</span>
-                                <a class="project-action project-action--active" href="projects/carering.html">查看详情</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="project-card">
-                        <div class="project-visual visual-automation" aria-hidden="true">
-                            <span class="flow-box flow-one">INPUT</span>
-                            <span class="flow-arrow">→</span>
-                            <span class="flow-box flow-two">AI</span>
-                            <span class="flow-arrow">→</span>
-                            <span class="flow-box flow-three">OUTPUT</span>
-                        </div>
-                        <div class="project-content">
-                            <p class="project-category">AUTOMATION SYSTEM</p>
-                            <h3>AI辅助科研与智能建模工作流</h3>
-                            <p class="project-description">由需求拆解、SolidWorks自动建模和专利图自动化等真实AI协作案例形成的方法与工作流合集，而不是单一软件。</p>
-                            <ul class="tag-list" aria-label="技术标签">
-                                <li>AI Agent</li><li>自动化</li><li>工作流</li><li>项目管理</li>
-                            </ul>
-                            <div class="project-meta">
-                                <span class="project-status">AI协作案例合集</span>
-                                <a class="project-action project-action--active" href="projects/ai-workflow.html">查看详情</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section class="section section-tinted" id="experience">
-            <div class="container">
-                <div class="section-heading">
-                    <p>Experience</p>
-                    <h2>项目与实践经历</h2>
-                </div>
-                <div class="timeline">
-                    <article class="timeline-item">
-                        <span class="timeline-marker" aria-hidden="true"></span>
+                    <figcaption>
+                        <span class="home-evidence-number">01 / 06</span>
                         <div>
-                            <h3>AI应用与Web项目开发</h3>
-                            <p>独立进行需求分析、功能规划、AI辅助编程、接口集成、测试和部署，完成多类本地系统和网站项目。</p>
+                            <strong>课堂知识智能重构系统</strong>
+                            <span>49项测试通过 · 前后端本地运行已验证 · 高清脱敏界面</span>
                         </div>
-                    </article>
-                    <article class="timeline-item">
-                        <span class="timeline-marker" aria-hidden="true"></span>
-                        <div>
-                            <h3>科研与实验项目管理</h3>
-                            <p>参与中药提取、抗菌实验、生物信息学和医学科研项目，具有实验流程、数据整理和科研协作经验。</p>
-                        </div>
-                    </article>
-                    <article class="timeline-item">
-                        <span class="timeline-marker" aria-hidden="true"></span>
-                        <div>
-                            <h3>智能硬件与专利设计</h3>
-                            <p>围绕智能手环、辅助起立设备和康复健康产品开展结构设计、3D建模、系统方案与专利附图工作。</p>
-                        </div>
-                    </article>
+                        <a href="projects/knowledge-reconstruction.html">查看证据与边界</a>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="home-positioning" aria-label="工作范围">
+            <div class="container home-positioning-track">
+                <span>工作范围</span>
+                <a href="projects/knowledge-reconstruction.html">AI应用</a>
+                <a href="projects/ai-workflow.html">自动化系统</a>
+                <a href="projects/lab-platform.html">科研平台</a>
+                <a href="projects/carering.html">产品原型</a>
+            </div>
+        </section>
+
+        <section class="home-section home-work" id="work" aria-labelledby="work-title">
+            <div class="container">
+                <header class="home-section-heading home-section-heading--split">
+                    <div>
+                        <span class="home-section-index">SELECTED WORK / 01</span>
+                        <h2 id="work-title">六个项目，六种证据状态。</h2>
+                    </div>
+                    <p>软件截图、测试结果、终端输出、结构实拍与清晰标注的概念方案共同构成作品集。没有公开证据的部分，不会被包装成已经完成。</p>
+                </header>
+
+                <div class="home-work-layout">
+                    <div class="home-project-index" role="tablist" aria-label="选择代表项目">
+                        <article class="home-project-row" role="presentation" data-home-project-row="0">
+                            <button class="home-project-trigger" type="button" role="tab" id="home-project-tab-0" data-home-project-trigger="0" aria-selected="true" aria-controls="home-project-stage-panel-0">
+                                <span class="home-project-number">01</span>
+                                <span class="home-project-copy">
+                                    <small>AI EDUCATION · VERIFIED LOCAL SOFTWARE</small>
+                                    <strong>课堂知识智能重构系统</strong>
+                                    <span>49项测试通过 · 本地前后端与离线安全模式已验证</span>
+                                </span>
+                            </button>
+                            <a class="home-project-direct" href="projects/knowledge-reconstruction.html">详情 ↗</a>
+                            <div class="home-project-mobile-evidence">
+                                <figure class="home-evidence-figure">
+                                    <div class="home-evidence-media">
+                                        <img data-home-image="classroom" alt="课堂知识智能重构系统首页高清脱敏截图" loading="lazy" decoding="async">
+                                        <div class="home-evidence-fallback"><span>LOCAL INTERFACE</span><strong>课堂知识系统</strong></div>
+                                    </div>
+                                    <figcaption><strong>真实本地界面</strong><span>展示文件上传、知识提取、知识图谱与题目生成入口。</span></figcaption>
+                                </figure>
+                            </div>
+                        </article>
+
+                        <article class="home-project-row" role="presentation" data-home-project-row="1">
+                            <button class="home-project-trigger" type="button" role="tab" id="home-project-tab-1" data-home-project-trigger="1" aria-selected="false" aria-controls="home-project-stage-panel-1" tabindex="-1">
+                                <span class="home-project-number">02</span>
+                                <span class="home-project-copy">
+                                    <small>MARKET ANALYSIS · TESTED CLI</small>
+                                    <strong>多周期行情分析与风控报告金融交易系统</strong>
+                                    <span>36项测试通过 · 公开数据分析与本地报告流程已实现</span>
+                                </span>
+                            </button>
+                            <a class="home-project-direct" href="projects/trading-system.html">详情 ↗</a>
+                            <div class="home-project-mobile-evidence">
+                                <figure class="home-evidence-figure">
+                                    <div class="home-evidence-media home-evidence-media--contain">
+                                        <img data-home-image="trading-dashboard" alt="多周期行情分析与风控报告系统本地监控界面" loading="lazy" decoding="async">
+                                        <div class="home-evidence-fallback"><span>TESTED CLI + DASHBOARD</span><strong>风险报告工作流</strong></div>
+                                    </div>
+                                    <figcaption><strong>真实本地运行界面</strong><span>展示行情监控与风险控制功能；不构成投资建议或收益证明。</span></figcaption>
+                                </figure>
+                            </div>
+                        </article>
+
+                        <article class="home-project-row" role="presentation" data-home-project-row="2">
+                            <button class="home-project-trigger" type="button" role="tab" id="home-project-tab-2" data-home-project-trigger="2" aria-selected="false" aria-controls="home-project-stage-panel-2" tabindex="-1">
+                                <span class="home-project-number">03</span>
+                                <span class="home-project-copy">
+                                    <small>RESEARCH PLATFORM · WEB PROJECT</small>
+                                    <strong>科研实验室数字化平台</strong>
+                                    <span>前端结构已审查 · 公开构建证据准备中</span>
+                                </span>
+                            </button>
+                            <a class="home-project-direct" href="projects/lab-platform.html">详情 ↗</a>
+                            <div class="home-project-mobile-evidence">
+                                <div class="home-evidence-figure home-system-sheet" role="img" aria-label="科研实验室数字化平台功能范围图">
+                                    <div class="home-system-sheet__bar"><span>RESEARCH PLATFORM</span><span>PUBLIC EVIDENCE PREPARATION</span></div>
+                                    <div class="home-system-sheet__grid"><span>团队门户</span><span>科研方向</span><span>文献学习</span><span>在线考核</span><span>项目展示</span><span>人才招募</span></div>
+                                    <p class="home-evidence-fallback">公开构建证据准备中，当前不使用虚构截图替代。</p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="home-project-row" role="presentation" data-home-project-row="3">
+                            <button class="home-project-trigger" type="button" role="tab" id="home-project-tab-3" data-home-project-trigger="3" aria-selected="false" aria-controls="home-project-stage-panel-3" tabindex="-1">
+                                <span class="home-project-number">04</span>
+                                <span class="home-project-copy">
+                                    <small>HEALTH AI · PRODUCT CONCEPT</small>
+                                    <strong>AI健康管理产品方案</strong>
+                                    <span>产品概念 · 用户流程与竞赛方案已完成</span>
+                                </span>
+                            </button>
+                            <a class="home-project-direct" href="projects/ai-health-concept.html">详情 ↗</a>
+                            <div class="home-project-mobile-evidence">
+                                <div class="home-evidence-figure home-concept-flow" role="img" aria-label="AI健康管理产品概念流程">
+                                    <span>CONCEPT</span>
+                                    <ol><li>健康记录</li><li>生活方式支持</li><li>艾灸管理场景</li><li>多设备协同构想</li></ol>
+                                    <p class="home-evidence-fallback">这是产品概念，不是已验证的医疗产品。</p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="home-project-row" role="presentation" data-home-project-row="4">
+                            <button class="home-project-trigger" type="button" role="tab" id="home-project-tab-4" data-home-project-trigger="4" aria-selected="false" aria-controls="home-project-stage-panel-4" tabindex="-1">
+                                <span class="home-project-number">05</span>
+                                <span class="home-project-copy">
+                                    <small>SMART HARDWARE · STRUCTURAL PROTOTYPE</small>
+                                    <strong>CareRing智能健康手环</strong>
+                                    <span>结构原型 · 3D建模与专利导向迭代</span>
+                                </span>
+                            </button>
+                            <a class="home-project-direct" href="projects/carering.html">详情 ↗</a>
+                            <div class="home-project-mobile-evidence">
+                                <figure class="home-evidence-figure">
+                                    <div class="home-evidence-media home-evidence-media--contain">
+                                        <img data-home-image="carering" alt="CareRing卡片侧插与扩展仓结构原型实拍拼图" loading="lazy" decoding="async">
+                                        <div class="home-evidence-fallback"><span>STRUCTURAL PROTOTYPE</span><strong>CareRing</strong></div>
+                                    </div>
+                                    <figcaption><strong>结构适配原型</strong><span>说明卡片侧插和扩展仓位置；不代表健康功能已验证。</span></figcaption>
+                                </figure>
+                            </div>
+                        </article>
+
+                        <article class="home-project-row" role="presentation" data-home-project-row="5">
+                            <button class="home-project-trigger" type="button" role="tab" id="home-project-tab-5" data-home-project-trigger="5" aria-selected="false" aria-controls="home-project-stage-panel-5" tabindex="-1">
+                                <span class="home-project-number">06</span>
+                                <span class="home-project-copy">
+                                    <small>AGENT WORKFLOW · CASE COLLECTION</small>
+                                    <strong>AI辅助科研与智能建模工作流</strong>
+                                    <span>工作流案例合集 · 不是单一可安装软件</span>
+                                </span>
+                            </button>
+                            <a class="home-project-direct" href="projects/ai-workflow.html">详情 ↗</a>
+                            <div class="home-project-mobile-evidence">
+                                <div class="home-evidence-figure home-workflow-map" role="img" aria-label="AI辅助科研与智能建模工作流">
+                                    <ol><li><span>01</span>需求拆解</li><li><span>02</span>代理计划</li><li><span>03</span>SolidWorks自动化</li><li><span>04</span>专利图处理</li></ol>
+                                    <p class="home-evidence-fallback">真实任务记录、脚本、模型与图像处理结果构成案例证据。</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="home-project-stage" id="home-project-stage" aria-label="当前项目证据">
+                        <article class="home-stage-panel" id="home-project-stage-panel-0" data-home-stage-panel="0" role="tabpanel" aria-labelledby="home-project-tab-0">
+                            <figure class="home-evidence-figure">
+                                <div class="home-evidence-media">
+                                    <img data-home-image="classroom" alt="课堂知识智能重构系统首页高清脱敏截图" loading="lazy" decoding="async">
+                                    <div class="home-evidence-fallback"><span>VERIFIED LOCAL INTERFACE</span><strong>课堂知识智能重构系统</strong><small>证据图载入失败</small></div>
+                                </div>
+                                <figcaption><span>01 / VERIFIED LOCAL SOFTWARE</span><strong>从课堂内容到结构化知识与题目生成</strong><p>前后端已在本地启动验证，49项测试通过。公开截图经过隐私审查，不包含学生身份、API密钥或课堂原始数据。</p><a href="projects/knowledge-reconstruction.html">打开完整案例 ↗</a></figcaption>
+                            </figure>
+                        </article>
+
+                        <article class="home-stage-panel" id="home-project-stage-panel-1" data-home-stage-panel="1" role="tabpanel" aria-labelledby="home-project-tab-1" hidden>
+                            <figure class="home-evidence-figure">
+                                <div class="home-evidence-media home-evidence-media--contain">
+                                    <img data-home-image="trading-dashboard" alt="多周期行情分析与风控报告系统本地监控界面" loading="lazy" decoding="async">
+                                    <div class="home-evidence-fallback"><span>TESTED LOCAL WORKFLOW</span><strong>行情分析与风险报告</strong><small>证据图载入失败</small></div>
+                                </div>
+                                <figcaption><span>02 / TESTED CLI</span><strong>把公开行情整理为条件式场景与风险边界</strong><p>36项离线测试通过。界面和报告证明工作流存在，不构成投资建议、收益承诺或自动下单能力证明。</p><a href="projects/trading-system.html">打开完整案例 ↗</a></figcaption>
+                            </figure>
+                        </article>
+
+                        <article class="home-stage-panel" id="home-project-stage-panel-2" data-home-stage-panel="2" role="tabpanel" aria-labelledby="home-project-tab-2" hidden>
+                            <div class="home-evidence-figure home-system-sheet">
+                                <div class="home-system-sheet__bar"><span>03 / RESEARCH PLATFORM</span><span>PUBLIC BUILD EVIDENCE IN PREPARATION</span></div>
+                                <strong>把科研团队信息、学习与项目展示组织成统一入口</strong>
+                                <div class="home-system-sheet__grid"><span>团队门户</span><span>科研方向</span><span>成果展示</span><span>文献学习</span><span>在线考核</span><span>人才招募</span></div>
+                                <p class="home-evidence-fallback">前端结构已审查；公开构建证据仍在准备，因此不使用虚构界面替代。</p>
+                                <a href="projects/lab-platform.html">打开完整案例 ↗</a>
+                            </div>
+                        </article>
+
+                        <article class="home-stage-panel" id="home-project-stage-panel-3" data-home-stage-panel="3" role="tabpanel" aria-labelledby="home-project-tab-3" hidden>
+                            <div class="home-evidence-figure home-concept-flow">
+                                <span>04 / PRODUCT CONCEPT</span>
+                                <strong>健康管理场景的产品规划与用户流程</strong>
+                                <ol><li>健康记录</li><li>生活方式支持</li><li>艾灸管理场景</li><li>风险提示</li><li>多设备协同构想</li></ol>
+                                <p class="home-evidence-fallback">这是产品与竞赛概念，不是完成的应用，也不是已验证的医疗产品。</p>
+                                <a href="projects/ai-health-concept.html">打开完整案例 ↗</a>
+                            </div>
+                        </article>
+
+                        <article class="home-stage-panel" id="home-project-stage-panel-4" data-home-stage-panel="4" role="tabpanel" aria-labelledby="home-project-tab-4" hidden>
+                            <figure class="home-evidence-figure">
+                                <div class="home-evidence-media home-evidence-media--contain">
+                                    <img data-home-image="carering" alt="CareRing卡片侧插与扩展仓结构原型实拍拼图" loading="lazy" decoding="async">
+                                    <div class="home-evidence-fallback"><span>STRUCTURAL PROTOTYPE</span><strong>CareRing</strong><small>证据图载入失败</small></div>
+                                </div>
+                                <figcaption><span>05 / STRUCTURAL PROTOTYPE</span><strong>从扩展仓构想到可说明装配关系的结构原型</strong><p>照片与模型用于说明外形、位置与装配表达，不验证电路、传感、雾化、安全性或健康效果。</p><a href="projects/carering.html">打开完整案例 ↗</a></figcaption>
+                            </figure>
+                        </article>
+
+                        <article class="home-stage-panel" id="home-project-stage-panel-5" data-home-stage-panel="5" role="tabpanel" aria-labelledby="home-project-tab-5" hidden>
+                            <div class="home-evidence-figure home-workflow-map">
+                                <span>06 / WORKFLOW CASE COLLECTION</span>
+                                <strong>让代理协作过程可计划、可检查、可复盘</strong>
+                                <ol><li><span>01</span>需求与边界</li><li><span>02</span>分步执行计划</li><li><span>03</span>SolidWorks自动建模</li><li><span>04</span>专利图与交付检查</li></ol>
+                                <p class="home-evidence-fallback">证据来自真实任务记录、脚本、模型与图像处理输出；它不是一个单独的软件产品。</p>
+                                <a href="projects/ai-workflow.html">打开完整案例 ↗</a>
+                            </div>
+                        </article>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="section contact-section" id="contact">
-            <div class="contact-panel container">
-                <div>
-                    <div class="section-heading">
-                        <p>Contact</p>
-                        <h2>联系与合作</h2>
-                    </div>
-                    <p class="contact-copy">
-                        正在寻找AI应用、产品运营、数字化项目、Web开发及跨领域创新相关机会。欢迎通过GitHub或邮箱了解我的项目。
-                    </p>
+        <section class="home-section home-method" id="method" aria-labelledby="method-title">
+            <div class="container home-method-layout">
+                <header class="home-section-heading">
+                    <span class="home-section-index">WORKING METHOD / 02</span>
+                    <h2 id="method-title">先把问题变清楚，再把结果变可信。</h2>
+                    <p>AI可以加速实施，但不能替代需求判断、事实核对、隐私边界和最终验收。</p>
+                </header>
+                <ol class="home-method-list">
+                    <li><span>01</span><div><strong>定义真实问题</strong><p>明确用户、场景、限制和“什么才算完成”，避免先选技术再寻找用途。</p></div></li>
+                    <li><span>02</span><div><strong>建立可运行路径</strong><p>把复杂目标拆成页面、脚本、接口、模型或结构原型，并保留回退方案。</p></div></li>
+                    <li><span>03</span><div><strong>验证输出</strong><p>使用测试、运行截图、报告、模型或结构实拍证明实际完成了什么。</p></div></li>
+                    <li><span>04</span><div><strong>记录限制与下一步</strong><p>说明未公开、未验证或仍属于概念的部分，而不是用模糊措辞掩盖。</p></div></li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="home-section home-profile" id="profile" aria-labelledby="profile-title">
+            <div class="container home-profile-grid">
+                <header class="home-section-heading">
+                    <span class="home-section-index">PROFILE / 03</span>
+                    <h2 id="profile-title">医学科研背景，跨到 AI、Web 与工程原型。</h2>
+                </header>
+                <div class="home-profile-narrative">
+                    <p>我是刘文龙，一名康复治疗学本科生，也是独立项目实践者。我参与医学科研与实验管理，同时持续构建AI应用、科研网站、自动化脚本、市场分析工具和智能硬件结构原型。</p>
+                    <p>我的优势不是只会调用某一个模型，而是能把模糊需求整理成可执行路径，并在不同学科之间保持事实、风险和交付边界。</p>
+                    <a class="home-text-link" href="resume.html">阅读完整公开简历 ↗</a>
                 </div>
-                <div class="contact-actions">
-                    <a
-                        class="contact-link"
-                        href="https://github.com/LocK-DEL"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <span>GitHub</span>
-                        <strong>github.com/LocK-DEL</strong>
-                    </a>
-                    <a class="contact-link" href="mailto:3501391833@qq.com">
-                        <span>邮箱</span>
-                        <strong>3501391833@qq.com</strong>
-                    </a>
-                    <span class="button button-disabled" role="link" aria-disabled="true">简历整理中</span>
+                <dl class="home-capability-list">
+                    <div><dt>AI应用</dt><dd>模型API、提示词、RAG基础、功能流程与本地原型</dd></div>
+                    <div><dt>Web交付</dt><dd>HTML、CSS、JavaScript、React、Next.js与静态部署</dd></div>
+                    <div><dt>Python自动化</dt><dd>CLI、数据处理、测试、接口调用与工程脚本</dd></div>
+                    <div><dt>产品与工程</dt><dd>需求分析、交互规划、CAD建模、专利图与验收文档</dd></div>
+                </dl>
+                <div class="home-profile-evidence">
+                    <span>SELECTED RESPONSIBILITY</span>
+                    <p>科研实验组总副组长 · 竞赛项目部部长 · 多个独立AI与Web项目的需求、实现和测试负责人</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="home-section home-contact" id="contact" aria-labelledby="contact-title">
+            <div class="container home-contact-grid">
+                <div class="contact-finale-title">
+                    <span>CONTACT / 04</span>
+                    <h2 id="contact-title">寻找能把复杂问题真正做出来的合作？</h2>
+                </div>
+                <p>我正在关注AI应用、Web开发、数字化项目、产品运营与跨领域创新机会。欢迎直接查看项目证据、公开简历或通过邮箱联系。</p>
+                <div class="home-contact-actions">
+                    <a href="mailto:liuwenlong0706@outlook.com"><span>EMAIL</span><strong>liuwenlong0706@outlook.com</strong></a>
+                    <a href="https://github.com/LocK-DEL" target="_blank" rel="noopener noreferrer"><span>GITHUB</span><strong>github.com/LocK-DEL ↗</strong></a>
+                    <a href="resume.html"><span>RESUME</span><strong>查看公开简历 ↗</strong></a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer home-footer">
         <div class="container">
-            <p>© <span id="current-year">2026</span> David Liu. Built as a personal AI project portfolio.</p>
+            <p>© <span id="current-year">2026</span> David Liu</p>
+            <p>Evidence-led personal portfolio · www.universitydepartment.store</p>
         </div>
     </footer>
 
-    <button class="back-to-top" type="button" aria-label="返回页面顶部">
-        <span aria-hidden="true">↑</span>
-    </button>
-
+    <button class="back-to-top" type="button" aria-label="返回页面顶部"><span aria-hidden="true">↑</span></button>
+    <script src="homepage-editorial.js?v=20260801-home1"></script>
     <script src="script.js?v=20260731-en1"></script>
 </body>
 </html>
