@@ -104,13 +104,15 @@ def test_hero_and_contact_copy_match_the_approved_narrative() -> None:
     chinese = read("index.html")
     english = read("en/index.html")
 
-    assert "FROM UNFINISHED IDEAS TO EVIDENCE" in chinese
+    for source in (chinese, english):
+        assert ">FROM<" in source
+        assert ">UNFINISHED IDEAS<" in source
+        assert ">TO EVIDENCE.<" in source
+
     assert "把尚未成形的构想，做成可以运行、测试与验证的现实" in chinese
     assert "让下一个想法，成为可以验证的现实" in chinese
-
-    assert "FROM UNFINISHED IDEAS TO EVIDENCE" in english
     assert "I BUILD BETWEEN DISCIPLINES" in english
-    assert "LET'S TURN THE NEXT IDEA INTO EVIDENCE" in english
+    assert "LET'S TURN" in english and "THE NEXT IDEA" in english and "INTO EVIDENCE." in english
 
 
 def test_truth_boundaries_remain_explicit_in_both_languages() -> None:
@@ -149,7 +151,7 @@ def test_truth_boundaries_remain_explicit_in_both_languages() -> None:
 def test_complete_project_content_exists_without_javascript() -> None:
     for path in HOME_PAGES:
         source = read(path)
-        assert source.count('<article class="cinema-project"') == 6
+        assert len(re.findall(r'<article class="cinema-project(?:\s|\")', source)) == 6
         assert source.count("cinema-project__value") == 6
         assert source.count("cinema-evidence-note") >= 12
         assert source.count("cinema-limit-note") >= 5
