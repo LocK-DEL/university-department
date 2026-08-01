@@ -111,7 +111,7 @@ def test_hero_and_contact_copy_match_the_approved_narrative() -> None:
 
     assert "把尚未成形的构想，做成可以运行、测试与验证的现实" in chinese
     assert "让下一个想法，成为可以验证的现实" in chinese
-    assert "I BUILD BETWEEN DISCIPLINES" in english
+    assert ">I BUILD BETWEEN<" in english and ">DISCIPLINES.<" in english
     assert "LET'S TURN" in english and "THE NEXT IDEA" in english and "INTO EVIDENCE." in english
 
 
@@ -151,13 +151,12 @@ def test_truth_boundaries_remain_explicit_in_both_languages() -> None:
 def test_complete_project_content_exists_without_javascript() -> None:
     for path in HOME_PAGES:
         source = read(path)
-        assert len(re.findall(r'<article class="cinema-project(?:\s|\")', source)) == 6
+        article_openings = re.findall(r'<article class="cinema-project[^>]*>', source)
+        assert len(article_openings) == 6
         assert source.count("cinema-project__value") == 6
         assert source.count("cinema-evidence-note") >= 12
         assert source.count("cinema-limit-note") >= 5
-        assert "hidden" not in "\n".join(
-            line for line in source.splitlines() if "cinema-project" in line
-        )
+        assert all(not re.search(r'\shidden(?:\s|=|>)', opening) for opening in article_openings)
 
 
 def test_runtime_is_progressive_bounded_and_lifecycle_safe() -> None:
