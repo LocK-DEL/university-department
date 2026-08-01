@@ -7,6 +7,7 @@ on:
       - feat/public-resume
       - feat/project-evidence-v1
       - chore/update-contact-and-trading-name
+      - design/evidence-cinema-v2
   pull_request:
     branches:
       - main
