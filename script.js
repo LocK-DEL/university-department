@@ -68,12 +68,13 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     const isEnglish = document.documentElement.lang.toLowerCase().startsWith("en");
+    const isEditorialHome = document.body.classList.contains("home-editorial");
     const menuLabels = isEnglish
         ? { open: "Open navigation menu", close: "Close navigation menu" }
         : { open: "打开导航菜单", close: "关闭导航菜单" };
     const menuToggle = document.querySelector(".menu-toggle");
     const navigation = document.getElementById("primary-navigation");
-    const mobileViewport = window.matchMedia("(max-width: 768px)");
+    const mobileViewport = window.matchMedia(isEditorialHome ? "(max-width: 900px)" : "(max-width: 768px)");
 
     const closeMenu = () => {
         if (!menuToggle || !navigation) return;
