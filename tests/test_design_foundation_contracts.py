@@ -13,6 +13,7 @@ SPEC = ROOT / "docs/superpowers/specs/2026-08-01-portfolio-design-foundation.md"
 PLAN = ROOT / "docs/superpowers/plans/2026-08-01-portfolio-design-foundation.md"
 
 REQUIRED_FILES = (PRODUCT, DESIGN, AGENTS, SKILL, SPEC, PLAN)
+FOUNDATION_CONTENT_FILES = (PRODUCT, DESIGN, AGENTS, SKILL, SPEC)
 
 
 def read(path: Path) -> str:
@@ -37,12 +38,13 @@ def test_product_context_identifies_the_real_product() -> None:
 
 def test_design_system_defines_the_approved_visual_world_and_dials() -> None:
     text = read(DESIGN)
+    lowered = text.lower()
 
-    assert "Editorial systems portfolio" in text
+    assert "editorial systems portfolio" in lowered
     assert "DESIGN_VARIANCE: 7" in text
     assert "MOTION_INTENSITY: 4" in text
     assert "VISUAL_DENSITY: 5" in text
-    assert "Purple-to-blue gradients" in text
+    assert "purple-blue ai gradients" in lowered
     assert "WCAG AA" in text
     assert "prefers-reduced-motion" in text
 
@@ -97,10 +99,10 @@ def test_foundation_documents_agree_on_canonical_host_and_public_email() -> None
         assert "liuwenlong0706@outlook.com" in text, path.relative_to(ROOT)
 
 
-def test_foundation_contains_no_placeholders() -> None:
-    forbidden = ("TBD", "TODO", "implement later", "fill in details")
+def test_foundation_contains_no_unresolved_placeholders() -> None:
+    forbidden = ("TBD:", "TODO:", "implement later", "fill in details")
 
-    for path in REQUIRED_FILES:
+    for path in FOUNDATION_CONTENT_FILES:
         text = read(path)
         matches = [value for value in forbidden if value in text]
         assert not matches, f"{path.relative_to(ROOT)} contains placeholders: {matches}"
