@@ -24,7 +24,6 @@
 
     const sourceCache = new Map();
     const objectUrls = new Set();
-    const cleanupCallbacks = new Set();
 
     function decodeBase64(encoded) {
         const binary = atob(encoded);
@@ -83,43 +82,43 @@
         return promise;
     }
 
-    function markMediaReady(image, ready) {
-        const media = image.closest(".cinema-media");
-        const figure = image.closest("figure");
-        media?.classList.toggle("is-ready", ready);
-        media?.classList.toggle("is-unavailable", !ready);
-        figure?.classList.toggle("is-unavailable", !ready);
-        if (ready) image.dataset.homeHydrated = "true";
-        delete image.dataset.homeLoading;
-    }
-
     async function hydrateImage(image) {
         if (!image || image.dataset.homeHydrated === "true" || image.dataset.homeLoading === "true") return;
         const key = image.dataset.homeImage;
+        const media = image.closest(".home-evidence-media");
+        const figure = image.closest(".home-evidence-figure");
         image.dataset.homeLoading = "true";
 
         try {
             const source = await sourceFor(key);
-            const onLoad = () => markMediaReady(image, true);
-            const onError = () => markMediaReady(image, false);
-            image.addEventListener("load", onLoad, { once: true });
-            image.addEventListener("error", onError, { once: true });
+            image.addEventListener("load", () => {
+                image.dataset.homeHydrated = "true";
+                delete image.dataset.homeLoading;
+                media?.classList.add("is-ready");
+                figure?.classList.remove("is-unavailable");
+            }, { once: true });
+            image.addEventListener("error", () => {
+                delete image.dataset.homeLoading;
+                media?.classList.remove("is-ready");
+                figure?.classList.add("is-unavailable");
+            }, { once: true });
             image.src = source;
-            if (image.complete && image.naturalWidth > 0) onLoad();
         } catch (error) {
-            markMediaReady(image, false);
+            delete image.dataset.homeLoading;
+            media?.classList.remove("is-ready");
+            figure?.classList.add("is-unavailable");
             console.warn(`Homepage evidence could not be loaded: ${key}`, error);
         }
     }
 
-    function installEvidenceHydration() {
-        const images = [...document.querySelectorAll("[data-home-image]")];
-        const heroImages = images.filter((image) => image.closest("[data-cinema-hero-layer]"));
-        heroImages.forEach(hydrateImage);
+    function hydrateWithin(root) {
+        root?.querySelectorAll?.("[data-home-image]").forEach(hydrateImage);
+    }
 
-        const deferred = images.filter((image) => !heroImages.includes(image));
+    function installLazyEvidence() {
+        const images = [...document.querySelectorAll("[data-home-image]")];
         if (!("IntersectionObserver" in window)) {
-            deferred.forEach(hydrateImage);
+            images.forEach(hydrateImage);
             return;
         }
 
@@ -129,157 +128,87 @@
                 hydrateImage(entry.target);
                 observer.unobserve(entry.target);
             });
-        }, { rootMargin: "420px 0px", threshold: 0.01 });
+        }, { rootMargin: "320px 0px", threshold: 0.01 });
 
-        deferred.forEach((image) => observer.observe(image));
-        cleanupCallbacks.add(() => observer.disconnect());
+        images.forEach((image) => observer.observe(image));
     }
 
-    function installHeroCinema() {
-        const layers = [...document.querySelectorAll("[data-cinema-hero-layer]")];
-        if (layers.length < 2) return;
+    function installProjectStage() {
+        const triggers = [...document.querySelectorAll("[data-home-project-trigger]")];
+        const panels = [...document.querySelectorAll("[data-home-stage-panel]")];
+        const rows = [...document.querySelectorAll("[data-home-project-row]")];
+        if (triggers.length !== 6 || panels.length !== 6) return;
 
-        let activeIndex = Math.max(0, layers.findIndex((layer) => layer.classList.contains("is-active")));
-        let intervalId = null;
-        let pointerFrame = 0;
-        let pointerX = 0;
-        let pointerY = 0;
+        let activeIndex = 0;
 
-        function activate(index) {
-            activeIndex = (index + layers.length) % layers.length;
-            layers.forEach((layer, layerIndex) => {
-                const active = layerIndex === activeIndex;
-                layer.classList.toggle("is-active", active);
-                layer.setAttribute("aria-hidden", active ? "false" : "true");
-                if (active) layer.querySelectorAll("[data-home-image]").forEach(hydrateImage);
+        function activateProject(index, options = {}) {
+            const nextIndex = Math.max(0, Math.min(index, triggers.length - 1));
+            if (nextIndex === activeIndex && options.force !== true) {
+                hydrateWithin(panels[nextIndex]);
+                return;
+            }
+            activeIndex = nextIndex;
+
+            triggers.forEach((trigger, triggerIndex) => {
+                const active = triggerIndex === nextIndex;
+                trigger.setAttribute("aria-selected", active ? "true" : "false");
+                trigger.setAttribute("tabindex", active ? "0" : "-1");
             });
-        }
 
-        function stopCycle() {
-            if (intervalId !== null) window.clearInterval(intervalId);
-            intervalId = null;
-        }
-
-        function startCycle() {
-            stopCycle();
-            if (reducedMotion.matches || document.hidden) return;
-            intervalId = window.setInterval(() => activate(activeIndex + 1), 9000);
-        }
-
-        function renderPointerDepth() {
-            pointerFrame = 0;
-            const activeLayer = layers[activeIndex];
-            if (!activeLayer || reducedMotion.matches || !finePointer.matches || !desktopLayout.matches) return;
-            activeLayer.style.transform = `translate3d(${pointerX * 7}px, ${pointerY * 5}px, 0) scale(1.01)`;
-        }
-
-        function onPointerMove(event) {
-            pointerX = (event.clientX / window.innerWidth - 0.5) * 2;
-            pointerY = (event.clientY / window.innerHeight - 0.5) * 2;
-            if (!pointerFrame) pointerFrame = window.requestAnimationFrame(renderPointerDepth);
-        }
-
-        function onVisibilityChange() {
-            if (document.hidden) stopCycle();
-            else startCycle();
-        }
-
-        activate(activeIndex);
-        startCycle();
-        document.addEventListener("visibilitychange", onVisibilityChange);
-        if (finePointer.matches) window.addEventListener("pointermove", onPointerMove, { passive: true });
-
-        const onMotionChange = () => {
-            layers.forEach((layer) => { layer.style.transform = ""; });
-            startCycle();
-        };
-        reducedMotion.addEventListener?.("change", onMotionChange);
-
-        cleanupCallbacks.add(() => {
-            stopCycle();
-            document.removeEventListener("visibilitychange", onVisibilityChange);
-            window.removeEventListener("pointermove", onPointerMove);
-            reducedMotion.removeEventListener?.("change", onMotionChange);
-            if (pointerFrame) window.cancelAnimationFrame(pointerFrame);
-        });
-    }
-
-    function installIndexPreview() {
-        const links = [...document.querySelectorAll("[data-cinema-index-link]")];
-        const preview = document.querySelector("[data-cinema-index-preview]");
-        if (!links.length || !preview || !finePointer.matches) return;
-
-        function previewLink(link) {
-            links.forEach((item) => item.classList.toggle("is-previewing", item === link));
-            preview.dataset.preview = link.dataset.previewKey || "";
-            const number = link.querySelector(".cinema-index__number")?.textContent?.trim() || "";
-            const title = link.querySelector(".cinema-index__title")?.textContent?.trim() || "";
-            preview.querySelector("span").textContent = title;
-            preview.querySelector("strong").textContent = number;
-        }
-
-        function clearPreview() {
-            links.forEach((item) => item.classList.remove("is-previewing"));
-            preview.dataset.preview = "";
-            preview.querySelector("span").textContent = "FOCUS A CHAPTER";
-            preview.querySelector("strong").textContent = "01 — 06";
-        }
-
-        links.forEach((link) => {
-            link.addEventListener("mouseenter", () => previewLink(link));
-            link.addEventListener("focus", () => previewLink(link));
-            link.addEventListener("mouseleave", clearPreview);
-            link.addEventListener("blur", clearPreview);
-        });
-    }
-
-    function installChapterProgress() {
-        const projects = [...document.querySelectorAll("[data-cinema-project]")];
-        const chainStages = [...document.querySelectorAll(".cinema-chain__stages [data-cinema-stage]")];
-        if (!projects.length) return;
-
-        const coreOrder = ["idea", "structure", "system", "test", "evidence"];
-
-        function maximumStage(project) {
-            const stages = (project.dataset.projectStages || "").split(",").map((stage) => stage.trim());
-            if (stages.includes("evidence")) return 4;
-            if (stages.includes("test")) return 3;
-            if (stages.includes("system")) return 2;
-            if (stages.includes("structure") || stages.includes("prototype") || stages.includes("process")) return 1;
-            return 0;
-        }
-
-        function activateProject(project) {
-            projects.forEach((item) => item.classList.toggle("is-current", item === project));
-            const maximum = maximumStage(project);
-            chainStages.forEach((stage, index) => {
-                stage.classList.toggle("is-past", index < maximum);
-                stage.classList.toggle("is-active", index === maximum);
+            rows.forEach((row, rowIndex) => {
+                row.classList.toggle("is-active", rowIndex === nextIndex);
             });
+
+            panels.forEach((panel, panelIndex) => {
+                const active = panelIndex === nextIndex;
+                panel.hidden = !active;
+                panel.setAttribute("aria-hidden", active ? "false" : "true");
+            });
+
+            hydrateWithin(panels[nextIndex]);
         }
 
-        if (!("IntersectionObserver" in window)) {
-            projects[0].classList.add("is-current");
-            return;
+        triggers.forEach((trigger, index) => {
+            trigger.addEventListener("click", () => activateProject(index));
+            trigger.addEventListener("focus", () => activateProject(index));
+            if (finePointer.matches) {
+                trigger.addEventListener("mouseenter", () => activateProject(index));
+            }
+            trigger.addEventListener("keydown", (event) => {
+                if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+                event.preventDefault();
+                let nextIndex = index;
+                if (event.key === "ArrowDown") nextIndex = (index + 1) % triggers.length;
+                if (event.key === "ArrowUp") nextIndex = (index - 1 + triggers.length) % triggers.length;
+                if (event.key === "Home") nextIndex = 0;
+                if (event.key === "End") nextIndex = triggers.length - 1;
+                activateProject(nextIndex);
+                triggers[nextIndex].focus();
+            });
+        });
+
+        if ("IntersectionObserver" in window && !reducedMotion.matches) {
+            const rowObserver = new IntersectionObserver((entries) => {
+                if (!desktopLayout.matches) return;
+                const visible = entries
+                    .filter((entry) => entry.isIntersecting)
+                    .sort((left, right) => right.intersectionRatio - left.intersectionRatio)[0];
+                if (!visible) return;
+                const index = Number(visible.target.dataset.homeProjectRow);
+                if (Number.isInteger(index)) activateProject(index);
+            }, { rootMargin: "-24% 0px -46%", threshold: [0.35, 0.55, 0.75] });
+            rows.forEach((row) => rowObserver.observe(row));
         }
 
-        const observer = new IntersectionObserver((entries) => {
-            const visible = entries
-                .filter((entry) => entry.isIntersecting)
-                .sort((left, right) => right.intersectionRatio - left.intersectionRatio)[0];
-            if (!visible) return;
-            activateProject(visible.target);
-        }, { rootMargin: "-22% 0px -38%", threshold: [0.18, 0.32, 0.52, 0.72] });
-
-        projects.forEach((project) => observer.observe(project));
-        activateProject(projects[0]);
-        cleanupCallbacks.add(() => observer.disconnect());
+        activateProject(0, { force: true });
     }
 
     function installSectionNavigation() {
         const links = [...document.querySelectorAll("[data-home-nav]")];
         if (!("IntersectionObserver" in window) || !links.length) return;
-        const sections = links.map((link) => document.querySelector(link.getAttribute("href"))).filter(Boolean);
+        const sections = links
+            .map((link) => document.querySelector(link.getAttribute("href")))
+            .filter(Boolean);
 
         const observer = new IntersectionObserver((entries) => {
             const current = entries
@@ -291,57 +220,23 @@
                 if (active) link.setAttribute("aria-current", "location");
                 else link.removeAttribute("aria-current");
             });
-        }, { rootMargin: "-22% 0px -66%", threshold: [0.05, 0.2, 0.45] });
+        }, { rootMargin: "-28% 0px -62%", threshold: [0.05, 0.2, 0.45] });
 
         sections.forEach((section) => observer.observe(section));
-        cleanupCallbacks.add(() => observer.disconnect());
-    }
-
-    function installScrollState() {
-        let frame = 0;
-        function render() {
-            frame = 0;
-            document.body.classList.toggle("homepage-scrolled", window.scrollY > 48);
-        }
-        function onScroll() {
-            if (!frame) frame = window.requestAnimationFrame(render);
-        }
-        render();
-        window.addEventListener("scroll", onScroll, { passive: true });
-        cleanupCallbacks.add(() => {
-            window.removeEventListener("scroll", onScroll);
-            if (frame) window.cancelAnimationFrame(frame);
-        });
     }
 
     function init() {
-        if (!document.body.classList.contains("evidence-cinema")) return;
-        const enhancementRoot = document.querySelector("main") || document.body;
+        if (!document.body.classList.contains("home-editorial")) return;
         document.body.classList.add("homepage-enhanced");
-        enhancementRoot.classList.add("homepage-enhanced");
-
-        installEvidenceHydration();
-        installHeroCinema();
-        installIndexPreview();
-        installChapterProgress();
+        installProjectStage();
         installSectionNavigation();
-        installScrollState();
-
-        window.requestAnimationFrame(() => {
-            enhancementRoot.classList.add("is-intro-ready");
-            document.body.classList.add("is-intro-ready");
-        });
+        installLazyEvidence();
     }
 
-    function cleanup() {
-        cleanupCallbacks.forEach((callback) => callback());
-        cleanupCallbacks.clear();
+    window.addEventListener("pagehide", () => {
         objectUrls.forEach((url) => URL.revokeObjectURL(url));
         objectUrls.clear();
-        sourceCache.clear();
-    }
-
-    window.addEventListener("pagehide", cleanup, { once: true });
+    }, { once: true });
 
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", init, { once: true });
